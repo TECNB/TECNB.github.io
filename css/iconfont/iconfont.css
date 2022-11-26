@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1669453776236') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bilibili-line:before {
+  content: "\e66d";
+}
+
+@font-face {
+  font-family: "iconfont"; /* Project id 3793895 */
+  src: url('iconfont.woff2?t=1669454068120') format('woff2'),
+       url('iconfont.woff?t=1669454068120') format('woff'),
+       url('iconfont.ttf?t=1669454068120') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-github-fill:before {
+  content: "\e885";
+}
