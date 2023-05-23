@@ -1,0 +1,854 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>数据结构 | TEC</title><meta name="author" content="TEC"><meta name="copyright" content="TEC"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="数据结构题目设单链表的结点结构为(data,next)，next为指针域，已知指针px指向单链表中data为x的结点，指针py指向data为y的新结点 , 若将结点y插入结点x之后，则需要执行以下语句: X  (2)-&gt; Y (1)-&gt;  Z 1、首先这是一个插入的方法，而第一步就是把将要插入的y结点的下一个结点变为x原来的下一个结点 1py-&gt;next &#x3D; px-&gt;nex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构">
+<meta property="og:url" content="https://tecnb.github.io/posts/79666db.html">
+<meta property="og:site_name" content="TEC">
+<meta property="og:description" content="数据结构题目设单链表的结点结构为(data,next)，next为指针域，已知指针px指向单链表中data为x的结点，指针py指向data为y的新结点 , 若将结点y插入结点x之后，则需要执行以下语句: X  (2)-&gt; Y (1)-&gt;  Z 1、首先这是一个插入的方法，而第一步就是把将要插入的y结点的下一个结点变为x原来的下一个结点 1py-&gt;next &#x3D; px-&gt;nex">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/TECNB/picgodemo/main/img/wallhaven-l8mpz2_2560x1600.jpg">
+<meta property="article:published_time" content="2023-05-23T12:06:04.956Z">
+<meta property="article:modified_time" content="2023-05-23T12:08:19.514Z">
+<meta property="article:author" content="TEC">
+<meta property="article:tag" content="TEC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/TECNB/picgodemo/main/img/wallhaven-l8mpz2_2560x1600.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://tecnb.github.io/posts/79666db"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-EeDq654IWe"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数据结构',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-23 20:08:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/iconfont/iconfont.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.staticaly.com/gh/TECNB/picgodemo/main/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: default_top_img"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">TEC</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数据结构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-23T12:06:04.956Z" title="发表于 2023-05-23 20:06:04">2023-05-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-05-23T12:08:19.514Z" title="更新于 2023-05-23 20:08:19">2023-05-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>27分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数据结构"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>设单链表的结点结构为(data,next)，next为指针域，已知指针px指向单链表中data为x的结点，指针py指向data为y的新结点 , 若将结点y插入结点x之后，则需要执行以下语句:</p>
+<p>X  (2)-&gt; Y (1)-&gt;  Z</p>
+<p>1、首先这是一个插入的方法，而第一步就是把将要插入的y结点的下一个结点变为x原来的下一个结点</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">py-&gt;next = px-&gt;next;</span><br></pre></td></tr></table></figure>
+
+<p>2、把x结点的下一个结点变为x结点</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">px-&gt;next = py;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>对线性表L&#x3D;（a1…an）</p>
+<p>(1)如L为顺序表，请设计算法将L就地逆置。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXSIZE = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="type">int</span> data[MAXSIZE];</span><br><span class="line">    <span class="type">int</span> length;</span><br><span class="line">&#125; SqList;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将顺序表L就地逆置</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">reverse</span><span class="params">(SqList &amp;L)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> temp;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; L.length / <span class="number">2</span>; i++) &#123;</span><br><span class="line">        temp = L.data[i];</span><br><span class="line">        L.data[i] = L.data[L.length - i - <span class="number">1</span>];</span><br><span class="line">        L.data[L.length - i - <span class="number">1</span>] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    SqList L = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;, <span class="number">6</span>&#125;; <span class="comment">// 初始化顺序表L</span></span><br><span class="line">    <span class="built_in">reverse</span>(L); <span class="comment">// 就地逆置L</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; L.length; i++) &#123;</span><br><span class="line">        cout &lt;&lt; L.data[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(2)若L为带头结点的单链表，设计算法将L就地逆置。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line"></span><br><span class="line">    ListNode* next;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">reverseList</span><span class="params">(ListNode* L)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ListNode* cur = L-&gt;next;</span><br><span class="line"></span><br><span class="line">    L-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ListNode* next = cur-&gt;next;</span><br><span class="line"></span><br><span class="line">    cur-&gt;next = L-&gt;next;</span><br><span class="line"></span><br><span class="line">    L-&gt;next = cur;</span><br><span class="line"></span><br><span class="line">    cur = next;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>试编写在带头结点的单链表L中删除（一个）最小值结点的（高效）算法。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">LNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">LNode</span> *next;</span><br><span class="line">&#125; LNode, *LinkList;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建带头结点的单链表</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">createList</span><span class="params">(LinkList &amp;L, <span class="type">int</span> a[], <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    L = <span class="keyword">new</span> LNode;</span><br><span class="line">    L-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = n<span class="number">-1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        LNode *p = <span class="keyword">new</span> LNode;</span><br><span class="line">        p-&gt;data = a[i];</span><br><span class="line">        p-&gt;next = L-&gt;next;</span><br><span class="line">        L-&gt;next = p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除带头结点的单链表L中最小值结点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">deleteMin</span><span class="params">(LinkList &amp;L)</span> </span>&#123;</span><br><span class="line">    LNode *pre = L, *p = L-&gt;next, *minpre = pre, *minp = p;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;data &lt; minp-&gt;data) &#123;</span><br><span class="line">            minp = p;</span><br><span class="line">            minpre = pre;</span><br><span class="line">        &#125;</span><br><span class="line">        pre = p;</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    minpre-&gt;next = minp-&gt;next;</span><br><span class="line">    <span class="keyword">delete</span> minp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a[] = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">5</span>&#125;;</span><br><span class="line">    LinkList L;</span><br><span class="line">    <span class="built_in">createList</span>(L, a, <span class="number">5</span>); <span class="comment">// 创建带头结点的单链表L</span></span><br><span class="line">    <span class="built_in">deleteMin</span>(L); <span class="comment">// 删除L中最小值结点</span></span><br><span class="line">    LNode *p = L-&gt;next;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        cout &lt;&lt; p-&gt;data &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>设有一个带头结点的单链表，其结点的数据值均为正整数，编写完成下列功能的算法：</p>
+<p>(1)找出最小值结点，且输出该数值；</p>
+<p>(2)若该数值是奇数，则将其与直接后继结点的数值交换；</p>
+<p>(3)若该数值是偶数，则将其直接后继结点删除。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line"></span><br><span class="line">    ListNode* next;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">swapdataue</span><span class="params">(ListNode* a, ListNode* b)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> temp = a-&gt;data;</span><br><span class="line"></span><br><span class="line">    a-&gt;data = b-&gt;data;</span><br><span class="line"></span><br><span class="line">    b-&gt;data = temp;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">deleteNextNode</span><span class="params">(ListNode* node)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ListNode* del = node-&gt;next;</span><br><span class="line"></span><br><span class="line">    node-&gt;next = del-&gt;next;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span> del;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">operateList</span><span class="params">(ListNode* L)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ListNode* pre = L;</span><br><span class="line"></span><br><span class="line">    ListNode* cur = L-&gt;next;</span><br><span class="line"></span><br><span class="line">    ListNode* min_pre = pre;</span><br><span class="line"></span><br><span class="line">    ListNode* min = cur;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (cur-&gt;data &lt; min-&gt;data) &#123;</span><br><span class="line"></span><br><span class="line">        min_pre = pre;</span><br><span class="line"></span><br><span class="line">        min = cur;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pre = cur;</span><br><span class="line"></span><br><span class="line">    cur = cur-&gt;next;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;最小值为：&quot;</span> &lt;&lt; min-&gt;data &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (min-&gt;data % <span class="number">2</span> == <span class="number">1</span> &amp;&amp; min-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">swapdataue</span>(min, min-&gt;next);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (min-&gt;data % <span class="number">2</span> == <span class="number">0</span> &amp;&amp; min-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">deleteNextNode</span>(min);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假设有两个按元素值非递减次序排列的线性表，均以单链表形式存储。请编写算法将这两个单链表归并为一个按元素值非递增次序排列的单链表，并要求利用原来两个单链表的结点存放归并后的单链表。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义链表结点结构体</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    ListNode* next;</span><br><span class="line">    <span class="built_in">ListNode</span>(<span class="type">int</span> x) : <span class="built_in">val</span>(x), <span class="built_in">next</span>(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 归并两个单链表并返回合并后的链表头节点</span></span><br><span class="line"><span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">    <span class="function">ListNode <span class="title">dummy</span><span class="params">(<span class="number">0</span>)</span></span>;  <span class="comment">// 哑结点</span></span><br><span class="line">    ListNode* tail = &amp;dummy;  <span class="comment">// 合并后链表的尾结点</span></span><br><span class="line">    <span class="keyword">while</span> (l1 &amp;&amp; l2) &#123;</span><br><span class="line">        <span class="comment">// 选择两个链表中较小的结点接入合并后的链表尾部</span></span><br><span class="line">        <span class="keyword">if</span> (l1-&gt;val &lt;= l2-&gt;val) &#123;</span><br><span class="line">            tail-&gt;next = l1;</span><br><span class="line">            l1 = l1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            tail-&gt;next = l2;</span><br><span class="line">            l2 = l2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        tail = tail-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将剩余的链表结点接入合并后的链表尾部</span></span><br><span class="line">    <span class="keyword">if</span> (l1) &#123;</span><br><span class="line">        tail-&gt;next = l1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        tail-&gt;next = l2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 反转合并后的链表，使其变为非递增次序排列</span></span><br><span class="line">    ListNode* prev = <span class="literal">NULL</span>;</span><br><span class="line">    ListNode* curr = dummy.next;</span><br><span class="line">    <span class="keyword">while</span> (curr) &#123;</span><br><span class="line">        ListNode* next = curr-&gt;next;</span><br><span class="line">        curr-&gt;next = prev;</span><br><span class="line">        prev = curr;</span><br><span class="line">        curr = next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> prev;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 初始化两个按元素值非递减次序排列的单链表</span></span><br><span class="line">    ListNode* l1 = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">1</span>);</span><br><span class="line">    l1-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">3</span>);</span><br><span class="line">    l1-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">5</span>);</span><br><span class="line">    l1-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">7</span>);</span><br><span class="line">    l1-&gt;next-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">9</span>);</span><br><span class="line">    ListNode* l2 = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">2</span>);</span><br><span class="line">    l2-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">4</span>);</span><br><span class="line">    l2-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">6</span>);</span><br><span class="line">    l2-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">8</span>);</span><br><span class="line">    l2-&gt;next-&gt;next-&gt;next-&gt;next = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 归并两个单链表并输出合并后的链表元素</span></span><br><span class="line">    ListNode* merged = <span class="built_in">mergeTwoLists</span>(l1, l2);</span><br><span class="line">    <span class="keyword">while</span> (merged) &#123;</span><br><span class="line">        cout &lt;&lt; merged-&gt;val &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        merged = merged-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//ListNode(int x) : val(x), next(NULL) &#123;&#125; 是一个 C++ 类的构造函数。它的作用是创建一个新的 ListNode 对象，并初始化 val 和 next 属性。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//具体地，: val(x), next(NULL) 是 C++ 中的成员初始化列表，用于给对象的成员变量进行初始化。在这里，val 成员变量被初始化为参数 x 的值，而 next 成员变量被初始化为 NULL。然后，在函数体内部，由于该构造函数不需要进行额外的操作，所以函数体为空。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//总之，这行代码的作用是创建一个新的 ListNode 对象，并将它的 val 属性设置为 x，next 属性设置为 NULL</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h2><p>利用栈和队列，判断键盘上输入的n个数是否构成回文序列。(算法设计题)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在代码中，输入序列中的元素通过stack和queue两个数据结构依次入栈和入队。然后，使用top()和front()方法依次从栈和队列中取出元素，并比较它们的值是否相等，如果有不相等的，则说明输入序列不是回文序列，返回false。如果比较到栈和队列都为空，说明输入序列是回文序列，返回true。最后，在main()函数中调用is_palindrome()函数，根据其返回值输出结果。</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span>  <span class="comment">// 包含栈所在的头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span>  <span class="comment">// 包含队列所在的头文件</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断输入的n个数是否构成回文序列</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">is_palindrome</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; s;  <span class="comment">// 定义一个整型栈s</span></span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;  <span class="comment">// 定义一个整型队列q</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> num;</span><br><span class="line">        cin &gt;&gt; num;  <span class="comment">// 输入第i个数</span></span><br><span class="line">        s.<span class="built_in">push</span>(num);  <span class="comment">// 将第i个数入栈</span></span><br><span class="line">        q.<span class="built_in">push</span>(num);  <span class="comment">// 将第i个数入队</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (!s.<span class="built_in">empty</span>() &amp;&amp; !q.<span class="built_in">empty</span>()) &#123;  <span class="comment">// 当栈和队列都不为空时</span></span><br><span class="line">        <span class="keyword">if</span> (s.<span class="built_in">top</span>() != q.<span class="built_in">front</span>()) &#123;  <span class="comment">// 如果栈顶元素和队首元素不相等</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;  <span class="comment">// 返回false，输入的数不是回文序列</span></span><br><span class="line">        &#125;</span><br><span class="line">        s.<span class="built_in">pop</span>();  <span class="comment">// 将栈顶元素弹出</span></span><br><span class="line">        q.<span class="built_in">pop</span>();  <span class="comment">// 将队首元素弹出</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;  <span class="comment">// 如果比较完毕栈和队列都为空，则输入的数是回文序列，返回true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Enter the number of elements: &quot;</span>;</span><br><span class="line">    cin &gt;&gt; n;  <span class="comment">// 输入元素个数</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">is_palindrome</span>(n)) &#123;  <span class="comment">// 如果输入的数是回文序列</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;The sequence is a palindrome.&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  <span class="comment">// 如果输入的数不是回文序列</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;The sequence is not a palindrome.&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 程序结束，返回0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>检查表达式中括号是否匹配</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在代码中，输入的表达式字符串通过stack栈结构进行括号匹配检查。当遇到左括号时，将其入栈；当遇到右括号时，从栈中弹出一个元素并比较其是否匹配。如果不匹配，则表达式中的括号不匹配，返回false；如果栈中元素都已匹配完毕，表明表达式中的括号匹配，返回true。最后，在main()函数中调用is_matching()函数，根据其返回值输出结果。</span></span><br><span class="line"></span><br><span class="line">值得注意的是，代码中默认输入的表达式中只包含括号，如果输入的表达式中包含其他字符，则需要做相应的处理。</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断表达式中的括号是否匹配</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">is_matching</span><span class="params">(string exp)</span> </span>&#123;</span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; s; <span class="comment">// 声明一个栈s</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; exp.<span class="built_in">length</span>(); i++) &#123; <span class="comment">// 循环遍历表达式中的每个字符</span></span><br><span class="line">        <span class="type">char</span> ch = exp[i]; <span class="comment">// 获取当前字符</span></span><br><span class="line">        <span class="keyword">if</span> (ch == <span class="string">&#x27;(&#x27;</span> || ch == <span class="string">&#x27;&#123;&#x27;</span> || ch == <span class="string">&#x27;[&#x27;</span>) &#123; <span class="comment">// 如果当前字符是左括号，则入栈</span></span><br><span class="line">            s.<span class="built_in">push</span>(ch);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ch == <span class="string">&#x27;)&#x27;</span> || ch == <span class="string">&#x27;&#125;&#x27;</span> || ch == <span class="string">&#x27;]&#x27;</span>) &#123; <span class="comment">// 如果当前字符是右括号，则弹出栈顶元素进行匹配</span></span><br><span class="line">            <span class="keyword">if</span> (s.<span class="built_in">empty</span>()) &#123; <span class="comment">// 如果栈为空，则说明右括号没有匹配的左括号，表达式中的括号不匹配，返回false</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">char</span> top_ch = s.<span class="built_in">top</span>(); <span class="comment">// 获取栈顶元素</span></span><br><span class="line">            s.<span class="built_in">pop</span>(); <span class="comment">// 弹出栈顶元素</span></span><br><span class="line">            <span class="keyword">if</span> ((ch == <span class="string">&#x27;)&#x27;</span> &amp;&amp; top_ch != <span class="string">&#x27;(&#x27;</span>) || <span class="comment">// 如果当前字符是右括号，但栈顶元素不是对应的左括号，则表达式中的括号不匹配，返回false</span></span><br><span class="line">                (ch == <span class="string">&#x27;&#125;&#x27;</span> &amp;&amp; top_ch != <span class="string">&#x27;&#123;&#x27;</span>) || </span><br><span class="line">                (ch == <span class="string">&#x27;]&#x27;</span> &amp;&amp; top_ch != <span class="string">&#x27;[&#x27;</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s.<span class="built_in">empty</span>(); <span class="comment">// 如果栈中没有剩余元素，则说明表达式中的括号全部匹配，返回true；否则返回false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string exp;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Enter an expression: &quot;</span>;</span><br><span class="line">    cin &gt;&gt; exp;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">is_matching</span>(exp)) &#123; <span class="comment">// 调用is_matching()函数判断表达式中的括号是否匹配，并输出结果</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;The parentheses in the expression are matched.&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;The parentheses in the expression are not matched.&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>利用栈的基本操作实现将十进制整数N转换为r（2≤r≤16）进制数，并输出</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将十进制整数N转换为r进制数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">convert</span><span class="params">(<span class="type">int</span> N, <span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; s; <span class="comment">// 声明一个栈s</span></span><br><span class="line">    <span class="keyword">while</span> (N &gt; <span class="number">0</span>) &#123; <span class="comment">// 循环将N转换为r进制数</span></span><br><span class="line">        <span class="type">int</span> remainder = N % r; <span class="comment">// 计算N除以r的余数</span></span><br><span class="line">        s.<span class="built_in">push</span>(remainder); <span class="comment">// 将余数入栈</span></span><br><span class="line">        N /= r; <span class="comment">// 将N除以r的商作为新的N</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将栈中的元素依次弹出并输出，即为r进制表示的N</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;The converted number is: &quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (!s.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> digit = s.<span class="built_in">top</span>(); <span class="comment">// 获取栈顶元素</span></span><br><span class="line">        s.<span class="built_in">pop</span>(); <span class="comment">// 弹出栈顶元素</span></span><br><span class="line">        <span class="keyword">if</span> (digit &lt; <span class="number">10</span>) &#123; <span class="comment">// 如果是0-9的数字，则直接输出</span></span><br><span class="line">            cout &lt;&lt; digit;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">// 否则输出对应的字母</span></span><br><span class="line">            cout &lt;&lt; <span class="built_in">char</span>(digit - <span class="number">10</span> + <span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> N, r;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Enter a decimal integer N: &quot;</span>;</span><br><span class="line">    cin &gt;&gt; N;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Enter a base r (2 &lt;= r &lt;= 16): &quot;</span>;</span><br><span class="line">    cin &gt;&gt; r;</span><br><span class="line">    <span class="built_in">convert</span>(N, r); <span class="comment">// 调用convert()函数进行转换并输出结果</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="学习通"><a href="#学习通" class="headerlink" title="学习通"></a>学习通</h2><h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><p>基础概念：</p>
+<ol>
+<li>(单选题) 以下关于数据的存储结构的叙述中哪一条是正确的（  ）。</li>
+</ol>
+<ul>
+<li>A. 数据的存储结构是逻辑结构在计算机存储器中的实现</li>
+<li>B. 数据的存储结构对数据运算的具体实现没有影响</li>
+<li>C. 数据的存储结构是数据间关系的抽象描述</li>
+<li>D. 数据的存储结构分为线性结构和非线性结构</li>
+</ul>
+<p>（数据的逻辑结构分为线性结构和非线性结构两大类，线性结构包括数组、链表、 栈、队列等; 非线性结构包括树、图等）</p>
+<p><em>我的答案:</em> A:数据的存储结构是逻辑结构在计算机存储器中的实现;<em>正确答案:</em> A:数据的存储结构是逻辑结构在计算机存储器中的实现;</p>
+<p>B. 数据的存储结构对数据运算的具体实现没有影响：这个选项是错误的。数据的存储结构会对数据的运算和操作产生影响。不同的存储结构会影响数据的访问效率、插入和删除操作的复杂度等。</p>
+<p>C. 数据的存储结构是数据间关系的抽象描述：这个选项是不准确的。数据的存储结构描述的是数据在计算机存储器中的组织方式，它并不仅仅是对数据间关系的抽象描述，还包括数据的物理存储方式和访问方式等。</p>
+<p>D. 数据的存储结构分为线性结构和非线性结构：这个选项是不准确的。数据的存储结构可以更细分为线性结构、树形结构、图形结构等多种类型，而非线性结构只是其中的一种。</p>
+<ol start="6">
+<li>(单选题) 下面说法错误的是（  ）</li>
+</ol>
+<ul>
+<li>A. 在相同的规模n下，复杂度O(n)的算法在时间上总是优于复杂度O(2n)的算法 </li>
+<li>B. 同一个算法，实现语言的级别越高，执行效率就越低</li>
+<li>C. 算法原地工作的含义是指不需要任何额外的辅助空间</li>
+<li>D. 所谓时间复杂度是指最坏情况下估算算法执行时间的一个上界</li>
+</ul>
+<p><em>我的答案:</em> B:同一个算法，实现语言的级别越高，执行效率就越低;<em>正确答案:</em> C:算法原地工作的含义是指不需要任何额外的辅助空间;（和AI有歧义）</p>
+<ol start="10">
+<li>(填空题) 数据的    在计算机中的表示（映像）称为存储结构，需要考虑数据元素的表示和数据元素间关系的表示。数据的存储结构分为     <em>、</em>     <em>、</em>索引和散列存储结构。</li>
+</ol>
+<ul>
+<li><p>我的答案：</p>
+<p>(1) 存储结构 </p>
+<p>(2) 顺序存储结构 </p>
+<p>(3) 链式存储结构 </p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 逻辑结构</p>
+<p>(2) 顺序</p>
+<p>(3) 链式</p>
+</li>
+</ul>
+<p>数据的逻辑结构是指    。</p>
+<ul>
+<li><p>我的答案：</p>
+<p>(1) 逻辑结构在计算机存储器中的实现 </p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 数据的组织形式，即数据元素之间逻辑关系的总体</p>
+</li>
+</ul>
+<p>（数据的逻辑结构分为线性结构和非线性结构两大类，线性结构包括数组、链表、 栈、队列等; 非线性结构包括树、图等）</p>
+<ol start="13">
+<li>(填空题) 一个算法具有5个特性：     ,      ,      ，有零个或多个输入、有一个或多个输出。</li>
+</ol>
+<ul>
+<li><p>我的答案：</p>
+<p>(1) 有穷性 </p>
+<p>(2) 确定性 </p>
+<p>(3) 可行性 </p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 有穷性</p>
+<p>(2) 确定性</p>
+<p>(3) 可行性</p>
+</li>
+</ul>
+<p>下面程序段中带下划线的语句的执行次数的数量级是       。i&#x3D;1；while( i&lt;n) i&#x3D;i*2; </p>
+<ul>
+<li><p><em>我的答案：**0</em>分</p>
+<p>(1) O（log₂n） </p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) O(log2n)</p>
+</li>
+</ul>
+<ol start="17">
+<li>(填空题) 下面程序段中x++的语句的执行次数的数量级是       。i&#x3D;1；while( i&lt;n) {for (j&#x3D;1;j&lt;&#x3D;n;j++) x++i&#x3D;i*2;}</li>
+</ol>
+<ul>
+<li><p>我的答案：</p>
+<p>(1) O（nlog₂n） </p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) O(nlog2n)</p>
+</li>
+</ul>
+<ol start="19">
+<li>(判断题) 算法可以用不同的语言描述，如果用C 语言或C++语言等高级语言来描述，则算法实际上就是程序了。</li>
+</ol>
+<ul>
+<li>A. 对</li>
+<li>B. 错</li>
+</ul>
+<p><em>我的答案:</em> 错<em>正确答案:</em> 对</p>
+<p>数据结构的操作的定义与具体实现有关。</p>
+<ul>
+<li>A. 对</li>
+<li>B. 错</li>
+</ul>
+<p><em>我的答案:</em> 对<em>正确答案:</em> 错</p>
+<ol start="28">
+<li>(判断题) 数据项是数据不可分割的最小单位。</li>
+</ol>
+<ul>
+<li>A. 对</li>
+<li>B. 错</li>
+</ul>
+<p><em>我的答案:</em> 对<em>正确答案:</em> 对</p>
+<h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><p>线性表：</p>
+<ol start="6">
+<li>(单选题) 设一个链表最常用的操作是在末尾插入结点和删除尾结点，则选用（  ）最节省时间。</li>
+</ol>
+<ul>
+<li>A. 单链表</li>
+<li>B. 单循环链表</li>
+<li>C. 带尾指针的单循环链表</li>
+<li>D. 带头指针的单循环链表</li>
+</ul>
+<p><em>我的答案:</em> D:带头指针的单循环链表;</p>
+<ol start="9">
+<li>(单选题) 若长度为n的线性表采用顺序存储结构，在其第i个位置插入一个新元素的算法的时间复杂度为（  ）(1≤i≤n+1)。</li>
+</ol>
+<ul>
+<li>A. O(0)</li>
+<li>B. O(1)</li>
+<li>C. O(n)</li>
+<li>D. O(<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://mooc1.chaoxing.com/ananas/latex/p/576" alt="img">)</li>
+</ul>
+<p><em>我的答案:</em> C</p>
+<ol start="9">
+<li>(单选题) 若长度为n的线性表采用顺序存储结构，在其第i个位置插入一个新元素的算法的时间复杂度为（  ）(1≤i≤n+1)。</li>
+</ol>
+<ul>
+<li>A. O(0)</li>
+<li>B. O(1)</li>
+<li>C. O(n)</li>
+<li>D. O(<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://mooc1.chaoxing.com/ananas/latex/p/576" alt="img">)</li>
+</ul>
+<p><em>我的答案:</em> C</p>
+<ol start="11">
+<li>(单选题) 线性表（a1,a2,…,an）以<strong>链接方式</strong>存储时，访问第i位置元素的时间复杂度为（  ）。</li>
+</ol>
+<ul>
+<li>A. O（i）</li>
+<li>B. O（1）</li>
+<li>C. O（n）</li>
+<li>D. O（i-1）</li>
+</ul>
+<p><em>我的答案:</em> C:O（n）;</p>
+<ol start="12">
+<li>(单选题) 非空的循环单链表head的尾结点p满足（  ）。</li>
+</ol>
+<ul>
+<li>A. p-&gt;next&#x3D;&#x3D;head</li>
+<li>B. p-&gt;next&#x3D;&#x3D;NULL</li>
+<li>C. p&#x3D;&#x3D;NULL</li>
+<li>D. p&#x3D; head</li>
+</ul>
+<p><em>我的答案:</em> A:p-&gt;next&#x3D;&#x3D;head;</p>
+<ol start="13">
+<li>(单选题) 在单链表指针为p的结点之后插入指针为s的结点，正确的操作是（  ）。</li>
+</ol>
+<ul>
+<li>A. p-&gt;next&#x3D;s;s-&gt;next&#x3D;p-&gt;next;</li>
+<li>B. s-&gt;next&#x3D;p-&gt;next;p-&gt;next&#x3D;s;</li>
+<li>C. p-&gt;next&#x3D;s;p-&gt;next&#x3D;s-&gt;next;</li>
+<li>D. p-&gt;next&#x3D;s-&gt;next;p-&gt;next&#x3D;s;</li>
+</ul>
+<p><em>我的答案:</em> B:s-&gt;next&#x3D;p-&gt;next;p-&gt;next&#x3D;s;；</p>
+<ol start="14">
+<li>(单选题) 对于一个头指针为head的带头结点的单链表，判定该表为空表的条件是（  ）。</li>
+</ol>
+<ul>
+<li>A. head&#x3D;&#x3D;NULL</li>
+<li>B. head-&gt;next&#x3D;&#x3D;NULL</li>
+<li>C. Head-&gt;next&#x3D;&#x3D;head</li>
+<li>D. head!&#x3D;NULL</li>
+</ul>
+<p><em>我的答案:</em> B:head-&gt;next&#x3D;&#x3D;NULL;</p>
+<ol start="15">
+<li>(单选题) 完成在非空双向循环链表结点p之后插入s的操作是（  ）。</li>
+</ol>
+<ul>
+<li>A. p-&gt;next&#x3D;s ; s-&gt;prior&#x3D;p; p-&gt;next-&gt;prior&#x3D;s ; s-&gt;next&#x3D;p-&gt;next;</li>
+<li>B. p-&gt;next-&gt;prior&#x3D;s; p-&gt;next&#x3D;s; s-&gt;prior&#x3D;p; s-&gt;next&#x3D;p-&gt;next;</li>
+<li>C. s-&gt;prior&#x3D;p; s-&gt;next&#x3D;p-&gt;next; p-&gt;next&#x3D;s; p-&gt;next-&gt;prior&#x3D;s ;</li>
+<li>D. s-&gt;next&#x3D;p-&gt;next; p-&gt;next-&gt;prior&#x3D;s ; s-&gt;prior&#x3D;p; p-&gt;next&#x3D;s;</li>
+</ul>
+<p><em>我的答案:</em> C:s-&gt;prior&#x3D;p; s-&gt;next&#x3D;p-&gt;next; p-&gt;next&#x3D;s; p-&gt;next-&gt;prior&#x3D;s ;;</p>
+<ol start="16">
+<li>(单选题) 在双向循环链表中，删除p所指的结点时须修改指针（  ）。</li>
+</ol>
+<ul>
+<li>A. p-&gt;prior-&gt;next&#x3D;p-&gt;next；   p-&gt;next-&gt;prior&#x3D;p-&gt;prior;</li>
+<li>B. p-&gt;prior&#x3D;p-&gt;prior-&gt;prior ；  p-&gt;prior-&gt;next&#x3D;p;</li>
+<li>C. p-&gt;next-&gt;prior&#x3D;p；      p-&gt;next&#x3D;p-&gt;next-&gt;next;</li>
+<li>D. p-&gt;next&#x3D;p-&gt;prior-&gt;prior；   p-&gt;prior&#x3D;p-&gt;next-&gt;next;</li>
+</ul>
+<p><em>我的答案:</em> A:p-&gt;prior-&gt;next&#x3D;p-&gt;next； p-&gt;next-&gt;prior&#x3D;p-&gt;prior;;</p>
+<p>线性表L&#x3D;（a1,a2,…,an）用数组表示，假定删除表中任一元素的概率相同，则删除一个元素平均需要移动元素的个数是   。</p>
+<ul>
+<li><p>我的答案：</p>
+<p>(1) (n-1)&#x2F;2</p>
+</li>
+</ul>
+<ol start="20">
+<li>(填空题) 在一个长度为n的顺序表中第i个位置（1≤i≤n+1）插入一个元素时，需向后移动         个元素。</li>
+</ol>
+<ul>
+<li><p>我的答案：</p>
+<p>(1) n - i + 1</p>
+</li>
+</ul>
+<h3 id="第三章-1"><a href="#第三章-1" class="headerlink" title="第三章"></a>第三章</h3><p>全是算法</p>
+<h3 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h3><p>栈和队列</p>
+<ol>
+<li>(单选题)栈和队列的共同点是( )。</li>
+</ol>
+<ul>
+<li>A. 没有共同点</li>
+<li>B. 只允许在端点处插入和删除元素</li>
+<li>C. 都是先进后出</li>
+<li>D. 都是先进先出</li>
+</ul>
+<p><em>我的答案:</em> B:只允许在端点处插入和删除元素;</p>
+<ol start="3">
+<li>(单选题) 循环队列占用的空间( )。</li>
+</ol>
+<ul>
+<li>A. 必须连续</li>
+<li>B. 不必连续</li>
+<li>C. 不能连续</li>
+<li>D. 可以不连续</li>
+</ul>
+<p>***的答案: A <em>正确答案:</em> A</p>
+<p>4.(单选题) 若用一个大小为6的数组来实现循环队列,且当前front和rear的值分别为3和0,当从队列中删除一个元素,再加入两个元素后,front和rear的值分别为( )。</p>
+<ul>
+<li>A. 5和1</li>
+<li>B. 4和2</li>
+<li>C. 2和4</li>
+<li>D. 1和5</li>
+</ul>
+<p>***的答案: B <em>正确答案:</em> B</p>
+<ol start="8">
+<li>(单选题) 对于队列操作数据的原则是( )。</li>
+</ol>
+<ul>
+<li>A. 先进先出</li>
+<li>B. 后进先出</li>
+<li>C. 先进后出</li>
+<li>D. 不分顺序</li>
+</ul>
+<p>***的答案: A <em>正确答案:</em> A</p>
+<ol start="13">
+<li>(单选题) 设链栈中结点的结构:data为数据域,next为指针域,且top是栈顶指针。若想在链栈的栈顶插入一个由指针s所指的结点,则应执行下列( )操作。</li>
+</ol>
+<ul>
+<li>A. s-&gt;next&#x3D;top-&gt;next;top-&gt;next&#x3D;s;</li>
+<li>B. top-&gt;next&#x3D;s;</li>
+<li>C. s-&gt;next&#x3D;top;top&#x3D;top-&gt;next;</li>
+<li>D. s-&gt;next&#x3D;top;top&#x3D;s;</li>
+</ul>
+<p>***的答案: D  <em>正确答案:</em> A</p>
+<ol start="16">
+<li>(单选题) 队列中的元素个数是( )。</li>
+</ol>
+<ul>
+<li>A. 不变的</li>
+<li>B. 可变的</li>
+<li>C. 任意的</li>
+<li>D. 0</li>
+</ul>
+<p>***的答案: B <em>正确答案:</em> B</p>
+<p>17.(单选题) 循环队列SQ队满的条件是( )。</p>
+<ul>
+<li>A. SQ-&gt;rear&#x3D;&#x3D;SQ-&gt;front</li>
+<li>B. (SQ-&gt;rear+1)%MAXLEN&#x3D;&#x3D;SQ-&gt;front</li>
+<li>C. SQ-&gt;rear&#x3D;&#x3D;O</li>
+<li>D. SQ-&gt;front&#x3D;&#x3D;0</li>
+</ul>
+<p>***的答案: B <em>正确答案:</em> B</p>
+<ol start="18">
+<li>(填空题) 顺序队列初始化后, front&#x3D;rear&#x3D;___。</li>
+</ol>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) 1</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) -1</p>
+</li>
+</ul>
+<ol start="21">
+<li>(填空题) 在队列中,允许插入的一端称为___。</li>
+</ol>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) 队尾</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 队尾</p>
+</li>
+</ul>
+<ol start="27">
+<li>(填空题) 在队列中,允许删除的一端称为___。</li>
+</ol>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) 队首</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 队头</p>
+</li>
+</ul>
+<ol start="33">
+<li>(判断题) 栈和队列都是顺序存储的线性结构。</li>
+</ol>
+<ul>
+<li>A. 对</li>
+<li>B. 错</li>
+</ul>
+<p>***的答案:  错  正确答案: 错</p>
+<h3 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h3><p>串和广义表</p>
+<p>还没答案</p>
+<h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><p>树</p>
+<ol>
+<li><strong>(单选题) 在一棵度为3的树中,度为3的结点数为2个,度为2的结点数为1个,度为1的结点数为2个,那么度为0的结点数有( )个。</strong></li>
+</ol>
+<ul>
+<li>A. 4</li>
+<li>B. 5</li>
+<li>C. 6</li>
+<li>D. 7</li>
+</ul>
+<p>我的答案: A 正确答案: C</p>
+<p>（叶子的度数为0；那么设叶子数为x，则此树的总分叉数为1<em>4+2</em>2+3<em>1+4</em>1&#x3D;15；此树的节点个数为16（此处涉及到一个公式;节点 数&#x3D;分叉数+1，由图形便可以观察出来）。又根据题目可以知道顶点数目还可以列出一个式子：4+2+1+1+x便可以得到等 式：4+2+1+1+x&#x3D;16；x&#x3D;8为叶子数。</p>
+<ol start="2">
+<li>(单选题) 某二又树的后序遍历序列为DABEC,中序遍历序列为DEBAC,则先序遍历序列为( )。(过程写在课本上)</li>
+</ol>
+<ul>
+<li>A. ACBED</li>
+<li>B. DECAB</li>
+<li>C. DEABC</li>
+<li>D. CEDBA</li>
+</ul>
+<ol start="4">
+<li>(单选题) 已知一棵完全二叉树的结点总数为9个,则最后一层的结点数为( )。</li>
+</ol>
+<ul>
+<li>A. 1</li>
+<li>B. 2</li>
+<li>C. 3</li>
+<li>D. 4</li>
+</ul>
+<p>***的答案: B 正确答案: B</p>
+<ol start="6">
+<li><strong>(单选题) 假设在一棵二叉树中,双分支结点数为15,单分支结点数为30个,则叶子结点数为( )个。</strong></li>
+</ol>
+<ul>
+<li>A. 15</li>
+<li>B. 16</li>
+<li>C. 17</li>
+<li>D. 47</li>
+</ul>
+<p>***的答案: B <em>正确答案:</em> B</p>
+<p>在数据结构中一般常用的 公式为：二叉树：度为0的节点数&#x3D;度为2的节点数+1（n0&#x3D;15+1&#x3D;16）此公式可由上述计算思想推导）</p>
+<ol start="8">
+<li>(单选题) 具有35个结点的完全二叉树的深度为( )。</li>
+</ol>
+<ul>
+<li>A. 5</li>
+<li>B. 6</li>
+<li>C. 7</li>
+<li>D. 8</li>
+</ul>
+<p>***的答案: B <em>正确答案:</em> B</p>
+<p>所以节点个树n和树深k的关系为：2^k-1&#x3D;n<br>所以树深：k&#x3D;log_2(n+1)或者⌊log₂n⌋+1 ?</p>
+<ol start="9">
+<li>(单选题) 用顺序存储的方法将完全二叉树中所有结点逐层存放在数组a[1]~a[n]中,结点a[i]若有左孩子,其左孩子的编号为结点( )。</li>
+</ol>
+<ul>
+<li>A. a[2i+1]</li>
+<li>B. a[2i-1]</li>
+<li>C. a[i&#x2F;2]</li>
+<li>D. a[2i]</li>
+</ul>
+<p>***的答案: D <em>正确答案:</em> D</p>
+<p>因为在完全二叉树中，左孩子的位置是当前结点的位置乘以2。</p>
+<ol start="13">
+<li>(单选题) 二叉树的先序遍历序列为ABC的不同二叉树有( )种形态。</li>
+</ol>
+<ul>
+<li>A. 3</li>
+<li>B. 4</li>
+<li>C. 5</li>
+<li>D. 6</li>
+</ul>
+<p>***的答案: C <em>正确答案:</em> C</p>
+<p><strong>17. (填空题) 一棵深度为k的满二叉树的结点总数为      ,一棵深度为k的完全二叉树的结点总数的最小值为     ,最大值为      。</strong></p>
+<ul>
+<li><p>***的答案：</p>
+<p>(1)2^k-1  </p>
+<p>(2) 2^(k-1) </p>
+<p>(3) 2^k-1</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 2^k-1</p>
+<p>(2) 2^(k-1)</p>
+<p>(3) 2^k-1</p>
+</li>
+</ul>
+<ol start="18">
+<li>(填空题) 先序序列和中序序列相同的二叉树为___。</li>
+</ol>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) 没有左孩子</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 单右枝二叉树或孤立结点</p>
+</li>
+</ul>
+<ol start="19">
+<li>(填空题) 由三个结点构成的二叉树,共有___种不同的结构。</li>
+</ol>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) 5</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 5</p>
+</li>
+</ul>
+<ol start="20">
+<li>(填空题) 假定一棵树的广义表表示法为A(B(E),C(F(H,I,J),G),D),则该树的度为___,树的深度为___,终端结点的个数为___,单分支结点的个数为___-,双分支的结点个数为___,三分支的结点个数为___,C结点的双亲结点为___,其孩子结点为___和___结点。</li>
+</ol>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) 3</p>
+<p>(2) 4</p>
+<p>(3) 6</p>
+<p>(4) 1</p>
+<p>(5) 1</p>
+<p>(6) 2</p>
+<p>(7) A</p>
+<p>(8) F</p>
+<p>(9) G</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 3</p>
+<p>(2) 4</p>
+<p>(3) 6</p>
+<p>(4) 1</p>
+<p>(5) 1</p>
+<p>(6) 2</p>
+<p>(7) A</p>
+<p>(8) F</p>
+<p>(9) G</p>
+</li>
+</ul>
+<ol start="22">
+<li>(填空题) 哈夫曼树是指___的二叉树。</li>
+</ol>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) 最优</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 带权路径长度最小</p>
+</li>
+</ul>
+<p><strong>23. (填空题) 设一棵二叉树共有50个叶子结点(终端结点),则有___度为2的结点。</strong></p>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) 49</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 49</p>
+</li>
+</ul>
+<p>在数据结构中一般常用的 公式为：二叉树：度为2的节点数&#x3D;度为0的节点数-1（n0&#x3D;50-1&#x3D;49）此公式可由上述计算思想推导）</p>
+<ol start="24">
+<li><strong>(填空题) 对于一个具有n个结点的二叉树,当它为一棵      二叉树时,具有最小高度,即为       ,当它为一棵单支树时具有     高度,即为       。</strong></li>
+</ol>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) 完全</p>
+<p>(2) log2n+1 </p>
+<p>(3) n</p>
+<p>(4) 线性表</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 完全</p>
+<p>(2) ⌊log₂n⌋+1</p>
+<p>(3) 最大</p>
+<p>(4) 线性表</p>
+</li>
+</ul>
+<ol start="25">
+<li>(填空题) 对于二叉树来说,第i层上最多有___个结点。</li>
+</ol>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) 2</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 2^(i-1)</p>
+</li>
+</ul>
+<ol start="26">
+<li><strong>(填空题) 由带权为3,6,2,5的4个叶子结点构成的一棵哈夫曼树,则带权路径长度为___。</strong></li>
+</ol>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) 31</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) 31</p>
+</li>
+</ul>
+<p>构建哈夫曼树：</p>
+<p>1、给其排序，2，3，5，6</p>
+<p>2、找到其中最小的两数，开始画树，2，3</p>
+<p>3、计算两数之和，并将该和加入到待找最小两数的数组里，跟着一起被选</p>
+<p>如果选中的是两个原数组的数，则在旁边重开一个全新的分支</p>
+<p>如果权值与一个原数组的数相同，则选择最小的这两个数，但是计算带权路径长度时不能带上它</p>
+<p>4、算带权路径长度 2* 3+3* 3+6* 1&#x3D;31</p>
+<ol start="27">
+<li>(填空题) 设F是森林,B是由F转换得到的二叉树,F中有n个非终端结点,B中右指针域为空的结点有___。</li>
+</ol>
+<ul>
+<li><p>***的答案：</p>
+<p>(1) n+1</p>
+</li>
+<li><p><em>正确答案：</em></p>
+<p>(1) n+1</p>
+</li>
+</ul>
+<p>在将森林F转换为二叉树B时，每个非终端节点都会转换为一个二叉树节点。由于B是二叉树，每个节点最多只有两个指针域，即左指针和右指针。在转换过程中，每个非终端节点都会在B中生成一个包含自身的二叉树节点，而这个节点的右指针域为空。</p>
+<ol start="30">
+<li>(判断题) 由树转换成二叉树,其根结点的右子树一定为空。</li>
+</ol>
+<ul>
+<li>A. 对</li>
+<li>B. 错</li>
+</ul>
+<p>***的答案: 对 <em>正确答案:</em> 对</p>
+<ol start="33">
+<li>(判断题) 树结构中的每个结点最多只有一个直接前驱。</li>
+</ol>
+<ul>
+<li>A. 对</li>
+<li>B. 错</li>
+</ul>
+<p>***的答案: 对 <em>正确答案:</em> 对</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://tecnb.github.io">TEC</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tecnb.github.io/posts/79666db.html">https://tecnb.github.io/posts/79666db.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tecnb.github.io" target="_blank">TEC</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.staticaly.com/gh/TECNB/picgodemo/main/img/wallhaven-l8mpz2_2560x1600.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/6e93dd78.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.staticaly.com/gh/TECNB/picgodemo/main/img/C++.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C++算法</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81NzY3OC8zNDE0MQ=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0"><span class="toc-number">1.2.</span> <span class="toc-text">第三章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E9%80%9A"><span class="toc-number">1.3.</span> <span class="toc-text">学习通</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="toc-number">1.3.1.</span> <span class="toc-text">第一章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="toc-number">1.3.2.</span> <span class="toc-text">第二章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-1"><span class="toc-number">1.3.3.</span> <span class="toc-text">第三章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0"><span class="toc-number">1.3.4.</span> <span class="toc-text">第四章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0"><span class="toc-number">1.3.5.</span> <span class="toc-text">第五章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0"><span class="toc-number">1.3.6.</span> <span class="toc-text">第六章</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By TEC</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Livere' === 'Livere' || !false) {
+  if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><div class="aplayer no-destroy" data-id="7766753897" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
