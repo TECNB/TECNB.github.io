@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://tecnb.github.io/posts/eb3d82ea.html</loc>
+    <loc>https://tecnb.github.io/posts/d40d83e8.html</loc>
     
-    <lastmod>2024-02-25</lastmod>
+    <lastmod>2024-04-21</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://tecnb.github.io/posts/d40d83e8.html</loc>
+    <loc>https://tecnb.github.io/posts/eb3d82ea.html</loc>
     
     <lastmod>2024-02-25</lastmod>
     
@@ -146,15 +146,6 @@
   </url>
   
   <url>
-    <loc>https://tecnb.github.io/posts/ee69e452.html</loc>
-    
-    <lastmod>2023-03-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://tecnb.github.io/posts/9ea13874.html</loc>
     
     <lastmod>2023-03-14</lastmod>
@@ -165,6 +156,15 @@
   
   <url>
     <loc>https://tecnb.github.io/posts/f8e09374.html</loc>
+    
+    <lastmod>2023-03-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tecnb.github.io/posts/ee69e452.html</loc>
     
     <lastmod>2023-03-14</lastmod>
     
@@ -211,7 +211,7 @@
 
   <url>
     <loc>https://tecnb.github.io/</loc>
-    <lastmod>2024-02-26</lastmod>
+    <lastmod>2024-04-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
