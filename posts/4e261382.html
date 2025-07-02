@@ -1,0 +1,993 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>StarGazer项目经验 | TEC</title><meta name="author" content="TEC"><meta name="copyright" content="TEC"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Git连接以及提交要将本地代码连接到远程仓库（例如 https:&#x2F;&#x2F;github.com&#x2F;TECNB&#x2F;StarGazerBackend.git），你可以按照以下步骤在终端中操作：  初始化本地仓库（如果还没有）：如果你的代码还没有在一个 Git 仓库中，你需要先在代码的根目录中初始化一个 Git 仓库。 1git init  添加远程仓库：使用以下命令将远程仓库链接到本地仓库： 1git remo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="StarGazer项目经验">
+<meta property="og:url" content="https://tecnb.github.io/posts/4e261382.html">
+<meta property="og:site_name" content="TEC">
+<meta property="og:description" content="Git连接以及提交要将本地代码连接到远程仓库（例如 https:&#x2F;&#x2F;github.com&#x2F;TECNB&#x2F;StarGazerBackend.git），你可以按照以下步骤在终端中操作：  初始化本地仓库（如果还没有）：如果你的代码还没有在一个 Git 仓库中，你需要先在代码的根目录中初始化一个 Git 仓库。 1git init  添加远程仓库：使用以下命令将远程仓库链接到本地仓库： 1git remo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/StarGazer%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C.png">
+<meta property="article:published_time" content="2024-09-22T11:15:25.000Z">
+<meta property="article:modified_time" content="2024-09-22T11:15:25.000Z">
+<meta property="article:author" content="TEC">
+<meta property="article:tag" content="TEC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/StarGazer%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://tecnb.github.io/posts/4e261382"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-EeDq654IWe"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'StarGazer项目经验',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-22 19:15:25'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/iconfont/iconfont.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: default_top_img"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">TEC</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">StarGazer项目经验</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-22T11:15:25.000Z" title="发表于 2024-09-22 19:15:25">2024-09-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-22T11:15:25.000Z" title="更新于 2024-09-22 19:15:25">2024-09-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">13.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>51分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="StarGazer项目经验"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Git连接以及提交"><a href="#Git连接以及提交" class="headerlink" title="Git连接以及提交"></a>Git连接以及提交</h1><p>要将本地代码连接到远程仓库（例如 <code>https://github.com/TECNB/StarGazerBackend.git</code>），你可以按照以下步骤在终端中操作：</p>
+<ol>
+<li><p><strong>初始化本地仓库</strong>（如果还没有）：<br>如果你的代码还没有在一个 Git 仓库中，你需要先在代码的根目录中初始化一个 Git 仓库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>添加远程仓库</strong>：<br>使用以下命令将远程仓库链接到本地仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/TECNB/StarGazerBackend.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>检查远程仓库是否添加成功</strong>：<br>你可以使用以下命令查看当前添加的远程仓库列表，以确保添加正确：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>添加文件到暂存区</strong>：<br>使用以下命令将所有更改添加到暂存区：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>提交更改</strong>：<br>使用以下命令提交更改到本地仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;chore(setup): 初始化项目&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>推送到远程仓库</strong>：<br>使用以下命令将本地仓库的代码推送到远程仓库的 <code>main</code> 分支（如果是 <code>master</code> 分支，则将 <code>main</code> 改为 <code>master</code>）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>如果没有设置默认分支为 <code>main</code> 或 <code>master</code>，请先确认远程仓库的默认分支名称，然后替换命令中的分支名。</p>
+<p>完成这些步骤后，你的本地代码就会推送到 <code>https://github.com/TECNB/StarGazerBackend.git</code> 仓库中了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chore(setup): 初始化项目</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="JAVA项目初始化"><a href="#JAVA项目初始化" class="headerlink" title="JAVA项目初始化"></a>JAVA项目初始化</h1><h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><p>关键是不同版本之间的兼容问题，一般还是MP的问题，改依赖后，再启动，看是否报错就可以判断依赖是否正确</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.tec<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>StarGazerBackend<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>StarGazerBackend<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>StarGazerBackend<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">licenses</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">license</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">licenses</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">developers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">developer</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">developers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scm</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">connection</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">developerConnection</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tag</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">scm</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>17<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">excludes</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">exclude</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8383</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">stargazerbackend</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/stargazer?serverTimezone=Asia/Shanghai&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxxx</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="MP的代码生成器使用方法"><a href="#MP的代码生成器使用方法" class="headerlink" title="MP的代码生成器使用方法"></a>MP的代码生成器使用方法</h2><p>利用插件<code>MyBatisPlus</code>（二次元头像的那个）</p>
+<p>之后会在顶部栏出现<code>Other</code>这个选项，在子菜单<code>Config Database</code>中配置好数据库连接信息</p>
+<p>最后在<code>Code Generator</code>中选择具体表以及对应的代码配置，这里踩过一个坑<code>module</code>处不用填留空，否则代码</p>
+<p>成的位置不对</p>
+<h2 id="通用响应类-R"><a href="#通用响应类-R" class="headerlink" title="通用响应类 R"></a>通用响应类 R</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.tec.stargazerbackend.common;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">R</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> code; <span class="comment">// 状态码</span></span><br><span class="line">    <span class="keyword">private</span> String message; <span class="comment">// 消息</span></span><br><span class="line">    <span class="keyword">private</span> T data; <span class="comment">// 返回数据</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">R</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">R</span><span class="params">(<span class="type">int</span> code, String message, T data)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.code = code;</span><br><span class="line">        <span class="built_in">this</span>.message = message;</span><br><span class="line">        <span class="built_in">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; R&lt;T&gt; <span class="title function_">ok</span><span class="params">(T data)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">R</span>&lt;&gt;(<span class="number">200</span>, <span class="string">&quot;Success&quot;</span>, data);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; R&lt;T&gt; <span class="title function_">error</span><span class="params">(<span class="type">int</span> code, String message)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">R</span>&lt;&gt;(code, message, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; R&lt;T&gt; <span class="title function_">error</span><span class="params">(String message)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">R</span>&lt;&gt;(<span class="number">500</span>, message, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="接口测试"><a href="#接口测试" class="headerlink" title="接口测试"></a>接口测试</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/users&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UsersController</span> &#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> IUsersService usersService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实现获取users表中所有数据的接口</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/all&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> R&lt;List&lt;Users&gt;&gt; <span class="title function_">getAll</span><span class="params">()</span> &#123;</span><br><span class="line">        List&lt;Users&gt; usersList = usersService.list();</span><br><span class="line">        <span class="keyword">return</span> R.ok(usersList);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="参数校验（⚠️）"><a href="#参数校验（⚠️）" class="headerlink" title="参数校验（⚠️）"></a>参数校验（⚠️）</h1><p>参考链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://juejin.cn/post/7357172505961578511">【禁止血压飙升】如何拥有一个优雅的 controller见过几千行代码的 controller吗？我见过。 见过全是 t - 掘金 (juejin.cn)</a></p>
+<h1 id="外键设置"><a href="#外键设置" class="headerlink" title="外键设置"></a>外键设置</h1><p>外键主要是为了能够在数据库端就进行同步的更新以及删除，同时进行数据正确性的判断</p>
+<p><strong>选择外键约束类型</strong></p>
+<p>主要取决于你的业务需求和数据完整性要求。以下是对常见约束类型的建议使用场景：</p>
+<ol>
+<li><p><strong><code>CASCADE</code></strong></p>
+<ul>
+<li><strong>适用场景</strong>: 当删除或更新父表中的记录时，确实希望子表中的相关记录也自动删除或更新时使用。例如，删除用户时自动删除该用户的所有订单记录。</li>
+<li><strong>使用建议</strong>: <ul>
+<li>如果你的数据是高度关联的，并且在删除或更新父表记录时，不希望遗留任何相关的子表记录，可以使用 <code>CASCADE</code>。</li>
+<li>需要注意的是，使用 <code>CASCADE</code> 可能会导致意外删除大量数据，因此需要谨慎。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong><code>SET NULL</code></strong></p>
+<ul>
+<li><strong>适用场景</strong>: 当删除或更新父表中的记录时，子表中的相关记录应保留，但将外键值设为 <code>NULL</code>。适用于可选关联的场景。</li>
+<li><strong>使用建议</strong>:<ul>
+<li>当子表记录应该继续存在，但与父表的关联可以解除时使用 <code>SET NULL</code>。例如，一个产品可能会被分类，但当分类被删除时，产品仍然存在，只是没有分类。</li>
+<li>确保外键列允许 <code>NULL</code> 值。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong><code>RESTRICT</code> 或 <code>NO ACTION</code></strong></p>
+<ul>
+<li><strong>适用场景</strong>: 当删除或更新父表中的记录时，强制确保没有相关子表记录，避免孤立数据。</li>
+<li><strong>使用建议</strong>:<ul>
+<li>当你希望严格控制数据删除或更新行为，确保不会因为删除或更新父表记录而破坏数据的完整性时使用 <code>RESTRICT</code> 或 <code>NO ACTION</code>。</li>
+<li>适用于数据之间的关系非常重要，并且不能轻易删除或更新父表记录的场景，比如订单和客户关系。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>不使用外键约束</strong></p>
+<ul>
+<li><strong>适用场景</strong>: 某些场景下，可能选择不使用外键约束，依靠应用程序逻辑来保证数据完整性。</li>
+<li><strong>使用建议</strong>:<ul>
+<li>在高并发系统中，为了提高性能，有时会放弃外键约束，改为通过应用逻辑手动管理数据的完整性。</li>
+<li>不建议在大多数情况下完全依赖应用逻辑，除非你非常清楚可能的风险和后果。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>总结建议</p>
+<ul>
+<li><strong>重要且需要自动清理关联数据</strong>：使用 <code>CASCADE</code>。</li>
+<li><strong>需要保留子表记录但解除关联</strong>：使用 <code>SET NULL</code>。</li>
+<li><strong>严格限制删除和更新行为</strong>：使用 <code>RESTRICT</code> 或 <code>NO ACTION</code>。</li>
+<li><strong>高性能或特殊场景</strong>：谨慎地选择不使用外键约束。</li>
+</ul>
+<p>在大多数典型场景中，<code>RESTRICT</code> 是一个安全的默认选择，因为它强制了数据的完整性，防止意外的数据删除或更新。</p>
+<p><strong>外键设置位置：</strong></p>
+<p>参考链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/qq_38028975/article/details/84166633">外键列到底要建在哪里？_外键应该添加在哪个表上?-CSDN博客</a></p>
+<p>（1）1：1的关系。我们知道1对1的关系一般都有一个主、一个附，一般我们把外键创建在附表上。（比如订单和订单详情，订单表是主表、订单详情表是附表，外键建在订单详情表中。）</p>
+<p>（2）1：n的关系。把外键建立在n的那张表上。如果将外键建在1的上面会造成数据冗余。不明白的小伙伴打开你的Excel画个图就明白了。</p>
+<p>（3）n：m的情况，需要建立一个关系表（中间表），两个原表和其关系分别是1：n，1：m。用第三张表去维护原来两张表之间的关系。</p>
+<h1 id="多对一外键查询"><a href="#多对一外键查询" class="headerlink" title="多对一外键查询"></a>多对一外键查询</h1><p>下面的 Service 层和 mapper 层的两种方式对比确实是正确的，但是实际操作下来，发现很多情况都是 Service 层已经能够直接通过简洁的方式去避免sql，并且性能是一样的，</p>
+<p>主要在很复杂的sql查询中，才会出现性能的大差别，同时在相当大一部分场景里是局限性很高的，比如说<code>LEFT JOIN</code>，能够把两个表，连起来去进行查询，减少了时间，但是返回的数据也会随着多表的查询去进行重复，再去处理数据很麻烦，</p>
+<p>所以后续还是尽量少去mapper层去动sql，一来麻烦局限大，二来可以在 Service 层用各种技巧去优化性能，比如减少返回数量，进行分页等等</p>
+<p>在 Service 层通过 MyBatis-Plus 提供的方法进行两次查询，然后手动组装数据的方式，与在 <code>DiaryMapper</code> 中直接操作相比，各有优缺点。以下是两者的对比：</p>
+<p><strong>Service 层手动组装的优缺点</strong></p>
+<p>优点：</p>
+<ol>
+<li><p><strong>清晰的分层设计</strong>：</p>
+<ul>
+<li>业务逻辑清晰分层，<code>Mapper</code> 层专注于数据访问，而业务逻辑放在 <code>Service</code> 层。这样可以保持 <code>Mapper</code> 层的简洁和可维护性。</li>
+</ul>
+</li>
+<li><p><strong>灵活性更高</strong>：</p>
+<ul>
+<li>在 <code>Service</code> 层手动组装数据，意味着你可以在业务逻辑中灵活处理数据和关系，而不需要将复杂的逻辑写在 <code>Mapper</code> 层。可以方便地进行一些业务规则的应用。</li>
+</ul>
+</li>
+<li><p><strong>降低复杂性</strong>：</p>
+<ul>
+<li>复杂的 SQL 查询和数据组装逻辑被分解成更小的单元处理，可以更容易理解和调试。</li>
+</ul>
+</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li><p><strong>效率较低</strong>：</p>
+<ul>
+<li>需要进行两次数据库查询（一次查询 <code>Diary</code>，一次查询 <code>DiaryImages</code>），而在 <code>Mapper</code> 中通过 JOIN 查询可以一次性获取所有相关数据，这在数据量大时会影响性能。</li>
+</ul>
+</li>
+<li><p><strong>多次查询可能导致一致性问题</strong>：</p>
+<ul>
+<li>如果在两次查询之间有并发数据修改，可能导致数据不一致。尽管这个问题不常见，但在高并发环境下可能需要注意。</li>
+</ul>
+</li>
+<li><p><strong>增加网络通信成本</strong>：</p>
+<ul>
+<li>如果数据库和应用服务器之间的网络通信成本较高，两次查询会增加通信的开销。</li>
+</ul>
+</li>
+</ol>
+<p><strong>在 <code>DiaryMapper</code> 中直接操作的优缺点</strong></p>
+<p>优点：</p>
+<ol>
+<li><p><strong>性能较高</strong>：</p>
+<ul>
+<li>可以通过 JOIN 查询一次性获取 <code>Diary</code> 和 <code>DiaryImages</code> 的数据，减少数据库查询次数，提升性能。</li>
+</ul>
+</li>
+<li><p><strong>数据一致性更好</strong>：</p>
+<ul>
+<li>通过单一查询获取数据，可以避免多次查询带来的数据不一致问题，特别是在高并发环境下。</li>
+</ul>
+</li>
+<li><p><strong>减少网络通信成本</strong>：</p>
+<ul>
+<li>一次查询获取全部数据，减少了数据库和应用服务器之间的通信次数。</li>
+</ul>
+</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li><p><strong>增加了 Mapper 层的复杂性</strong>：</p>
+<ul>
+<li>如果在 <code>Mapper</code> 层编写复杂的 SQL 查询和结果映射逻辑，可能会使 <code>Mapper</code> 层的代码变得难以维护。</li>
+</ul>
+</li>
+<li><p><strong>降低代码可读性</strong>：</p>
+<ul>
+<li>复杂的查询和结果映射逻辑可能会导致代码难以理解，特别是当查询逻辑涉及多个关联表时。</li>
+</ul>
+</li>
+<li><p><strong>减少了灵活性</strong>：</p>
+<ul>
+<li>将复杂逻辑放在 <code>Mapper</code> 层，可能会降低业务逻辑处理的灵活性。在需要修改业务逻辑时，可能需要调整 <code>Mapper</code> 层代码。</li>
+</ul>
+</li>
+</ol>
+<p>总结</p>
+<p>选择哪种方法取决于你的应用场景：</p>
+<ul>
+<li><strong>如果性能是关键</strong>：在 <code>DiaryMapper</code> 中编写 JOIN 查询可能更好。</li>
+<li><strong>如果你更关注代码的可维护性和清晰的分层设计</strong>：在 <code>Service</code> 层手动组装数据可能更适合。</li>
+</ul>
+<p>对于大多数情况，在 <code>Service</code> 层手动组装数据的方式更符合现代应用的分层设计原则，但在性能要求非常高或数据一致性至关重要的场景下，直接在 <code>Mapper</code> 中操作可能是更好的选择。</p>
+<p>为了具体比较在 Service 层进行多次查询与在 <code>Mapper</code> 中进行联合查询的性能差异，我们可以通过一个假设的场景来进行比较。以下是一些示例数字和假设：</p>
+<p>假设场景</p>
+<ul>
+<li><strong>日记总数</strong>：100</li>
+<li><strong>每篇日记的图片总数</strong>：最多 10 张</li>
+<li><strong>单次查询响应时间</strong>：10 毫秒（对于数据库简单查询）</li>
+<li><strong>复杂查询响应时间</strong>：50 毫秒（对于联合查询）</li>
+</ul>
+<ol>
+<li><strong>在 Service 层进行多次查询</strong></li>
+</ol>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li>查询所有日记</li>
+<li>对于每篇日记，再查询其关联的图片</li>
+</ol>
+<p><strong>计算</strong>：</p>
+<ul>
+<li>查询所有日记的响应时间：1 次查询 × 10 毫秒 &#x3D; 10 毫秒</li>
+<li>对于每篇日记查询其图片：100 次查询 × 10 毫秒 &#x3D; 1000 毫秒</li>
+</ul>
+<p><strong>总时间</strong>：</p>
+<ul>
+<li>10 毫秒（获取日记） + 1000 毫秒（获取图片） &#x3D; 1010 毫秒</li>
+</ul>
+<ol start="2">
+<li><strong>在 <code>Mapper</code> 中进行联合查询</strong></li>
+</ol>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li>使用 <code>JOIN</code> 查询一次性获取所有日记和其关联的图片</li>
+</ol>
+<p><strong>计算</strong>：</p>
+<ul>
+<li>联合查询响应时间：1 次查询 × 50 毫秒 &#x3D; 50 毫秒</li>
+</ul>
+<p>性能比较</p>
+<p><strong>Service 层多次查询</strong>：</p>
+<ul>
+<li>总时间 &#x3D; 1010 毫秒</li>
+</ul>
+<p><strong>Mapper 层联合查询</strong>：</p>
+<ul>
+<li>总时间 &#x3D; 50 毫秒</li>
+</ul>
+<p>结论</p>
+<p>从以上示例中可以看出，在这种假设情况下，<strong>Service 层进行多次查询</strong>的总响应时间是 <strong>1010 毫秒</strong>，而在 <code>Mapper</code> 中进行联合查询的总响应时间是 <strong>50 毫秒</strong>。这表明，联合查询可以显著提高性能，尤其是在数据量较大时。</p>
+<p>影响因素</p>
+<ol>
+<li><strong>数据量</strong>：数据量越大，多次查询的性能差距越明显。</li>
+<li><strong>数据库性能</strong>：数据库的处理能力和优化会影响查询响应时间。</li>
+<li><strong>网络延迟</strong>：如果数据库和应用服务器之间的网络延迟较高，多次查询的开销会更大。</li>
+</ol>
+<p>实际测试</p>
+<p>为了获得准确的性能数据，建议在你的具体环境中进行实际的性能测试。你可以使用数据库的性能分析工具来测量查询时间，并根据实际数据量和查询复杂性来评估性能差异。</p>
+<h1 id="用户功能"><a href="#用户功能" class="headerlink" title="用户功能"></a>用户功能</h1><h2 id="密码加盐"><a href="#密码加盐" class="headerlink" title="密码加盐"></a>密码加盐</h2><p>首先是为什么要密码加盐，是为了防止数据库泄露或者前端返回属性被劫持，下面的1、2、3种方式都可以直接或者间接被反向计算出来（例如彩虹表），而第4种方式，也就是目前采取的较为安全的方式，将密码与随机salt相加后，又进行多次hash计算，即使获取到salt以及password，反向计算也十分困难</p>
+<p><strong>用户密码加密方式</strong></p>
+<p>用户密码保存到数据库时，常见的加密方式有哪些?以下几种方式是常见的密码保存方式：</p>
+<p><strong>1. 明文保存</strong></p>
+<p>比如用户设置的密码是“123456”，直接将“123456”保存在数据库中，这种是最简单的保存方式，也是最不安全的方式。但实际上不少互联网公司，都可能采取的是这种方式。</p>
+<p><strong>2. 对称加密算法来保存</strong></p>
+<p>比如3DES、AES等算法，使用这种方式加密是可以通过解密来还原出原始密码的，当然前提条件是需要获取到密钥。不过既然大量的用户信息已经泄露了，密钥很可能也会泄露，当然可以将一般数据和密钥分开存储、分开管理，但要完全保护好密钥也是一件非常复杂的事情，所以这种方式并不是很好的方式。</p>
+<p><strong>3. MD5、SHA1等单向HASH算法</strong></p>
+<p>使用这些算法后，无法通过计算还原出原始密码，而且实现比较简单，因此很多互联网公司都采用这种方式保存用户密码，曾经这种方式也是比较安全的方式，但随着彩虹表技术的兴起，可以建立彩虹表进行查表破解，目前这种方式已经很不安全了。</p>
+<p>其实之前公司也是采用的这种MD5加密方式。</p>
+<p><strong>4. PBKDF2算法</strong></p>
+<p>该算法原理大致相当于在HASH算法基础上增加随机盐，并进行多次HASH运算，随机盐使得彩虹表的建表难度大幅增加，而多次HASH也使得建表和破解的难度都大幅增加。</p>
+<p>在使用PBKDF2算法时，HASH一般会选用sha1或者sha256，随机盐的长度一般不能少于8字节，HASH次数至少也要1000次，这样安全性才足够高。一次密码验证过程进行1000次HASH运算，对服务器来说可能只需要1ms，但对于破解者来说计算成本增加了1000倍，而至少8字节随机盐，更是把建表难度提升了N个数量级，使得大批量的破解密码几乎不可行，该算法也是美国国家标准与技术研究院推荐使用的算法。</p>
+<p><strong>Utils：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Utils</span> &#123;</span><br><span class="line">  </span><br><span class="line">  	<span class="comment">// 使用SHA-512算法加密密码</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">encryptHv</span><span class="params">(String password, String salt)</span> <span class="keyword">throws</span> NoSuchAlgorithmException &#123;</span><br><span class="line">        <span class="type">MessageDigest</span> <span class="variable">hash</span> <span class="operator">=</span> MessageDigest.getInstance(<span class="string">&quot;SHA-512&quot;</span>);</span><br><span class="line">        hash.update(salt.getBytes());</span><br><span class="line">        hash.update(password.getBytes());</span><br><span class="line">        <span class="type">byte</span>[] value = hash.digest();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 重复512次，使散列更安全</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">512</span>; i++) &#123;</span><br><span class="line">            <span class="type">MessageDigest</span> <span class="variable">hashInner</span> <span class="operator">=</span> MessageDigest.getInstance(<span class="string">&quot;SHA-512&quot;</span>);</span><br><span class="line">            hashInner.update(value);</span><br><span class="line">            value = hashInner.digest();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Base64.getEncoder().encodeToString(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  	<span class="comment">// 生成盐</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">generateSalt</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">characters</span> <span class="operator">=</span> <span class="string">&quot;abcdefghijklmnopqrstuvwxyz0123456789&quot;</span>;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">objectId</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="type">SecureRandom</span> <span class="variable">random</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SecureRandom</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">48</span>; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">randomIndex</span> <span class="operator">=</span> random.nextInt(characters.length());</span><br><span class="line">            objectId.append(characters.charAt(randomIndex));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> objectId.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>UsersController:</strong></p>
+<ol>
+<li>完成注册功能的实现<ol>
+<li>获取到前端的password以及name</li>
+<li>生成盐算法实现</li>
+<li>加密密码算法实现，接受参数包括密码以及盐</li>
+<li>将获取到的password以及salt，通过加密密码算法后的值，存入数据库的password中</li>
+</ol>
+</li>
+<li>完成登陆功能的实现<ol>
+<li>获取token</li>
+<li>通过加密密码算法获取到password，然后与数据库中的进行比对，存在则createLoginSession更新token，以及lastLogin</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/users&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UsersController</span> &#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> IUsersService usersService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注册功能</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/register&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> R&lt;Users&gt; <span class="title function_">register</span><span class="params">(<span class="meta">@RequestParam</span> String username, <span class="meta">@RequestParam</span> String password)</span> <span class="keyword">throws</span> NoSuchAlgorithmException &#123;</span><br><span class="line">        <span class="comment">// 如果存在该用户，返回错误信息</span></span><br><span class="line">        <span class="keyword">if</span> (usersService.getByUsername(username) != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CustomException</span>(USER_ALREADY_EXISTS);</span><br><span class="line"><span class="comment">//            return R.error(&quot;用户已存在&quot;);</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">Users</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Users</span>();</span><br><span class="line">        <span class="comment">// 生成盐</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">salt</span> <span class="operator">=</span> generateSalt();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 生成哈希值</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">hv</span> <span class="operator">=</span> encryptHv(password, salt);</span><br><span class="line"></span><br><span class="line">        user.setUsername(username);</span><br><span class="line">        user.setPasswordHash(hv);</span><br><span class="line">        user.setSalt(salt);</span><br><span class="line">        usersService.save(user);</span><br><span class="line">        <span class="comment">// 返回完整用户信息</span></span><br><span class="line">        <span class="keyword">return</span> R.ok(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 登录功能</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> R&lt;Users&gt; <span class="title function_">login</span><span class="params">(String username, String password)</span> <span class="keyword">throws</span> NoSuchAlgorithmException&#123;</span><br><span class="line">        <span class="type">Users</span> <span class="variable">user</span> <span class="operator">=</span> usersService.getByUsername(username);</span><br><span class="line">        <span class="keyword">if</span> (user == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> R.error(<span class="string">&quot;用户不存在&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">String</span> <span class="variable">salt</span> <span class="operator">=</span> user.getSalt();</span><br><span class="line">        <span class="type">String</span> <span class="variable">hv</span> <span class="operator">=</span> user.getPasswordHash();</span><br><span class="line">        <span class="keyword">if</span> (hv.equals(encryptHv(password, salt))) &#123;</span><br><span class="line">            user.setToken(StpUtil.createLoginSession(user.getUserId()));</span><br><span class="line">            user.setLastLogin(getCurrentTime());</span><br><span class="line">            usersService.updateById(user);</span><br><span class="line">            <span class="keyword">return</span> R.ok(user);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 通过CustomException丢出报错</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CustomException</span>(PASSWORD_ERROR);</span><br><span class="line"><span class="comment">//            return R.error(202,&quot;密码错误&quot;);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="密码轮换"><a href="#密码轮换" class="headerlink" title="密码轮换"></a>密码轮换</h2><p>从超的项目中学到的，通过KeyRotation记录是否需要换密钥以及去先进行旧密钥解密的尝试，就直接无痛密码轮换了</p>
+<p>问题是需要靠用户操作的时候去轮换，要是长时间没有登录的用户，密钥又泄了，那就会导致这一部分的用户的密码被反向推理出来</p>
+<p>下面为kotlin实现的方式</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get user by session token</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">getUserBySessionToken</span><span class="params">(sessionToken: <span class="type">String</span>)</span></span>: User = withContext(Dispatchers.IO) &#123;</span><br><span class="line">    <span class="keyword">var</span> keyRotation = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Try KEY_A and KEY_B to decrypt session token</span></span><br><span class="line">    <span class="keyword">val</span> decryptData: String = <span class="keyword">try</span> &#123;</span><br><span class="line">        decrypt(sessionToken, string2Key(KEY_A))</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: BadPaddingException) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">val</span> result = decrypt(sessionToken, string2Key(KEY_B))</span><br><span class="line">            keyRotation = <span class="literal">true</span></span><br><span class="line">            result</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e: BadPaddingException) &#123;</span><br><span class="line">            <span class="keyword">throw</span> UserNotFoundException()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Get user from decrypted token</span></span><br><span class="line">    <span class="keyword">val</span> id = decryptData.split(<span class="string">&quot;,&quot;</span>)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">val</span> doc = collection.find(Filters.eq(<span class="string">&quot;_id&quot;</span>, ObjectId(id))).first()</span><br><span class="line">        ?: <span class="keyword">throw</span> UserNotFoundException()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> user = doc.let(User::fromDocument)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check session token is available</span></span><br><span class="line">    <span class="keyword">if</span> (user.sessionToken != sessionToken) &#123;</span><br><span class="line">        <span class="keyword">throw</span> UserNotFoundException()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check if key rotation is needed</span></span><br><span class="line">    <span class="keyword">if</span> (keyRotation) &#123;</span><br><span class="line">        <span class="keyword">val</span> encryptData = <span class="string">&quot;<span class="subst">$&#123;id&#125;</span>,<span class="subst">$&#123;System.currentTimeMillis()&#125;</span>&quot;</span></span><br><span class="line">        <span class="keyword">val</span> newSessionToken = encrypt(encryptData, string2Key(KEY_A))</span><br><span class="line"></span><br><span class="line">        collection.updateOne(</span><br><span class="line">            Filters.eq(<span class="string">&quot;_id&quot;</span>, ObjectId(id)),</span><br><span class="line">            Updates.<span class="keyword">set</span>(<span class="string">&quot;sessionToken&quot;</span>, newSessionToken)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        user.sessionToken = newSessionToken</span><br><span class="line">    &#125;</span><br><span class="line">    user</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="匹配功能"><a href="#匹配功能" class="headerlink" title="匹配功能"></a>匹配功能</h1><p>feat(MatchesController)：完成正常匹配的逻辑</p>
+<ul>
+<li>先是根据token获取到当前user的信息，主要是城市以及岁数</li>
+<li>根据城市以及岁数相差不大作为依据查询出潜在匹配用户列表</li>
+<li>最后根据兴趣爱好标签一致进行匹配过滤，输出最终匹配列表</li>
+</ul>
+<p><strong>MatchesServiceImpl:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MatchesServiceImpl</span> <span class="keyword">extends</span> <span class="title class_">ServiceImpl</span>&lt;MatchesMapper, Matches&gt; <span class="keyword">implements</span> <span class="title class_">IMatchesService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UsersMapper usersMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MatchesMapper matchesMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserInterestsMapper userInterestsMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据用户的兴趣爱好标签、地理位置和年龄进行匹配</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> userId 当前用户ID</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 匹配到的用户列表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;Users&gt; <span class="title function_">matchUsers</span><span class="params">(String userId)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取当前用户的兴趣标签</span></span><br><span class="line">        List&lt;String&gt; userTags = getUserTags(userId);</span><br><span class="line">        System.out.println(<span class="string">&quot;userTags: &quot;</span> + userTags);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取当前用户的基本信息</span></span><br><span class="line">        <span class="type">Users</span> <span class="variable">currentUser</span> <span class="operator">=</span> usersMapper.selectById(userId);</span><br><span class="line">        System.out.println(<span class="string">&quot;currentUser: &quot;</span> + currentUser);</span><br><span class="line">        <span class="type">String</span> <span class="variable">currentUserLocation</span> <span class="operator">=</span> currentUser.getCity();</span><br><span class="line">        System.out.println(<span class="string">&quot;currentUserLocation: &quot;</span> + currentUserLocation);</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">currentUserAge</span> <span class="operator">=</span> currentUser.getAge();</span><br><span class="line">        System.out.println(<span class="string">&quot;currentUserAge: &quot;</span> + currentUserAge);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 查询潜在匹配用户</span></span><br><span class="line">        List&lt;Users&gt; potentialMatches = usersMapper.selectList(<span class="keyword">new</span> <span class="title class_">QueryWrapper</span>&lt;Users&gt;()</span><br><span class="line">                .ne(<span class="string">&quot;user_id&quot;</span>, userId) <span class="comment">// 排除当前用户</span></span><br><span class="line">                .eq(<span class="string">&quot;city&quot;</span>, currentUserLocation) <span class="comment">// 相同城市</span></span><br><span class="line">                .between(<span class="string">&quot;age&quot;</span>, currentUserAge - <span class="number">3</span>, currentUserAge + <span class="number">3</span>)); <span class="comment">// 年龄范围内</span></span><br><span class="line">        System.out.println(<span class="string">&quot;potentialMatches: &quot;</span> + potentialMatches);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据兴趣爱好标签进行匹配过滤</span></span><br><span class="line">        <span class="keyword">return</span> potentialMatches.stream()</span><br><span class="line">                .filter(user -&gt; hasCommonTags(userTags, getUserTags(user.getUserId())))</span><br><span class="line">                .limit(<span class="number">2</span>) <span class="comment">// 限制同时匹配的用户数量</span></span><br><span class="line">                .collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取用户的兴趣标签</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> userId 用户ID</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 兴趣标签列表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; <span class="title function_">getUserTags</span><span class="params">(String userId)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> userInterestsMapper.selectList(<span class="keyword">new</span> <span class="title class_">QueryWrapper</span>&lt;UserInterests&gt;()</span><br><span class="line">                        .eq(<span class="string">&quot;user_id&quot;</span>, userId))</span><br><span class="line">                .stream()</span><br><span class="line">                .map(UserInterests::getTag)</span><br><span class="line">                .collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 检查两个用户是否有共同的兴趣标签</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> tags1 第一个用户的标签列表</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> tags2 第二个用户的标签列表</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 是否有共同标签</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">hasCommonTags</span><span class="params">(List&lt;String&gt; tags1, List&lt;String&gt; tags2)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (String tag : tags1) &#123;</span><br><span class="line">            <span class="keyword">if</span> (tags2.contains(tag)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="聊天室功能"><a href="#聊天室功能" class="headerlink" title="聊天室功能"></a>聊天室功能</h1><h2 id="Netty-使用"><a href="#Netty-使用" class="headerlink" title="Netty 使用"></a>Netty 使用</h2><h2 id="MinIO-作为OSS"><a href="#MinIO-作为OSS" class="headerlink" title="MinIO 作为OSS"></a>MinIO 作为OSS</h2><h2 id="RocketMQ-作为数据缓冲"><a href="#RocketMQ-作为数据缓冲" class="headerlink" title="RocketMQ 作为数据缓冲"></a>RocketMQ 作为数据缓冲</h2><h1 id="创建时间以及更新时间的问题"><a href="#创建时间以及更新时间的问题" class="headerlink" title="创建时间以及更新时间的问题"></a>创建时间以及更新时间的问题</h1><p>直接在实体类中把创建时间以及更新时间赋值为getCurrentTime即可</p>
+<p>因为只有在第一次注册的时候会创建全新的user类，其他情况都是从数据库中获取的，需要更新更新时间时再进行getCurrentTime即可</p>
+<p>这样的解决方案要简单高效，之前用的是MP的全局属性注入，不仅麻烦而且会出现无法属性赋值的相关问题</p>
+<p>User：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@EqualsAndHashCode(callSuper = false)</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="meta">@TableName(&quot;users&quot;)</span></span><br><span class="line"><span class="meta">@ApiModel(value=&quot;Users对象&quot;, description=&quot;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Users</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@TableId(value = &quot;user_id&quot;, type = IdType.ASSIGN_UUID)</span></span><br><span class="line">    <span class="keyword">private</span> String userId;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">createdAt</span> <span class="operator">=</span> getCurrentTime();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">updatedAt</span> <span class="operator">=</span> getCurrentTime();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+<h1 id="服务器git-clone速度太慢"><a href="#服务器git-clone速度太慢" class="headerlink" title="服务器git clone速度太慢"></a>服务器git clone速度太慢</h1><p>方法一：</p>
+<p>使用本地电脑去克隆好后再传到服务器上面去，缺点为遇到大量小文件可能会比较慢</p>
+<p>方法二：</p>
+<p>参考文章：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/qq_41204553/article/details/127177348">git clone加速（实测推荐）_git clone 加速-CSDN博客</a></p>
+<p>在git仓库前添加gitclone.com的前缀，比如下面的命令</p>
+<p>缺点为我还没试过这个方法行不行😗</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Elegycloud/clash-for-linux-backup.git</span><br><span class="line">git <span class="built_in">clone</span> https://gitclone.com/github.com/Elegycloud/clash-for-linux-backup.git</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Linux服务器系统选择"><a href="#Linux服务器系统选择" class="headerlink" title="Linux服务器系统选择"></a>Linux服务器系统选择</h1><p>以下是按不同Linux服务器系统版本分类的介绍：</p>
+<ol>
+<li><strong>Ubuntu Server</strong></li>
+</ol>
+<p><strong>Ubuntu Server</strong> 是一个流行且易于使用的Linux服务器操作系统，适合多种场景，包括Web服务器、开发环境和云计算。它有两个主要版本：</p>
+<ul>
+<li><strong>LTS (Long Term Support) 版本</strong>: 每两年发布一次，提供5年的长期支持，适合需要长期稳定的生产环境。</li>
+<li><strong>非LTS版本</strong>: 每六个月发布一次，适合开发和测试环境，能够快速获取新功能。</li>
+</ul>
+<p><strong>特点</strong>:</p>
+<ul>
+<li>丰富的社区支持和文档。</li>
+<li>使用 <code>APT</code> 作为包管理器，易于软件更新和维护。</li>
+<li>广泛的云平台支持，包括AWS、Azure和Google Cloud。</li>
+</ul>
+<ol start="2">
+<li><strong>CentOS</strong></li>
+</ol>
+<p><strong>CentOS</strong> 是 <strong>Red Hat Enterprise Linux (RHEL)</strong> 的免费社区版，广泛用于企业级环境。CentOS 强调稳定性和兼容性，特别适合企业的生产服务器。</p>
+<p><strong>版本</strong>:</p>
+<ul>
+<li><strong>CentOS 7</strong>: 长期支持版本，稳定性强，支持到2024年。</li>
+<li><strong>CentOS 8</strong>: 引入了 <code>DNF</code> 作为新包管理器，但已经被 <strong>CentOS Stream</strong> 替代。</li>
+</ul>
+<p><strong>特点</strong>:</p>
+<ul>
+<li>企业级稳定性，适合长时间运行的生产环境。</li>
+<li>社区提供了许多与 RHEL 兼容的资源和文档。</li>
+<li>采用 <code>YUM</code> 或 <code>DNF</code> 进行软件包管理。</li>
+</ul>
+<ol start="3">
+<li><strong>Red Hat Enterprise Linux (RHEL)</strong></li>
+</ol>
+<p><strong>RHEL</strong> 是由Red Hat公司提供的企业级Linux发行版，特别适合需要高可靠性和技术支持的大型企业。RHEL 提供付费订阅，涵盖了技术支持和安全更新。</p>
+<p><strong>版本</strong>:</p>
+<ul>
+<li><strong>RHEL 7</strong>: 稳定的企业级版本，提供长期支持，适合稳定的生产环境。</li>
+<li><strong>RHEL 8</strong>: 更现代化的企业操作系统，支持云计算和容器化。</li>
+</ul>
+<p><strong>特点</strong>:</p>
+<ul>
+<li>企业级支持和安全性，包含专业的技术支持服务。</li>
+<li>强大的生态系统和硬件兼容性。</li>
+<li>使用 <code>YUM</code> 或 <code>DNF</code> 管理软件包。</li>
+</ul>
+<ol start="4">
+<li><strong>Debian</strong></li>
+</ol>
+<p><strong>Debian</strong> 是一个高度稳定且轻量的Linux发行版，适合需要可靠性的服务器和开发环境。Debian 以其稳定性和灵活性而著称，常用于基础设施和Web服务器。</p>
+<p><strong>版本</strong>:</p>
+<ul>
+<li><strong>Stable</strong>: 这是Debian的主要版本，专注于稳定性，适合生产环境。</li>
+<li><strong>Testing</strong>: 包含即将在下一版本发布的软件包，适合需要较新软件但仍需要稳定性的用户。</li>
+<li><strong>Unstable (Sid)</strong>: 包含最新的软件包和功能，适合开发和测试环境。</li>
+</ul>
+<p><strong>特点</strong>:</p>
+<ul>
+<li>高度稳定和安全，适合长时间运行的服务。</li>
+<li>丰富的软件包和社区支持。</li>
+<li>使用 <code>APT</code> 进行包管理，软件更新简单。</li>
+</ul>
+<ol start="5">
+<li><strong>Arch Linux</strong></li>
+</ol>
+<p><strong>Arch Linux</strong> 是一个滚动发行的Linux发行版，特别适合需要最新软件包和高度定制的用户。尽管它主要被用于个人桌面，但也有一些高级用户在服务器上使用。</p>
+<p><strong>特点</strong>:</p>
+<ul>
+<li>滚动更新机制，始终保持最新的软件和功能。</li>
+<li>高度可定制，适合有经验的用户。</li>
+<li>轻量级，没有多余的预装软件。</li>
+</ul>
+<p>通过上述分类和介绍，您可以根据需求选择最适合您的Linux服务器系统版本。</p>
+<h1 id="Linux服务器利用Clash访问外网"><a href="#Linux服务器利用Clash访问外网" class="headerlink" title="Linux服务器利用Clash访问外网"></a>Linux服务器利用Clash访问外网</h1><p>源码：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Elegycloud/clash-for-linux-backup">Elegycloud&#x2F;clash-for-linux-backup: 基于Clash Core 制作的Clash For Linux备份仓库 A Clash For Linux Backup Warehouse Based on Clash Core (github.com)</a></p>
+<h2 id="下载项目"><a href="#下载项目" class="headerlink" title="下载项目"></a>下载项目</h2><p>下载项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Elegycloud/clash-for-linux-backup.git</span><br></pre></td></tr></table></figure>
+
+
+
+<p>进入到项目目录，编辑<code>.env</code>文件，修改变量<code>CLASH_URL</code>的值。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> clash-for-linux-backup</span><br><span class="line">vim .<span class="built_in">env</span></span><br><span class="line">https://9oxxk.no-mad-world.club/link/8xxxxx?clash=3&amp;extend=1</span><br><span class="line">https://dkcru.no-mad-world.club/link/8xxxxx?clash=3&amp;extend=1</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>注意：</strong> <code>.env</code> 文件中的变量 <code>CLASH_SECRET</code> 为自定义 Clash Secret，值为空时，脚本将自动生成随机字符串，可以自己输入对应Secret，避免每次重新生成。</p>
+</blockquote>
+<h2 id="启动程序"><a href="#启动程序" class="headerlink" title="启动程序"></a>启动程序</h2><p>直接运行脚本文件<code>start.sh</code></p>
+<ul>
+<li>进入项目目录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> clash-for-linux-backup</span><br><span class="line"><span class="built_in">chmod</span> 777 start.sh</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>运行启动脚本</li>
+</ul>
+<p>注意<code>export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890</code>就相当于这个<code>proxy_on</code>，不过根据超来说，最好不要开这个全局的代理，对应的需要外网的软件，就进行对应的配置，比如docker就需要自己进行配置，具体会在下面的笔记中提到</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">sudo ./start.sh</span><br><span class="line"></span><br><span class="line">正在检测订阅地址...</span><br><span class="line">Clash订阅地址可访问！                                      [  OK  ]</span><br><span class="line"></span><br><span class="line">正在下载Clash配置文件...</span><br><span class="line">配置文件config.yaml下载成功！                              [  OK  ]</span><br><span class="line"></span><br><span class="line">正在启动Clash服务...</span><br><span class="line">服务启动成功！                                             [  OK  ]</span><br><span class="line"></span><br><span class="line">Clash Dashboard 访问地址：http://&lt;ip&gt;:9090/ui</span><br><span class="line">Secret：xxxxxxxxxxxxx</span><br><span class="line"></span><br><span class="line">请执行以下命令加载环境变量: <span class="built_in">source</span> /etc/profile.d/clash.sh</span><br><span class="line"></span><br><span class="line">请执行以下命令开启系统代理: proxy_on</span><br><span class="line"></span><br><span class="line">若要临时关闭系统代理，请执行: proxy_off</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>验证是否外网代理是否成功</li>
+</ul>
+<p>注意下面的命令中必须加上<code>-x http://127.0.0.1:7890</code>，否则正常来说<code>curl</code>包括<code>ping</code>都是不走系统代理的，下面的命令输完后，就可以去UI面板看看，流量是否走代理了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -x http://127.0.0.1:7890 https://www.google.com.hk</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="UI面板"><a href="#UI面板" class="headerlink" title="UI面板"></a>UI面板</h2><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>地址：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://101.43.0.0:9090/ui/">101.43.00.000:9090 - yacd</a></p>
+<p><code>API Base URL</code>填入<code>http://101.43.00.000:9090</code>，密码为启动时控制台打印的<code>Secret</code>，注意这里的<code>Secret</code>需要填入<code>.env</code>文件中的<code>CLASH_SECRET</code>，这样就不用每次启动都重新更换密码了</p>
+<h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><h4 id="输入API-Base-URL时，出现报错Unauthorized"><a href="#输入API-Base-URL时，出现报错Unauthorized" class="headerlink" title="输入API Base URL时，出现报错Unauthorized"></a>输入<code>API Base URL</code>时，出现报错<code>Unauthorized</code></h4><p>参考链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Elegycloud/clash-for-linux-backup/issues/46">Unauthorized for login · Issue #46 · Elegycloud&#x2F;clash-for-linux-backup (github.com)</a></p>
+<p>重新启动就行，把之前的记录和端口占用都先kill掉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./restart.sh</span><br></pre></td></tr></table></figure>
+
+<h4 id="再次启动订阅事报错Failed-connect-to-127-0-0-1-7890"><a href="#再次启动订阅事报错Failed-connect-to-127-0-0-1-7890" class="headerlink" title="再次启动订阅事报错Failed connect to 127.0.0.1:7890"></a>再次启动订阅事报错<code>Failed connect to 127.0.0.1:7890</code></h4><p>参考链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/weixin_45275052/article/details/110299222">curl: (7) Failed connect to 127.0.0.1:7890； Connection refused_curl: (7) failed connect to 127.0.0.1:7890; connec-CSDN博客</a></p>
+<p><strong>完整报错</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl: (7) Failed connect to 127.0.0.1:7890； Connection refused</span><br></pre></td></tr></table></figure>
+
+<p><strong>原因</strong></p>
+<p>端口7890就是clash搞的鬼，因为代理了全局的网络，clash再去通过网络拉取配置文件的时候，走了代理，导致无法连接下载配置文件</p>
+<p><strong>解决方法</strong></p>
+<p>执行下面的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> -p</span><br></pre></td></tr></table></figure>
+
+<p>最下面有一行(如果不是这样,另外自己找办法,不要乱试!不要乱试!不要乱试!)</p>
+<p><code>declare -x all_proxy=&quot;socks5://127.0.0.1:7890</code></p>
+<p>执行命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unset</span> all_proxy</span><br></pre></td></tr></table></figure>
+
+<p>再执行第一条命令查看 那行代理就没了</p>
+<h4 id="一打开clash，就连接服务器卡顿"><a href="#一打开clash，就连接服务器卡顿" class="headerlink" title="一打开clash，就连接服务器卡顿"></a>一打开clash，就连接服务器卡顿</h4><p>原因是被盗刷流量了</p>
+<p>存在脚本一直在腾讯云的网段范围里面，去暴力尝试3306端口的连接，我因为之前对于腾讯云面板的防火墙了解不清楚，以为是正对内网的防火墙，如果不开的话，内部就无法连接3306端口</p>
+<p>实际上腾讯云面板的防火墙是针对外网对于服务器的访问的，内部则其实是通过<code>iptables</code>或者<code>firewalld</code>来进行访问的静止，实际上会先经过腾讯云面板的网关防火墙，然后再进入内部的防火墙</p>
+<h1 id="Linux服务器下载Docker以及Docker-Compose"><a href="#Linux服务器下载Docker以及Docker-Compose" class="headerlink" title="Linux服务器下载Docker以及Docker-Compose"></a>Linux服务器下载Docker以及Docker-Compose</h1><h2 id="Docker下载"><a href="#Docker下载" class="headerlink" title="Docker下载"></a>Docker下载</h2><p>镜像站：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://mirrors.tuna.tsinghua.edu.cn/help/docker-ce/">docker-ce | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
+<p>通过上面的镜像站找到对应的版本，然后复制命令，进行Docker CE（Community Edition） Docker 社区版的下载</p>
+<p>Debian&#x2F;Ubuntu&#x2F;Raspbian 用户</p>
+<p>如果你过去安装过 docker，先删掉：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> pkg <span class="keyword">in</span> docker.io docker-doc docker-compose podman-docker containerd runc; <span class="keyword">do</span> apt-get remove <span class="variable">$pkg</span>; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>首先安装依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install ca-certificates curl gnupg</span><br></pre></td></tr></table></figure>
+
+<p>信任 Docker 的 GPG 公钥并添加仓库：</p>
+<p>发行版Debian</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">install -m 0755 -d /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line">sudo <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.gpg</span><br><span class="line"><span class="built_in">echo</span> \</span><br><span class="line">  <span class="string">&quot;deb [arch=<span class="subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.gpg] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian \</span></span><br><span class="line"><span class="string">  &quot;</span>$(. /etc/os-release &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$VERSION_CODENAME</span>&quot;</span>)<span class="string">&quot; stable&quot;</span> | \</span><br><span class="line">  <span class="built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br></pre></td></tr></table></figure>
+
+<p>最后安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-Compose下载"><a href="#Docker-Compose下载" class="headerlink" title="Docker-Compose下载"></a>Docker-Compose下载</h2><p>在安装完 Docker CE 后，你可以通过 <code>apt</code> 包管理器安装 <code>docker-compose</code>。以下是步骤：</p>
+<ol>
+<li><p><strong>更新APT包索引</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**安装<code>docker-compose</code>**：<br>你可以直接通过 <code>apt</code> 安装 <code>docker-compose</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install docker-compose</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>验证安装</strong>：<br>安装完成后，你可以通过以下命令验证是否安装成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
+
+<p>如果显示版本信息，则表示安装成功。</p>
+</li>
+</ol>
+<h2 id="配置代理"><a href="#配置代理" class="headerlink" title="配置代理"></a>配置代理</h2><p>参考链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.cnblogs.com/Chary/p/18096678">如何优雅的给 Docker 配置网络代理 - CharyGao - 博客园 (cnblogs.com)</a></p>
+<p>总的来说就是去docker的配置的文件中去加入配置代理的代码，比较麻烦的在于每个系统，它代理文件的位置啊，名字啊都有些许不同，需要自己找到常用的docker文件位置，然后自己排查，找到自己这个系统的docker配置文件位于哪里</p>
+<p>下面以Debian系统为例，演示配置代理过程</p>
+<p>找到<code>/etc/systemd/system/docker.service.d/proxy.conf</code>文件，如果没有的话运行下面的命令进行创建</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> -p /etc/systemd/system/docker.service.d</span><br><span class="line">sudo <span class="built_in">touch</span> /etc/systemd/system/docker.service.d/proxy.conf</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=<span class="string">&quot;HTTP_PROXY=http://127.0.0.1:7890/&quot;</span></span><br><span class="line">Environment=<span class="string">&quot;HTTPS_PROXY=http://127.0.0.1:7890/&quot;</span></span><br><span class="line">Environment=<span class="string">&quot;NO_PROXY=localhost,127.0.0.1&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="BUG-1"><a href="#BUG-1" class="headerlink" title="BUG"></a>BUG</h2><h3 id="下载docke时报错Problem-cannot-install-the-best-candidate-for-the-job"><a href="#下载docke时报错Problem-cannot-install-the-best-candidate-for-the-job" class="headerlink" title="下载docke时报错Problem: cannot install the best candidate for the job"></a>下载docke时报错<code>Problem: cannot install the best candidate for the job</code></h3><p><strong>原因</strong>：</p>
+<p>由于服务器使用的是腾讯云自家的系统，所以存在版本不适配的问题，下载工具<code>yum</code>找不到对应的</p>
+<p><strong>解决方法：</strong></p>
+<p>目前我的解决方法是直接换系统</p>
+<h3 id="docker拉镜像的时候没有走代理"><a href="#docker拉镜像的时候没有走代理" class="headerlink" title="docker拉镜像的时候没有走代理"></a>docker拉镜像的时候没有走代理</h3><p>docker需要单独配置代理，单单使用<code>export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890</code>是无法指定docker走代理的，具体配置代理流程见上面的笔记</p>
+<h3 id="宝塔下载问题"><a href="#宝塔下载问题" class="headerlink" title="宝塔下载问题"></a>宝塔下载问题</h3><p>不要通过宝塔面板去下载docker，因为宝塔下载的docker，最后是不知道配置文件在什么位置的</p>
+<h1 id="JAVA的Docker部署方法（⚠️）"><a href="#JAVA的Docker部署方法（⚠️）" class="headerlink" title="JAVA的Docker部署方法（⚠️）"></a>JAVA的Docker部署方法（⚠️）</h1><p>stargazer- docker-compose-app.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">stargazer-backend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">tecnb/stargazer-backend</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">stargazer-backend</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8080:8080&quot;</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">db</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">app-network</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">app-network:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>stargazer-docker-compose-env.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">db:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mysql:8.1</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">mysql-db</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3306:3306&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">MYSQL_ROOT_PASSWORD:</span> <span class="string">your_password</span></span><br><span class="line">      <span class="attr">MYSQL_DATABASE:</span> <span class="string">your_db_name</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mysql_data:/var/lib/mysql</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">app-network</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">app-network:</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">bridge</span></span><br></pre></td></tr></table></figure>
+
+<p>经过超的开导，决定还是使用单个compose文件的方式并且规定命名为<code>docker-compose.yml</code>，因为只有固定的几个名字，比如<code>docker-compose.yml, docker-compose.yaml, compose.yml, compose.yaml</code>，可以直接<code>docker compose up</code>，而不用通过<code>-f</code>加上对应的配置的文件名，这样更方便快速</p>
+<p>docker-compose.yml</p>
+<p>之前还有一个BUG就是，只有项目内使用外网公开的路径<code>jdbc:mysql://101.43.00.000:9090</code>才可以访问到数据库，而使用本地的<code>jdbc:mysql://localhost:3306</code>却访问不到，</p>
+<p>后面使用healthcheck+depends_on内加上condition后才可以解决这个问题，现在觉得的可能是mysql没有完全加载好，就去访问mysql所以报错，</p>
+<p>但是这样的话为什么外网又能访问到呢，所以现在我怀疑实际上是第一次进行加载的时候用的<code>jdbc:mysql://localhost:3306</code>，这个时候sql还在初始化，所以无论是用外网还是localhost这个时候都是访问不到的，</p>
+<p>那么当第一次初始化完成后，再去启动就都可以进行访问了</p>
+<p>不过上面的逻辑是有问题的，因为超去启动的时候，启动多次容器还是localhost不行，而外网是可以的</p>
+<p>感觉也没有完全弄懂这个问题，后面再去想想看</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">mysql:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mysql:8</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">stargazer-mysql</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3306:3306&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">MYSQL_ROOT_PASSWORD:</span> <span class="string">xxxxxx</span></span><br><span class="line">      <span class="attr">MYSQL_DATABASE:</span> <span class="string">stargazer</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data/mysql:/var/lib/mysql</span>       <span class="comment"># 本地数据持久化目录</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./sql:/docker-entrypoint-initdb.d</span> <span class="comment"># SQL 文件目录</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">app-network</span></span><br><span class="line">    <span class="attr">healthcheck:</span></span><br><span class="line">      <span class="attr">test:</span> [<span class="string">&quot;CMD&quot;</span>, <span class="string">&quot;mysqladmin&quot;</span>, <span class="string">&quot;ping&quot;</span>, <span class="string">&quot;-h&quot;</span>, <span class="string">&quot;localhost&quot;</span>, <span class="string">&quot;-u&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;-pxxxxx&quot;</span>]</span><br><span class="line">      <span class="attr">interval:</span> <span class="string">30s</span></span><br><span class="line">      <span class="attr">timeout:</span> <span class="string">10s</span></span><br><span class="line">      <span class="attr">retries:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">start_period:</span> <span class="string">30s</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">stargazer-backend:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">tecnb/stargazer-backend:remote</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">stargazer-backend</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8080:8080&quot;</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="attr">mysql:</span></span><br><span class="line">        <span class="attr">condition:</span> <span class="string">service_healthy</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">app-network</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">app-network:</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">bridge</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="服务器防火墙的使用"><a href="#服务器防火墙的使用" class="headerlink" title="服务器防火墙的使用"></a>服务器防火墙的使用</h1><p>有挺多种方式的，这里重点介绍两种，<code>firewalld</code>以及<code>iptables</code></p>
+<p><strong>firewalld</strong> <strong>是基于</strong> <strong>iptables</strong> <strong>的抽象层</strong>：当你使用 firewalld 时，它实际上在后台生成并管理 iptables 规则。firewalld 提供了一个更高级的接口来管理这些规则，旨在简化防火墙配置。</p>
+<h2 id="firewalld使用"><a href="#firewalld使用" class="headerlink" title="firewalld使用"></a>firewalld使用</h2><p>(1)查看防火墙状态</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --state </span><br></pre></td></tr></table></figure>
+
+<p>如果返回的是 “not running”，那么需要先开启防火墙；</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start firewalld.service</span><br></pre></td></tr></table></figure>
+
+<p>(2)开启指定端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-port=9000/tcp --permanent</span><br></pre></td></tr></table></figure>
+
+<p>显示 success 表示成功</p>
+<p> <strong>参数解释：</strong></p>
+<p>–zone&#x3D;public 表示作用域为公共的</p>
+<p>–add-port&#x3D;443&#x2F;tcp 添加 tcp 协议的端口端口号为 443</p>
+<p>–permanent 永久生效，如果没有此参数，则只能维持当前 服 务生命周期内，重新启动后失效；</p>
+<p>(3)重启防火墙</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart firewalld.service</span><br></pre></td></tr></table></figure>
+
+<p>系统没有任何提示表示成功！ </p>
+<p>(4)重新加载防火墙</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<p>显示 success 表示成功</p>
+<p>这时候就可以访问到服务器的9000端口了</p>
+<h2 id="iptables使用"><a href="#iptables使用" class="headerlink" title="iptables使用"></a>iptables使用</h2><p>使用 <code>iptables</code> 增加规则可以通过命令行进行，通常会涉及到指定链（如 <code>INPUT</code>、<code>OUTPUT</code> 或 <code>FORWARD</code>），以及你希望应用的规则（如端口、协议、源地址、目标地址等）。下面是一些常见的 <code>iptables</code> 规则添加示例：</p>
+<ol>
+<li>添加允许特定端口的入站规则</li>
+</ol>
+<p>假设你想允许 TCP 端口 80（HTTP）的入站流量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>添加拒绝特定IP地址的入站流量</li>
+</ol>
+<p>假设你想拒绝来自特定IP地址 <code>192.168.1.100</code> 的所有入站流量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -A INPUT -s 192.168.1.100 -j DROP</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>添加允许特定端口的出站规则</li>
+</ol>
+<p>假设你想允许 TCP 端口 443（HTTPS）的出站流量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -A OUTPUT -p tcp --dport 443 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>添加特定接口的规则</li>
+</ol>
+<p>假设你想允许通过 <code>eth0</code> 接口的所有 SSH（端口22）流量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>保存规则</li>
+</ol>
+<p>添加规则后，为了确保在系统重启后规则仍然有效，你需要保存这些规则。保存方法根据不同的Linux发行版有所不同：</p>
+<ul>
+<li><p><strong>在 Debian&#x2F;Ubuntu 上：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install iptables-persistent</span><br><span class="line">sudo netfilter-persistent save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>在 CentOS&#x2F;RHEL 上：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service iptables save</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="6">
+<li>查看规则</li>
+</ol>
+<p>添加完规则后，可以通过以下命令查看现有的规则：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -L -v -n</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>删除规则</li>
+</ol>
+<p>如果你需要删除一条规则，首先需要找到规则的编号，然后删除它：</p>
+<ul>
+<li><p><strong>查看规则编号：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -L INPUT --line-numbers</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>删除规则：</strong></p>
+<p>假设你想删除规则编号为 <code>3</code> 的规则：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -D INPUT 3</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>通过这些命令，你可以有效地管理 <code>iptables</code> 防火墙的规则，增加、删除或查看现有的规则配置。</p>
+<h1 id="MP-和-JPA-的选择"><a href="#MP-和-JPA-的选择" class="headerlink" title="MP 和 JPA 的选择"></a>MP 和 JPA 的选择</h1><p>JPA提供的API足够多，在简单的CURD上确实是要方便点，</p>
+<p>毕竟直接就提供了根据对应的属性去查找数据的API，而且还有@ManytoOne对外键支持更好，但是在动态SQL中的支持并没有MP好，</p>
+<p>而且后续的优化肯定是直接SQL，没有抽象层的性能更好，最后国内MP用得更多些，不过简单的项目还是JPA方便的多</p>
+<h1 id="MP开启SQL日志打印"><a href="#MP开启SQL日志打印" class="headerlink" title="MP开启SQL日志打印"></a>MP开启SQL日志打印</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mybatis-plus:</span></span><br><span class="line">  <span class="attr">configuration:</span></span><br><span class="line">    <span class="attr">log-impl:</span> <span class="string">org.apache.ibatis.logging.stdout.StdOutImpl</span> <span class="comment">#开启sql日志</span></span><br><span class="line">    <span class="attr">map-underscore-to-camel-case:</span> <span class="literal">true</span> <span class="comment">#开启自动驼峰命名规则（camel case）映射</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="ApiPost-中-form-data-下传递数组参数"><a href="#ApiPost-中-form-data-下传递数组参数" class="headerlink" title="ApiPost 中 form-data 下传递数组参数"></a>ApiPost 中 form-data 下传递数组参数</h1><p>可以直接在参数名中使用一个<code>diaryImages</code>，参数值用<code>,</code>隔开就行:<code>1,2,3</code></p>
+<p>参数名中使用多个<code>diaryImages</code>，参数值正常写就行:<code>1</code> ，<code>2</code>， <code>3</code></p>
+<h1 id="ModelAttribute与-RequestBody"><a href="#ModelAttribute与-RequestBody" class="headerlink" title="@ModelAttribute与@RequestBody"></a>@ModelAttribute与@RequestBody</h1><p>参考链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/qq_42684642/article/details/83058211">【笔记】SpringMVC中@ModelAttribute与@RequestBody的区别-CSDN博客</a></p>
+<p>@ModelAttribute注解的实体类接收前端发来的数据格式需要为”x-www-form-urlencoded”（formdata也能正确接收），@RequestBody注解的实体类接收前端的数据格式为JSON(application&#x2F;json)格式</p>
+<h1 id="restAPI的最佳实践"><a href="#restAPI的最佳实践" class="headerlink" title="restAPI的最佳实践"></a>restAPI的最佳实践</h1><p>之前本来一直用的rawjson，因为之前跟着教程是这样的，但是后面竞赛的时候超说formdata格式更好，于是这次开写的时候就一直是用的这种格式，实际上rawjson更加的标准，也更灵活自由，formdata 遇到数组对象时是无法传递的</p>
+<p><strong>下面的内容总结为：</strong></p>
+<ol>
+<li><strong>DELETE</strong>使用**@PathVariable**</li>
+<li><strong>GET</strong> <strong>使用</strong> <strong>@RequestParam</strong> <strong>和</strong> <strong>@PathVariable</strong><ol>
+<li>@RequestParam 处理查询参数</li>
+<li>使用 @PathVariable 处理路径参数</li>
+</ol>
+</li>
+<li><strong>POST</strong>、<strong>PUT</strong>使用@RequestBody，用于让JSON作为统一的传递格式</li>
+</ol>
+<p><strong>RESTful API 设计中的最佳实践与常见问题总结</strong></p>
+<p><strong>1. GET 请求中的参数传递：</strong></p>
+<p>​	•	<strong>推荐使用</strong> <strong>@RequestParam</strong> <strong>和</strong> <strong>@PathVariable</strong>：</p>
+<p>​	•	在 GET 请求中，参数通常通过 URL 传递，使用 @RequestParam 处理查询参数，使用 @PathVariable 处理路径参数。</p>
+<p>​	•	例如：GET &#x2F;users&#x2F;{userId} 使用 @PathVariable 获取 userId，GET &#x2F;search?name&#x3D;John&amp;age&#x3D;30 使用 @RequestParam 处理查询参数。</p>
+<p>​	•	<strong>不推荐使用</strong> <strong>@RequestBody</strong>：</p>
+<p>​	•	GET 请求的设计目的在于检索资源，并且是幂等的（多次请求结果应相同）。使用请求体传递数据不符合 RESTful 原则，也可能导致缓存、调试困难等问题。</p>
+<p>​	•	查询参数和路径参数在 URL 中是可见的，支持缓存和书签功能。</p>
+<p>​	•	<strong>复杂查询场景</strong>：</p>
+<p>​	•	对于复杂查询，考虑使用 POST 请求并通过 @RequestBody 传递 JSON 数据，这样可以在请求体中包含复杂的查询条件。</p>
+<p>​	•	尽管这种做法在严格的 RESTful 语义下不完全合适，但在实际应用中是可以接受的。</p>
+<p><strong>2. DELETE 请求中的参数传递：</strong></p>
+<p>​	•	<strong>推荐使用</strong> <strong>@PathVariable</strong>：</p>
+<p>​	•	DELETE 请求通常用于删除特定资源，使用 @PathVariable 通过路径参数指定要删除的资源。</p>
+<p>​	•	例如：DELETE &#x2F;users&#x2F;{userId} 使用路径参数删除特定用户。</p>
+<p>​	•	<strong>特殊场景下使用</strong> <strong>@RequestBody</strong>：</p>
+<p>​	•	在批量删除或删除需要复杂条件时，可以通过 @RequestBody 传递 JSON 数据。例如，传递一组 ID 来执行批量删除操作。</p>
+<p>​	•	这种情况下，可以通过 POST 或者其他方式来设计 API，避免在 DELETE 中使用请求体。</p>
+<p><strong>3. RESTful API 设计的整体原则：</strong></p>
+<p>​	•	<strong>一致性</strong>：</p>
+<p>​	•	设计 API 时，尽量保持参数传递方式的一致性。例如，若要求所有数据传输使用 JSON 格式，那么应在所有请求中保持一致，避免混用 @RequestParam 和 @RequestBody。</p>
+<p>​	•	在 POST 请求中，推荐使用 @RequestBody 传递 JSON 数据，在 GET 请求中使用查询参数或路径参数。</p>
+<p>​	•	<strong>语义清晰</strong>：</p>
+<p>​	•	路径参数通常用于标识资源和表示资源层次关系，查询参数用于过滤、排序、分页等操作。路径参数适合标识唯一资源，而查询参数适合可选条件。</p>
+<p>​	•	<strong>易于使用</strong>：</p>
+<p>​	•	API 设计应尽量简洁直观，参数传递方式应符合使用习惯。例如，使用 GET &#x2F;users&#x2F;{userId} 获取用户信息，而不是通过查询参数或请求体。</p>
+<p>​	•	<strong>可维护性</strong>：</p>
+<p>​	•	通过清晰的路径设计和一致的数据传递方式，提升 API 的可读性和维护性，减少客户端和服务端的潜在错误和混淆。</p>
+<h1 id="BUG-2"><a href="#BUG-2" class="headerlink" title="BUG"></a>BUG</h1><h2 id="Springboot3整合MP报错"><a href="#Springboot3整合MP报错" class="headerlink" title="Springboot3整合MP报错"></a>Springboot3整合MP报错</h2><p>参考文章：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/weixin_46211609/article/details/135552632">Springboot3整合myBatisplus报错：Bean named ‘ddlApplicationRunner‘ is expected to be of type ‘org.sprin_bean named ‘ddlapplicationrunner’ is expected to b-CSDN博客</a></p>
+<p>初始化后直接点击启动时报错</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Bean named <span class="string">&#x27;ddlApplicationRunner&#x27;</span> is expected to be of <span class="built_in">type</span> <span class="string">&#x27;org.springframework.boot.Runner&#x27;</span> but was actually of <span class="built_in">type</span> <span class="string">&#x27;org.springframework.beans.factory.support.NullBean&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="无法访问端口的问题（腾讯云放行端口与防火墙放行端口的关系）"><a href="#无法访问端口的问题（腾讯云放行端口与防火墙放行端口的关系）" class="headerlink" title="无法访问端口的问题（腾讯云放行端口与防火墙放行端口的关系）"></a>无法访问端口的问题（腾讯云放行端口与防火墙放行端口的关系）</h2><p>腾讯云面板的防火墙是针对外网对于服务器的访问的，内部则其实是通过<code>iptables</code>或者<code>firewalld</code>来进行访问的静止，实际上会先经过腾讯云面板的网关防火墙，然后再进入内部的防火墙</p>
+<p>所以即使内部的防火墙全是关着的，网关的腾讯云端口不放行就访问不了</p>
+<p>遇到非阿里家或者腾讯家的自搭类服务器就可以直接通过防火墙放行端口的方式进行访问</p>
+<h2 id="TableId-value-x3D-“user-id”-type-x3D-IdType-AUTO-无效的问题"><a href="#TableId-value-x3D-“user-id”-type-x3D-IdType-AUTO-无效的问题" class="headerlink" title="@TableId(value &#x3D; “user_id”, type &#x3D; IdType.AUTO)无效的问题"></a>@TableId(value &#x3D; “user_id”, type &#x3D; IdType.AUTO)无效的问题</h2><p>参考链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://baomidou.com/guides/id-generator/">自定义ID生成器 | MyBatis-Plus (baomidou.com)</a></p>
+<p><code>type = IdType.AUTO</code>只有当数据库设置为自增后才能有效</p>
+<p>当需要为String类型自增时需要改为：<code>type = IdType.ASSIGN_UUID</code></p>
+<p>不过说来也是蛮离谱的明明都AUTO了，为什么不能自动切换为<code>ASSIGN_UUID</code></p>
+<p>下面为自定义的方法，如果对生成的ID有要求可以用这个：</p>
+<p>这里了解的教训还是从官网学习怎么写，不要单独看gpt的，gpt出来的问题还是挺大的，官网的才是最好的学习方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.tec.stargazerbackend.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomIdGenerator</span> <span class="keyword">implements</span> <span class="title class_">IdentifierGenerator</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Long <span class="title function_">nextId</span><span class="params">(Object entity)</span> &#123;</span><br><span class="line">        <span class="comment">// 不使用，返回 null</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">nextUUID</span><span class="params">(Object entity)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">characters</span> <span class="operator">=</span> <span class="string">&quot;abcdefghijklmnopqrstuvwxyz0123456789&quot;</span>;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">objectId</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="type">Random</span> <span class="variable">random</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">24</span>; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">randomIndex</span> <span class="operator">=</span> random.nextInt(characters.length());</span><br><span class="line">            objectId.append(characters.charAt(randomIndex));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> objectId.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="docker中修改了MYSQL-ROOT-PASSWORD后重新重启没有生效"><a href="#docker中修改了MYSQL-ROOT-PASSWORD后重新重启没有生效" class="headerlink" title="docker中修改了MYSQL_ROOT_PASSWORD后重新重启没有生效"></a>docker中修改了MYSQL_ROOT_PASSWORD后重新重启没有生效</h2><p>因为在 volumes 中挂载了本地数据目录 (.&#x2F;data&#x2F;mysql:&#x2F;var&#x2F;lib&#x2F;mysql)。这意味着即使你删除并重新创建容器，MySQL 仍然会使用持久化的数据，不会重新初始化密码。</p>
+<h2 id="docker-compose-up没有重新拉取镜像"><a href="#docker-compose-up没有重新拉取镜像" class="headerlink" title="docker-compose up没有重新拉取镜像"></a>docker-compose up没有重新拉取镜像</h2><p>在使用 docker-compose up 时，如果 Docker Compose 发现镜像已经存在，它不会自动重新拉取镜像。这是因为 docker-compose up 默认只会启动已经存在的镜像，而不是检查镜像是否有更新版本。如果需要确保 Docker Compose 每次都拉取最新版本的镜像，可以使用以下方法：</p>
+<p><strong>使用 docker-compose pull</strong></p>
+<p>在执行 docker-compose up 之前，先手动拉取最新的镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose pull</span><br><span class="line">docker-compose up</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Gradle-Downloading-gradle-8-5-bin-zip-速度过慢"><a href="#Gradle-Downloading-gradle-8-5-bin-zip-速度过慢" class="headerlink" title="Gradle: Downloading gradle-8.5-bin.zip 速度过慢"></a>Gradle: Downloading gradle-8.5-bin.zip 速度过慢</h2><p>参考链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/qq_41070393/article/details/141060782">国内下载gradle慢，下载gradle超时问题解决【笔记】_gradle下载超时-CSDN博客</a></p>
+<p>在 IDEA 中下载 Gradle 分发包时，如果速度较慢，可以尝试以下方法来加快下载速度：</p>
+<p><strong>使用国内镜像</strong>：<br>你可以将 Gradle 的下载源切换为国内镜像，以提高下载速度。具体操作如下：</p>
+<ul>
+<li>打开 IDEA 项目下的 <code>gradle/wrapper/gradle-wrapper.properties</code> 文件。</li>
+<li>修改 <code>distributionUrl</code> 为国内镜像。例如：<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">distributionUrl</span>=<span class="string">https\://services.gradle.org/distributions/gradle-8.5-bin.zip</span></span><br></pre></td></tr></table></figure>
+可以修改为腾讯云的镜像源：<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">distributionUrl</span>=<span class="string">https\://mirrors.cloud.tencent.com/gradle/gradle-8.5-bin.zip</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="错误3780：引用列和外键约束中引用的列不兼容"><a href="#错误3780：引用列和外键约束中引用的列不兼容" class="headerlink" title="错误3780：引用列和外键约束中引用的列不兼容"></a>错误3780：引用列和外键约束中引用的列不兼容</h2><p>参考链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://stackoverflow.com/questions/69960902/error-3780-referencing-column-and-referenced-column-in-foreign-key-constraint-a">mysql - 错误 3780：引用列和外键约束中引用的列不兼容 - 堆栈溢出 (stackoverflow.com)</a></p>
+<p>完整报错：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3780 - Referencing column <span class="string">&#x27;diary_id&#x27;</span> and referenced column <span class="string">&#x27;diary_id&#x27;</span> <span class="keyword">in</span> foreign key constraint <span class="string">&#x27;diary_images_ibfk_1&#x27;</span> are incompatible.</span><br></pre></td></tr></table></figure>
+
+<p>原因：</p>
+<p>两个属性之间肯定存在一处不一样，可能是<strong>数据类型不匹配</strong>、<strong>字符集或排序规则不匹配</strong>、<strong>长度不一致</strong></p>
+<p>解决过程：</p>
+<p>去 Navicat Premium Lite 中的<code>选项</code>修改了<code>默认排序规则</code>，以及检查了两个属性是否还有不同，发现确实没有了，但是还是报错</p>
+<p>解决方法：</p>
+<p>通过下面的命令去查看<code>默认排序规则</code>，发现实际上改了 Navicat Premium Lite 中的并没有用，实际上属性的<code>默认排序规则</code>还是没有被改，于是接着采用下面的命令去修改</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">FULL</span> COLUMNS <span class="keyword">FROM</span> diary_images;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> diary_images MODIFY diary_id <span class="type">VARCHAR</span>(<span class="number">255</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_0900_bin;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> diary_images MODIFY image_url <span class="type">VARCHAR</span>(<span class="number">255</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_0900_bin;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="外键设置的排查问题（‼️）"><a href="#外键设置的排查问题（‼️）" class="headerlink" title="外键设置的排查问题（‼️）"></a>外键设置的排查问题（‼️）</h2><p>好好排查，明天早上所有的时间都可以给到这块，问题实在太大了，这么小的一个错误绕了老大一圈，才找到，花了将近4个小时，好好整理下思路，看看自己在排查bug这块到底是哪里这么欠缺</p>
+<p>问题原因：</p>
+<p>@Many所使用的方法<code>selectDiaryImagesByDiaryId</code>中的参数<code>diaryId</code>，应该为<code>String</code>而不是<code>Long</code></p>
+<p>解决过程：</p>
+<ol>
+<li><p>一开始设置外键时，本来准备用@ManytoOne，结果发现这个其实是JPA的注解，后面查找发现MP本身并不支持直接创建好外键，于是一开始的方案是准备转JPA了，后面去搜索了下，结论见 <code>  MP 和 JPA 的选择</code>笔记，最后还是接着走MP</p>
+</li>
+<li><p>那么走MP之后，面临两个设置外键多表查询的方式：1、在 Service 层通过 MyBatis-Plus 提供的方法进行两次查询，然后手动组装数据的方式，2、在 <code>DiaryMapper</code> 中直接操作，最后的选择见<code>多对一外键查询</code>笔记</p>
+</li>
+<li><p>决定使用在 <code>DiaryMapper</code> 中直接操作，首先是用gpt给我先简单生成了一份，代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Select(&quot;SELECT * FROM diaries d LEFT JOIN diary_images i ON d.diary_id = i.diary_id WHERE d.user_id = #&#123;userId&#125;&quot;)</span></span><br><span class="line">    <span class="meta">@Results(&#123;</span></span><br><span class="line"><span class="meta">            @Result(column = &quot;diary_id&quot;, property = &quot;diaryId&quot;),</span></span><br><span class="line"><span class="meta">            @Result(column = &quot;content&quot;, property = &quot;content&quot;),</span></span><br><span class="line"><span class="meta">            @Result(column = &quot;diary_id&quot;, property = &quot;images&quot;,</span></span><br><span class="line"><span class="meta">                    many = @Many(select = &quot;selectDiaryImagesByDiaryId&quot;))</span></span><br><span class="line"><span class="meta">    &#125;)</span></span><br><span class="line">    List&lt;Diaries&gt; <span class="title function_">selectDiariesWithImagesByUserId</span><span class="params">(String userId)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>运行后出现报错</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;status&quot;</span>: 999,</span><br><span class="line">	<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Error attempting to get column &#x27;diary_id&#x27; from result set.  Cause: java.sql.SQLDataException: Cannot determine value type from string &#x27;h5i6j7k8l9m0n1o2pdas&#x27;\n; Cannot determine value type from string &#x27;h5i6j7k8l9m0n1o2pdas&#x27;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还是直接丢gpt，然后由于没有给全代码，所以给我的答案也只有<strong>数据类型不匹配</strong>的问题，但是实体类和数据库数据类型的是完全没有问题的，这里我直接宕机了，开始疯狂纠结这个问题，后面又去询问，又推测是返回值和<code>@Result</code>没有对齐的问题，然后又直接拿gpt的回答代码，例如，下面的代码，导致又出现<code>Unknown column &#39;d.typeTag&#39; in &#39;field list&#39;\</code>等低级的报错浪费时间去看</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Select(&quot;SELECT d.diary_id as d_diary_id, d.user_id, d.content, d.visibility, d.typeTag, d.createdAt, i.image_url &quot; +</span></span><br><span class="line"><span class="meta">        &quot;FROM diaries d LEFT JOIN diary_images i ON d.diary_id = i.diary_id &quot; +</span></span><br><span class="line"><span class="meta">        &quot;WHERE d.user_id = #&#123;userId&#125;&quot;)</span></span><br><span class="line"><span class="meta">@Results(&#123;</span></span><br><span class="line"><span class="meta">    @Result(column = &quot;d_diary_id&quot;, property = &quot;diaryId&quot;),</span></span><br><span class="line"><span class="meta">    @Result(column = &quot;user_id&quot;, property = &quot;userId&quot;),</span></span><br><span class="line"><span class="meta">    @Result(column = &quot;content&quot;, property = &quot;content&quot;),</span></span><br><span class="line"><span class="meta">    @Result(column = &quot;visibility&quot;, property = &quot;visibility&quot;),</span></span><br><span class="line"><span class="meta">    @Result(column = &quot;typeTag&quot;, property = &quot;typeTag&quot;),</span></span><br><span class="line"><span class="meta">    @Result(column = &quot;createdAt&quot;, property = &quot;createdAt&quot;),</span></span><br><span class="line"><span class="meta">    @Result(column = &quot;d_diary_id&quot;, property = &quot;diaryImages&quot;,</span></span><br><span class="line"><span class="meta">            many = @Many(select = &quot;selectDiaryImagesByDiaryId&quot;))</span></span><br><span class="line"><span class="meta">&#125;)</span></span><br><span class="line">List&lt;Diaries&gt; <span class="title function_">selectDiariesWithImagesByUserId</span><span class="params">(String userId)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>后面去重新看了下SQL语句，发现原本的没什么问题，于是回到了原来的<code>SELECT *</code></p>
+</li>
+<li><p>后面针对这个报错第三点的报错，先怀疑是不是UUID的格式问题，不过觉得格式是varchar，有没有指定什么UUID格式，怎么可能，根据gpt的引导又怀疑是重复的<code>diary_id</code>的问题，于是改为<code>d.diary_id</code>，这个时候不再报之前的错误，并且有数据返回了，只不过是<code>diaryImages</code>内为null，于是觉得进度是往前推进了的，之前的错误解决了，殊不知伏笔已经埋下</p>
+</li>
+<li><p>于是又开始思考<code>@Result(column = &quot;d_diary_id&quot;, property = &quot;diaryImages&quot;,many = @Many(select = &quot;selectDiaryImagesByDiaryId&quot;))</code>语句的问题，毕竟只有这个语句和<code>diaryImages</code>相关，先是怀疑<code>selectDiaryImagesByDiaryId</code>是不是需要写全路径，后面补全后，还是一样的为null，不过觉得这一步还是有必要的于是保留下来了，但是因为没有直接跳转，所以还是不确定是否进入到这个方法中，决定用断点调试的方法，结果发现确实没有进入到方法（不过后面发现就算正确了，好像断点就是不会进入到这里，这点还是不知道为什么），于是又开始纠结，后面通过打开SQL语句打印输出，确定绝对是没有进行这个方法，后面带着SQL日志找gpt又问，回答是可能<code>d_diary_id</code>值不正确导致无法进入这个方法</p>
+</li>
+<li><p>接着就是最精彩的，疯狂换<code>d_diary_id</code>了，先是换名称为<code>d.diary_id</code>，后面又换成<code>i_diary_id</code>，疯狂纠结，后面机缘巧合，把位置对换了，使用<code>@Result(column = &quot;d_diary_id&quot;, property = &quot;diaryId&quot;),</code>发现本来有的<code>diaryId</code>变为null了，又对换试了好几次，终于给我看出来了，<code>d_diary_id</code>就是不存在的，只有<code>diary_id</code>是有值的，但是这时候实际上知道了，还是卡住了，因为我现在知道之前的是重复的<code>diary_id</code>的猜测是错误的，但是这不是又回到起点了吗</p>
+</li>
+<li><p>这次盯着之前的报错，终于啊终于发觉了，<code>diary_id</code>不只是在实体类中用到，<code>selectDiaryImagesByDiaryId</code>中也是用到了的，把<code>diaryId</code>从<code>Long</code>改为<code>String</code>，终于解决了，啊啊啊啊啊啊啊啊啊啊啊啊啊，现在再回来思考，为什么把<code>diary_id</code>改为<code>d_diary_id</code>后就不报错了，因为<code>d_diary_id</code>为null啊，所以就不存在无法正确转化类型的问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">DiaryImagesMapper</span> <span class="keyword">extends</span> <span class="title class_">BaseMapper</span>&lt;DiaryImages&gt; &#123;</span><br><span class="line">    <span class="meta">@Select(&quot;SELECT * FROM diary_images WHERE diary_id = #&#123;diaryId&#125;&quot;)</span></span><br><span class="line">    List&lt;DiaryImages&gt; <span class="title function_">selectDiaryImagesByDiaryId</span><span class="params">(String diaryId)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还有高手！！！，BUG奇妙冒险还没结束，最后发现上面全是白写，为什么呢，因为之前选择mapper去写这个逻辑的原因是因为考虑到<code>LEFT JOIN</code>，可以减少查询次数，结果发现在一对多的连表中，<code>LEFT JOIN</code>会将 diaries 表和 diary_images 表的数据进行联接。<code>LEFT JOIN</code> 会扫描两个表的数据，并将结果集返回给应用层，可能会返回比单纯查询 diaries 表更多的数据行，在一对多的场景下，会返回大量重复的数据，虽然减少了 MP 需要发出的额外查询次数，但却可能导致 MP 处理更大的结果集</p>
+</li>
+<li><p>最后把<code>LEFT JOIN</code>给删除了，然后一看代码，woc这不就是直接在Service 层手动组装吗，之前用的老办法就是这个，这下终于老实了🥲</p>
+</li>
+</ol>
+<h2 id="断点不停的问题"><a href="#断点不停的问题" class="headerlink" title="断点不停的问题"></a>断点不停的问题</h2><p>断点不是哪都能停点的，断点一般用于调试Main Thread里的代码，如果是线程里或者是反射的代码断点就不合适了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Select(&quot;SELECT * FROM diaries d LEFT JOIN diary_images i ON d.diary_id = i.diary_id WHERE d.user_id = #&#123;userId&#125;&quot;)</span></span><br><span class="line">    <span class="meta">@Results(&#123;</span></span><br><span class="line"><span class="meta">            @Result(column = &quot;diary_id&quot;, property = &quot;diaryId&quot;, javaType = String.class),</span></span><br><span class="line"><span class="meta">            @Result(column = &quot;content&quot;, property = &quot;content&quot;),</span></span><br><span class="line"><span class="meta">            @Result(column = &quot;diary_id&quot;, property = &quot;diaryImages&quot;,</span></span><br><span class="line"><span class="meta">                    javaType = List.class,</span></span><br><span class="line"><span class="meta">                    many = @Many(select = &quot;com.tec.stargazerbackend.mapper.DiaryImagesMapper.selectDiaryImagesByDiaryId&quot;))</span></span><br><span class="line"><span class="meta">    &#125;)</span></span><br><span class="line">    List&lt;Diaries&gt; <span class="title function_">selectDiariesWithImagesByUserId</span><span class="params">(String userId)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">DiaryImagesMapper</span> <span class="keyword">extends</span> <span class="title class_">BaseMapper</span>&lt;DiaryImages&gt; &#123;</span><br><span class="line">    <span class="meta">@Select(&quot;SELECT * FROM diary_images WHERE diary_id = #&#123;diaryId&#125;&quot;)</span></span><br><span class="line">    List&lt;DiaryImages&gt; <span class="title function_">selectDiaryImagesByDiaryId</span><span class="params">(String diaryId)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="报错：Content-Type-‘multipart-x2F-form-data-boundary-x3D-————————–843173282939659591303139-charset-x3D-UTF-8’-is-not-supported"><a href="#报错：Content-Type-‘multipart-x2F-form-data-boundary-x3D-————————–843173282939659591303139-charset-x3D-UTF-8’-is-not-supported" class="headerlink" title="报错：Content-Type ‘multipart&#x2F;form-data;boundary&#x3D;————————–843173282939659591303139;charset&#x3D;UTF-8’ is not supported"></a>报错：Content-Type ‘multipart&#x2F;form-data;boundary&#x3D;————————–843173282939659591303139;charset&#x3D;UTF-8’ is not supported</h2><p>使用<code>form-data</code>去传递了原本需要使用<code>rawjson</code>格式的参数</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://tecnb.github.io">TEC</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tecnb.github.io/posts/4e261382.html">https://tecnb.github.io/posts/4e261382.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tecnb.github.io" target="_blank">TEC</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/StarGazer%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/36279e9a.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/%E5%AF%B9%E8%AF%9D%E5%BC%8F%E6%99%BA%E8%83%BD%E5%8A%A9%E6%89%8B%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">对话式智能助手项目经验</div></div></a></div><div class="next-post pull-right"><a href="/posts/4e8d76cd.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/wallhaven-2y2ymx_2560x1440.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">竟赛萌芽书意项目经验</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81NzY3OC8zNDE0MQ=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Git%E8%BF%9E%E6%8E%A5%E4%BB%A5%E5%8F%8A%E6%8F%90%E4%BA%A4"><span class="toc-number">1.</span> <span class="toc-text">Git连接以及提交</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JAVA%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">JAVA项目初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pom-xml"><span class="toc-number">2.1.</span> <span class="toc-text">pom.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#application-yml"><span class="toc-number">2.2.</span> <span class="toc-text">application.yml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MP%E7%9A%84%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">2.3.</span> <span class="toc-text">MP的代码生成器使用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%93%8D%E5%BA%94%E7%B1%BB-R"><span class="toc-number">2.4.</span> <span class="toc-text">通用响应类 R</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95"><span class="toc-number">2.5.</span> <span class="toc-text">接口测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C%EF%BC%88%E2%9A%A0%EF%B8%8F%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">参数校验（⚠️）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%96%E9%94%AE%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">外键设置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%96%E9%94%AE%E6%9F%A5%E8%AF%A2"><span class="toc-number">5.</span> <span class="toc-text">多对一外键查询</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%8A%9F%E8%83%BD"><span class="toc-number">6.</span> <span class="toc-text">用户功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E5%8A%A0%E7%9B%90"><span class="toc-number">6.1.</span> <span class="toc-text">密码加盐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E8%BD%AE%E6%8D%A2"><span class="toc-number">6.2.</span> <span class="toc-text">密码轮换</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E5%8A%9F%E8%83%BD"><span class="toc-number">7.</span> <span class="toc-text">匹配功能</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%8A%9F%E8%83%BD"><span class="toc-number">8.</span> <span class="toc-text">聊天室功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Netty-%E4%BD%BF%E7%94%A8"><span class="toc-number">8.1.</span> <span class="toc-text">Netty 使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MinIO-%E4%BD%9C%E4%B8%BAOSS"><span class="toc-number">8.2.</span> <span class="toc-text">MinIO 作为OSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RocketMQ-%E4%BD%9C%E4%B8%BA%E6%95%B0%E6%8D%AE%E7%BC%93%E5%86%B2"><span class="toc-number">8.3.</span> <span class="toc-text">RocketMQ 作为数据缓冲</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">9.</span> <span class="toc-text">创建时间以及更新时间的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8git-clone%E9%80%9F%E5%BA%A6%E5%A4%AA%E6%85%A2"><span class="toc-number">10.</span> <span class="toc-text">服务器git clone速度太慢</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B3%BB%E7%BB%9F%E9%80%89%E6%8B%A9"><span class="toc-number">11.</span> <span class="toc-text">Linux服务器系统选择</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%A9%E7%94%A8Clash%E8%AE%BF%E9%97%AE%E5%A4%96%E7%BD%91"><span class="toc-number">12.</span> <span class="toc-text">Linux服务器利用Clash访问外网</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E9%A1%B9%E7%9B%AE"><span class="toc-number">12.1.</span> <span class="toc-text">下载项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">12.2.</span> <span class="toc-text">启动程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UI%E9%9D%A2%E6%9D%BF"><span class="toc-number">12.3.</span> <span class="toc-text">UI面板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">12.3.1.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BUG"><span class="toc-number">12.3.2.</span> <span class="toc-text">BUG</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%85%A5API-Base-URL%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0%E6%8A%A5%E9%94%99Unauthorized"><span class="toc-number">12.3.2.1.</span> <span class="toc-text">输入API Base URL时，出现报错Unauthorized</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%8D%E6%AC%A1%E5%90%AF%E5%8A%A8%E8%AE%A2%E9%98%85%E4%BA%8B%E6%8A%A5%E9%94%99Failed-connect-to-127-0-0-1-7890"><span class="toc-number">12.3.2.2.</span> <span class="toc-text">再次启动订阅事报错Failed connect to 127.0.0.1:7890</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E6%89%93%E5%BC%80clash%EF%BC%8C%E5%B0%B1%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8D%A1%E9%A1%BF"><span class="toc-number">12.3.2.3.</span> <span class="toc-text">一打开clash，就连接服务器卡顿</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8B%E8%BD%BDDocker%E4%BB%A5%E5%8F%8ADocker-Compose"><span class="toc-number">13.</span> <span class="toc-text">Linux服务器下载Docker以及Docker-Compose</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker%E4%B8%8B%E8%BD%BD"><span class="toc-number">13.1.</span> <span class="toc-text">Docker下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-Compose%E4%B8%8B%E8%BD%BD"><span class="toc-number">13.2.</span> <span class="toc-text">Docker-Compose下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="toc-number">13.3.</span> <span class="toc-text">配置代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BUG-1"><span class="toc-number">13.4.</span> <span class="toc-text">BUG</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDdocke%E6%97%B6%E6%8A%A5%E9%94%99Problem-cannot-install-the-best-candidate-for-the-job"><span class="toc-number">13.4.1.</span> <span class="toc-text">下载docke时报错Problem: cannot install the best candidate for the job</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker%E6%8B%89%E9%95%9C%E5%83%8F%E7%9A%84%E6%97%B6%E5%80%99%E6%B2%A1%E6%9C%89%E8%B5%B0%E4%BB%A3%E7%90%86"><span class="toc-number">13.4.2.</span> <span class="toc-text">docker拉镜像的时候没有走代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9D%E5%A1%94%E4%B8%8B%E8%BD%BD%E9%97%AE%E9%A2%98"><span class="toc-number">13.4.3.</span> <span class="toc-text">宝塔下载问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JAVA%E7%9A%84Docker%E9%83%A8%E7%BD%B2%E6%96%B9%E6%B3%95%EF%BC%88%E2%9A%A0%EF%B8%8F%EF%BC%89"><span class="toc-number">14.</span> <span class="toc-text">JAVA的Docker部署方法（⚠️）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">15.</span> <span class="toc-text">服务器防火墙的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#firewalld%E4%BD%BF%E7%94%A8"><span class="toc-number">15.1.</span> <span class="toc-text">firewalld使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iptables%E4%BD%BF%E7%94%A8"><span class="toc-number">15.2.</span> <span class="toc-text">iptables使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MP-%E5%92%8C-JPA-%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">16.</span> <span class="toc-text">MP 和 JPA 的选择</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MP%E5%BC%80%E5%90%AFSQL%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B0"><span class="toc-number">17.</span> <span class="toc-text">MP开启SQL日志打印</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ApiPost-%E4%B8%AD-form-data-%E4%B8%8B%E4%BC%A0%E9%80%92%E6%95%B0%E7%BB%84%E5%8F%82%E6%95%B0"><span class="toc-number">18.</span> <span class="toc-text">ApiPost 中 form-data 下传递数组参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ModelAttribute%E4%B8%8E-RequestBody"><span class="toc-number">19.</span> <span class="toc-text">@ModelAttribute与@RequestBody</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#restAPI%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">20.</span> <span class="toc-text">restAPI的最佳实践</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BUG-2"><span class="toc-number">21.</span> <span class="toc-text">BUG</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Springboot3%E6%95%B4%E5%90%88MP%E6%8A%A5%E9%94%99"><span class="toc-number">21.1.</span> <span class="toc-text">Springboot3整合MP报错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E7%AB%AF%E5%8F%A3%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88%E8%85%BE%E8%AE%AF%E4%BA%91%E6%94%BE%E8%A1%8C%E7%AB%AF%E5%8F%A3%E4%B8%8E%E9%98%B2%E7%81%AB%E5%A2%99%E6%94%BE%E8%A1%8C%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%89"><span class="toc-number">21.2.</span> <span class="toc-text">无法访问端口的问题（腾讯云放行端口与防火墙放行端口的关系）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TableId-value-x3D-%E2%80%9Cuser-id%E2%80%9D-type-x3D-IdType-AUTO-%E6%97%A0%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">21.3.</span> <span class="toc-text">@TableId(value &#x3D; “user_id”, type &#x3D; IdType.AUTO)无效的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E4%B8%AD%E4%BF%AE%E6%94%B9%E4%BA%86MYSQL-ROOT-PASSWORD%E5%90%8E%E9%87%8D%E6%96%B0%E9%87%8D%E5%90%AF%E6%B2%A1%E6%9C%89%E7%94%9F%E6%95%88"><span class="toc-number">21.4.</span> <span class="toc-text">docker中修改了MYSQL_ROOT_PASSWORD后重新重启没有生效</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-compose-up%E6%B2%A1%E6%9C%89%E9%87%8D%E6%96%B0%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F"><span class="toc-number">21.5.</span> <span class="toc-text">docker-compose up没有重新拉取镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gradle-Downloading-gradle-8-5-bin-zip-%E9%80%9F%E5%BA%A6%E8%BF%87%E6%85%A2"><span class="toc-number">21.6.</span> <span class="toc-text">Gradle: Downloading gradle-8.5-bin.zip 速度过慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%99%E8%AF%AF3780%EF%BC%9A%E5%BC%95%E7%94%A8%E5%88%97%E5%92%8C%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E4%B8%AD%E5%BC%95%E7%94%A8%E7%9A%84%E5%88%97%E4%B8%8D%E5%85%BC%E5%AE%B9"><span class="toc-number">21.7.</span> <span class="toc-text">错误3780：引用列和外键约束中引用的列不兼容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E9%94%AE%E8%AE%BE%E7%BD%AE%E7%9A%84%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98%EF%BC%88%E2%80%BC%EF%B8%8F%EF%BC%89"><span class="toc-number">21.8.</span> <span class="toc-text">外键设置的排查问题（‼️）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%AD%E7%82%B9%E4%B8%8D%E5%81%9C%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">21.9.</span> <span class="toc-text">断点不停的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%EF%BC%9AContent-Type-%E2%80%98multipart-x2F-form-data-boundary-x3D-%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E2%80%93843173282939659591303139-charset-x3D-UTF-8%E2%80%99-is-not-supported"><span class="toc-number">21.10.</span> <span class="toc-text">报错：Content-Type ‘multipart&#x2F;form-data;boundary&#x3D;————————–843173282939659591303139;charset&#x3D;UTF-8’ is not supported</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By TEC</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Livere' === 'Livere' || !false) {
+  if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><div class="aplayer no-destroy" data-id="7766753897" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

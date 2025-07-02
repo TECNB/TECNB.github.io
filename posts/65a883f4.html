@@ -1,0 +1,650 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>自动化部署 | TEC</title><meta name="author" content="TEC"><meta name="copyright" content="TEC"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Docker官方文档：Dockerfile 参考 |Docker 文档 Linux安装参考：Linux安装最新版Docker完整教程（建议收藏）_linux安装docker教程-CSDN博客 常见命令🐳 常见命令 ![截屏2024-05-04 19.07.15](&#x2F;Users&#x2F;tec&#x2F;Library&#x2F;Containers&#x2F;me.damir.dro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动化部署">
+<meta property="og:url" content="https://tecnb.github.io/posts/65a883f4.html">
+<meta property="og:site_name" content="TEC">
+<meta property="og:description" content="Docker官方文档：Dockerfile 参考 |Docker 文档 Linux安装参考：Linux安装最新版Docker完整教程（建议收藏）_linux安装docker教程-CSDN博客 常见命令🐳 常见命令 ![截屏2024-05-04 19.07.15](&#x2F;Users&#x2F;tec&#x2F;Library&#x2F;Containers&#x2F;me.damir.dro">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/wallhaven-p96odm_2560x1440.png">
+<meta property="article:published_time" content="2024-07-08T14:18:23.000Z">
+<meta property="article:modified_time" content="2024-07-08T14:18:23.000Z">
+<meta property="article:author" content="TEC">
+<meta property="article:tag" content="TEC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/wallhaven-p96odm_2560x1440.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://tecnb.github.io/posts/65a883f4"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-EeDq654IWe"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '自动化部署',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-08 22:18:23'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/iconfont/iconfont.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: default_top_img"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">TEC</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">自动化部署</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-08T14:18:23.000Z" title="发表于 2024-07-08 22:18:23">2024-07-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-08T14:18:23.000Z" title="更新于 2024-07-08 22:18:23">2024-07-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>22分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="自动化部署"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><p>官方文档：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.docker.com/reference/dockerfile/">Dockerfile 参考 |Docker 文档</a></p>
+<h2 id="Linux安装"><a href="#Linux安装" class="headerlink" title="Linux安装"></a>Linux安装</h2><p>参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/weixin_43755251/article/details/127512751">Linux安装最新版Docker完整教程（建议收藏）_linux安装docker教程-CSDN博客</a></p>
+<h2 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h2><p>🐳 <strong>常见命令</strong></p>
+<p>![截屏2024-05-04 19.07.15](&#x2F;Users&#x2F;tec&#x2F;Library&#x2F;Containers&#x2F;me.damir.dropover-mac&#x2F;Data&#x2F;tmp&#x2F;Screenshots&#x2F;截屏2024-05-04 19.07.15.png)</p>
+<p>🐳 <strong>关于 docker run</strong></p>
+<p>![截屏2024-05-04 19.08.00](&#x2F;Users&#x2F;tec&#x2F;Library&#x2F;Containers&#x2F;me.damir.dropover-mac&#x2F;Data&#x2F;tmp&#x2F;Screenshots&#x2F;截屏2024-05-04 19.08.00.png)</p>
+<p>🐳 <strong>一些命令的带参数使用</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -it 参数解释：进入容器后为了能够进行交互操作就需要一个命令行窗口 -it 参数就是为了打开一个可进行交互的命令行窗口</span></span><br><span class="line"><span class="comment"># bash 就是命令行</span></span><br><span class="line"><span class="comment"># 容器完全是隔离于外界的，独立的</span></span><br><span class="line">docker <span class="built_in">exec</span> -it &lt;需要进入的容器名&gt; bash</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除容器</span></span><br><span class="line">docker <span class="built_in">rm</span> &lt;容器名&gt;</span><br><span class="line"><span class="comment"># 但是必须要首先停止容器的运行</span></span><br><span class="line">docker stop &lt;容器名&gt;</span><br><span class="line"><span class="comment"># 但是我们可以添加参数进行强行删除</span></span><br><span class="line">docker <span class="built_in">rm</span> &lt;容器名&gt; -f</span><br><span class="line"><span class="comment"># 删除容器镜像</span></span><br><span class="line">docker rmi &lt;镜像名&gt;</span><br><span class="line"><span class="comment"># 查看成功启动的容器列表</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="comment"># 打印容器日志</span></span><br><span class="line">docker logs &lt;容器名&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>🐳 <strong>具体详细命令查看官方文档</strong></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.docker.com/reference/dockerfile/">https://docs.docker.com/reference/dockerfile/</a></p>
+<h2 id="数据卷"><a href="#数据卷" class="headerlink" title="数据卷"></a>数据卷</h2><p>🐳 <strong>案例一：利用Nginx容器部署静态资源<br>⚠️</strong> 所有的容器中准备的都是最小化的系统环境，只具备容器必须的使用的命令<br>⚠️ 为了能够解决上述问题，引入“数据卷”的概念</p>
+<ul>
+<li>案例需求<ul>
+<li>常见Nginx容器，修改容器内部html目录下的index.html文件，查看变化</li>
+<li>将静态资源部署到nginx的html目录中</li>
+<li>寻找该目录我们可以在DockerHub中的Nginx详情中去找</li>
+</ul>
+</li>
+</ul>
+<p>🐳 <strong>数据卷基本知识</strong></p>
+<ul>
+<li>这是一个虚拟目录，是容器内目录与宿主机目录之间映射的桥梁</li>
+<li>这个目录只存在于逻辑中，现实中并不存在</li>
+<li>当容器中的目录与数据卷虚拟目录产生映射后，会在宿主机中创建一个对应的同名目录<ul>
+<li>数据卷创建成功后，宿主机中的目录会和数据卷产生映射，数据卷再和容器目录产生映射。于是宿主机目录和容器目录产生简介映射</li>
+</ul>
+</li>
+<li>宿主机目录或者是容器目录有任何一方产生改变，都会影响对方目录（双向映射）</li>
+</ul>
+<p>🐳 <strong>实现案例一</strong></p>
+<ul>
+<li><p>命令依旧是 docker run</p>
+</li>
+<li><p>但是添加参数 <strong>-v 数据卷:容器内目录</strong> 这样就可以完成挂载数据卷</p>
+</li>
+<li><p>当创建容器时候，如果挂载了数据卷但是数据卷不存在，那么就会自动创建数据卷</p>
+<ul>
+<li>也就是说不需要再使用 docker volume create 这个命令进行数据卷的创建</li>
+</ul>
+</li>
+<li><p>使用这样的命令指定容器中的文件目录和本地文件夹进行映射（非数据卷挂载，目录挂载）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name nginx -p 80:80 -v /Users/yqc_forest/nginx-html:/usr/share/nginx/html nginx</span><br></pre></td></tr></table></figure>
+
+<p>首先应该确保在我们本地中拥有这样的一个nginx-html文件夹（但是如果不存在是可以自动创建的好像），数据卷绑定成功后在文件夹中新建一个index.html文件，就可以实现与nginx容器中的index.html双向绑定，在修改了本地的index.html后，就可以同步修改nginx容器中的index.html。从而能够实现案例一</p>
+<p>⚠️ 这时候我们的本地文件夹与nignx容器中的文件夹产生映射。当我在本地文件夹中添加内容时候，在容器中的文件夹同样可以读取到</p>
+</li>
+<li><p>⚠️ ⚠️ 在使用 <code>-v</code> 或 <code>--mount</code> 参数时，可以同时用于绑定挂载和卷</p>
+<ol>
+<li><p><strong>绑定挂载</strong>：当你指定的目的地路径是主机文件系统中的一个具体路径时，通常表示你在使用绑定挂载。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-v /host/path:/container/path</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下，<code>/host/path</code> 是主机文件系统中的一个路径，它被挂载到容器中的 <code>/container/path</code> 路径上。</p>
+</li>
+<li><p><strong>卷</strong>：当你指定的目的地路径是一个不直接对应主机文件系统路径的名字时，通常表示你在使用卷。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-v volume_name:/container/path</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--mount source=volume_name,target=/container/path</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下，<code>volume_name</code> 是一个卷的名称，它被挂载到容器中的 <code>/container/path</code> 路径上。卷的实际路径是由 Docker 管理的，一般位于宿主机的 <code>/var/lib/docker/volumes</code> 目录下，而不是直接映射到宿主机文件系统上的一个路径。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="自定义镜像"><a href="#自定义镜像" class="headerlink" title="自定义镜像"></a>自定义镜像</h2><p>🐳 <strong>关于镜像的定义</strong><br>镜像就是包含了应用程序、程序运行的系统函数、运行配置等文件的文件包。构建镜像的过程其实就是把上述文件打包的过程</p>
+<p>🐳 <strong>关于Dockerfile</strong></p>
+<p>![截屏2024-05-04 19.07.39](&#x2F;Users&#x2F;tec&#x2F;Library&#x2F;Containers&#x2F;me.damir.dropover-mac&#x2F;Data&#x2F;tmp&#x2F;Screenshots&#x2F;截屏2024-05-04 19.07.39.png)</p>
+<p><strong>以上只是常用命令，详细命令和参考官方文档：</strong><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.docker.com/engine/reference/builder">https://docs.docker.com/engine/reference/builder</a></p>
+<p>🐳 <strong>自定义镜像案例完整步骤实现</strong></p>
+<ul>
+<li><p>新建一个文件夹存放我们的练习所需要的资料。包括tar包、Dockerfile以及jar包</p>
+</li>
+<li><p>cd 进入该文件夹，为了方便使用Dockerfile</p>
+</li>
+<li><p>使用命将tar包上传到docker中成为本地镜像</p>
+<ul>
+<li><p>docker load -i &#x2F;Users&#x2F;yqc_forest&#x2F;DockerLocalImages&#x2F;jdk.tar</p>
+</li>
+<li><p>关于 docker load 后面两个可选参数的解释</p>
+<ul>
+<li><p><code>docker load</code> 命令用于从存档文件中加载镜像。它有两个可选参数：</p>
+<ol>
+<li><p><strong>-input&#x2F;-i</strong>：指定输入文件路径。你可以使用 <code>i</code> 参数指定要加载的存档文件的路径。如果不提供此参数，则 <code>docker load</code> 命令将从标准输入流中读取存档数据。</p>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load -i archive.tar</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-quiet&#x2F;-q</strong>：静默模式。使用 <code>q</code> 参数可以使 <code>docker load</code> 命令在加载镜像时不输出详细的信息，只显示进度条。这在加载大型镜像时可能会减少输出。</p>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load -q -i archive.tar</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>上传成功后可以使用 docker images 进行查看，确认本地镜像是否存在</p>
+</li>
+<li><p>接着开始构建我们的自定义镜像，使用 docker build命令即可</p>
+<ul>
+<li><p>具体命令如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t docker_demo .</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>构建成功以后我们同样可以使用 docker images 命令去查看，确认是否已经存在镜像</p>
+</li>
+<li><p>接着创建docker容器</p>
+<ul>
+<li><p>执行以下命令进行创建，容器取名为 dd</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name <span class="built_in">dd</span> -p 8080:8080 docker_demo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行后使用 docker ps 查看当前正在运行的 docker容器进程</p>
+</li>
+</ul>
+</li>
+<li><p>如果成功出现了 docker_demo的进程，那么我们可以查看进程运行日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f <span class="built_in">dd</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#出现了以下的输出信息</span></span><br><span class="line">  .   ____          _            __ _ _</span><br><span class="line"> /\\ / ___<span class="string">&#x27;_ __ _ _(_)_ __  __ _ \ \ \ \</span></span><br><span class="line"><span class="string">( ( )\___ | &#x27;</span>_ | <span class="string">&#x27;_| | &#x27;</span>_ \/ _` | \ \ \ \</span><br><span class="line"> \\/  ___)| |_)| | | | | || (_| |  ) ) ) )</span><br><span class="line">  <span class="string">&#x27;  |____| .__|_| |_|_| |_\__, | / / / /</span></span><br><span class="line"><span class="string"> =========|_|==============|___/=/_/_/_/</span></span><br><span class="line"><span class="string"> :: Spring Boot ::               (v2.7.12)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">17:50:24  INFO 1 --- [           main] com.itheima.mp.MpDemoApplication         : Starting MpDemoApplication v0.0.1-SNAPSHOT using Java 11.0.16 on 53ee3e7bdb25 with PID 1 (/app.jar started by root in /)</span></span><br><span class="line"><span class="string">17:50:24 DEBUG 1 --- [           main] com.itheima.mp.MpDemoApplication         : Running with Spring Boot v2.7.12, Spring v5.3.27</span></span><br><span class="line"><span class="string">17:50:24  INFO 1 --- [           main] com.itheima.mp.MpDemoApplication         : No active profile set, falling back to 1 default profile: &quot;default&quot;</span></span><br><span class="line"><span class="string">17:50:25  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)</span></span><br><span class="line"><span class="string">17:50:25  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]</span></span><br><span class="line"><span class="string">17:50:25  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.75]</span></span><br><span class="line"><span class="string">17:50:25  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext</span></span><br><span class="line"><span class="string">17:50:25  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 446 ms</span></span><br><span class="line"><span class="string">17:50:25  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path &#x27;</span><span class="string">&#x27;</span></span><br><span class="line"><span class="string">17:50:25  INFO 1 --- [           main] com.itheima.mp.MpDemoApplication         : Started MpDemoApplication in 0.888 seconds (JVM running for 1.057)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接着可以去浏览器中访问 localhost:8080&#x2F;hello&#x2F;count。访问成功表示我们的自定义镜像构建成功，并在Docker中成功部署</p>
+</li>
+</ul>
+<p>🐳 <strong>总结</strong></p>
+<p>![截屏2024-05-04 19.07.50](&#x2F;Users&#x2F;tec&#x2F;Library&#x2F;Containers&#x2F;me.damir.dropover-mac&#x2F;Data&#x2F;tmp&#x2F;Screenshots&#x2F;截屏2024-05-04 19.07.50.png)</p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><p>🐳 默认情况下，所有的容器都是以bridge方式连接到Docker的一个虚拟网桥上</p>
+<p>🐳 <strong>自定义网络 → 加入自定义网络的容器才可以通过容器名相互访问</strong><br>为了解决ip地址变更导致的连接到错误的容器问题</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker network create</td>
+<td>创建一个网络</td>
+</tr>
+<tr>
+<td>docker network ls</td>
+<td>查看所有网络</td>
+</tr>
+<tr>
+<td>docker network rm</td>
+<td>删除指定网络</td>
+</tr>
+<tr>
+<td>docker network prune</td>
+<td>清除未使用的网络</td>
+</tr>
+<tr>
+<td>docker network connect</td>
+<td>使指定容器连接加入某网络</td>
+</tr>
+<tr>
+<td>docker network disconnect</td>
+<td>使指定容器连接离开某网络</td>
+</tr>
+<tr>
+<td>docker network inspect</td>
+<td>查看网络详细信息</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="项目部署"><a href="#项目部署" class="headerlink" title="项目部署"></a>项目部署</h2><p>🐳 <strong>部署数据库</strong><br>使用docker进行数据库的部署</p>
+<p>部署后端项目</p>
+<p>部署前端项目</p>
+<p>实现了成功的访问（包括了后端的正常运行、前端网页的访问、数据库数据的正常读取）</p>
+<h2 id="Vue3部署"><a href="#Vue3部署" class="headerlink" title="Vue3部署"></a>Vue3部署</h2><ol>
+<li>将vue的项目进行构建，输出dist</li>
+</ol>
+<p>这个步骤就相当于是将vue的项目 <code>npm run build</code> 打包到服务器是一样的。</p>
+<ol start="2">
+<li>准备镜像内容dockerfile</li>
+</ol>
+<p>在<code>dist</code>目录之上新建一个<code>dockerfile</code>文件，该文件没有后缀，文件名即为此。然后输入如下内容：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 使用nginx作为基础镜像</span><br><span class="line"><span class="variable constant_">FROM</span> nginx</span><br><span class="line"></span><br><span class="line"># 移除默认的nginx配置文件</span><br><span class="line"><span class="variable constant_">RUN</span> rm /etc/nginx/conf.<span class="property">d</span>/<span class="keyword">default</span>.<span class="property">conf</span></span><br><span class="line"></span><br><span class="line"># 将自定义的nginx配置文件添加到容器中的nginx配置目录中</span><br><span class="line"><span class="variable constant_">ADD</span> <span class="keyword">default</span>.<span class="property">conf</span> /etc/nginx/conf.<span class="property">d</span>/</span><br><span class="line"></span><br><span class="line"># 将dist目录下的静态文件复制到nginx默认的网站根目录</span><br><span class="line"><span class="variable constant_">COPY</span> dist/ <span class="regexp">/usr/</span>share/nginx/html/</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>准备nginx配置default.conf</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">5173</span>;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">root</span>   /usr/share/nginx/html;</span><br><span class="line">        <span class="attribute">index</span>  index.html;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="section">location</span> /admin &#123;</span><br><span class="line">        <span class="attribute">alias</span> C:/wwwroot/xxxxxx/admin;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="section">location</span> /api/ &#123;</span><br><span class="line">        <span class="comment"># 后端的真实接口</span></span><br><span class="line">        <span class="attribute">proxy_pass</span> http://xxxxxx:8080/;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="section">location</span> /tencent-api &#123;</span><br><span class="line">        <span class="comment"># 后端的真实接口</span></span><br><span class="line">        <span class="attribute">proxy_pass</span> https://aiart.tencentcloudapi.com/;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="section">location</span> /tencent-download-api &#123;</span><br><span class="line">        <span class="comment"># 后端的真实接口</span></span><br><span class="line">        <span class="attribute">proxy_pass</span> https://xxxxx/text_to_img;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="section">location</span> /nginx_status &#123;</span><br><span class="line">        <span class="attribute">allow</span> <span class="number">127.0.0.1</span>;</span><br><span class="line">        <span class="attribute">deny</span> all;</span><br><span class="line">        <span class="attribute">stub_status</span> <span class="literal">on</span>;</span><br><span class="line">        <span class="attribute">access_log</span> <span class="literal">off</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>制作镜像</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker build -t 镜像名字 .</span><br><span class="line"><span class="comment"># 比如：</span></span><br><span class="line">docker build -t tecnb/nft .</span><br><span class="line"><span class="comment"># 下面为多平台进行部署，并且直接推送到dockerHub中</span></span><br><span class="line">docker buildx build --platform linux/amd64,linux/arm64 -t tecnb/nft --push .</span><br><span class="line"></span><br><span class="line">docker buildx build --platform linux/amd64,linux/arm64 -t tecnb/ai-report-assistant-frontend --push .</span><br></pre></td></tr></table></figure>
+
+<p>注意：后面的<code>.</code>不能省略，镜像创建成功之后使用<code>docker images</code>即可看到自己创建的镜像。</p>
+<p>整个制作过程大概为1-5分钟。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://image.imqd.cn/docker-images.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.imqd.cn/docker-images.png" alt="制作镜像"></a></p>
+<ol start="5">
+<li>启动镜像</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name 镜像名字 -p 8888:80 vue3project</span><br><span class="line">docker run -d -p 88:5173 --name nftContainer tecnb/nft</span><br></pre></td></tr></table></figure>
+
+
+
+<p>启动命令说明：</p>
+<blockquote>
+<p>-d：容器在后台启动</p>
+<p>—name : 镜像名称</p>
+<p>-p 8888:80 ：将nginx容器的80端口映射到主机的8888端口，我们访问时直接访问主机ip+映射到主机的端口，这里是8888，如果有路径，后面还要带上路径。 比如这里表示访问路径为：localhost:8888</p>
+<p>tecnb&#x2F;nft: 我们刚刚创建的自己的镜像的名称，在创建时就要规划好名字</p>
+</blockquote>
+<p><strong>注意：</strong></p>
+<p>你制作完镜像后，就可以在自己的<code>docker desktop</code>看到镜像，并且在那里直接配置访问端口和将镜像放置在容器中运行。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://image.imqd.cn/image-20230105143223421.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.imqd.cn/image-20230105143223421.png" alt="在桌面版看到制作好的镜像"></a></p>
+<p>容器：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://image.imqd.cn/image-20230105143159097.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.imqd.cn/image-20230105143159097.png" alt="docker 容器"></a></p>
+<p>至此，就相当于是将本地的<code>vue</code>的项目打包为一个<code>docker</code>镜像，并且可以在本地运行查看了，就像你部署到了一台虚拟服务器中！</p>
+<ol start="6">
+<li>发布到docker Hub库中</li>
+</ol>
+<p>发布指令，其实很简单，直接在命令行输入如下命令即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker push imqdcn/xxx:latest</span><br><span class="line"><span class="comment"># docker push 注册用户名/镜像名:tag名</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>意味着，你需要先注册和登录<code>docker-desktop</code></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://image.imqd.cn/image-20230105143809805.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.imqd.cn/image-20230105143809805.png" alt="登录"></a></p>
+<p>然后通过命令行，运行<code>docer login </code>登录，看是否命令行也已经登录成功：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://image.imqd.cn/docker-login.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.imqd.cn/docker-login.png" alt="命令行登录"></a></p>
+<p>如果你的镜像名字在最开始时没起好名或与其他人发布的镜像名有冲突，可以通过如下方式改名：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker tag xxx tecnb/xxx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 表示将xxx改名为 tecnb/xxx,你也可以改为任意你喜欢的名字，比如tecnb/vue3project</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上都完成，就可以使用 第一条发布指令进行发布了。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://image.imqd.cn/docker-push.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.imqd.cn/docker-push.png" alt="docker-push发布"></a></p>
+<p>你可以在<code>docker-desktop</code>通过搜索该镜像名字找到镜像地址，或打开<a target="_blank" rel="noopener external nofollow noreferrer" href="https://hub.docker.com/%E6%9F%A5%E6%89%BE%E4%BD%A0%E5%8F%91%E5%B8%83%E7%9A%84%E9%95%9C%E5%83%8F%EF%BC%9A">https://hub.docker.com/查找你发布的镜像：</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://image.imqd.cn/image-20230105145647378.png"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.imqd.cn/image-20230105145647378.png" alt="搜索发布的镜像"></a></p>
+<ol start="7">
+<li>发布后，其他人如何下载和运行呢？</li>
+</ol>
+<p>镜像作者发给你hub镜像地址后，上面有拉取指令：</p>
+<p>可以在命令行中先通过执行 <code>docker pull</code>下载到本地:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker pull tecnb/xxx</span><br><span class="line"><span class="comment"># 如果后面没有写tagname，则使用默认的tagName：latest</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面为指定平台的写法</span></span><br><span class="line">docker pull --platform linux/amd64 tecnb/nft</span><br><span class="line"><span class="comment"># 如果不确定平台的话可以使用下面的命令</span></span><br><span class="line"><span class="built_in">uname</span> -m</span><br></pre></td></tr></table></figure>
+
+<p>运行以上指令，即可在<code>docker desktop</code>看到该镜像，并可运行该镜像。</p>
+<p>总结使用的命令，方便直接复制</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面为多平台进行部署，并且直接推送到dockerHub中</span></span><br><span class="line">docker buildx build --platform linux/amd64,linux/arm64 -t tecnb/nft --push .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除原先的容器</span></span><br><span class="line">docker <span class="built_in">rm</span> nftContainer -f</span><br><span class="line"><span class="comment"># 删除容器镜像</span></span><br><span class="line">docker rmi tecnb/nft</span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务器端拉取最新的 amd64 平台的镜像</span></span><br><span class="line">docker pull --platform linux/amd64 tecnb/nft</span><br><span class="line"><span class="comment"># 最后进行启动</span></span><br><span class="line">docker run -d -p 88:5173 --name nftContainer tecnb/nft</span><br><span class="line"><span class="comment"># 查看成功启动的容器列表</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="comment"># 打印容器日志</span></span><br><span class="line">docker logs nftContainer</span><br><span class="line"></span><br><span class="line">~/deployNft.sh</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h1 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h1><p>思路为直接将构建镜像相关的指令放在yml文件中，省去了在构筑多个镜像时的重复命令</p>
+<p>现在看来好像是用来代替run命令的，上面的理解是错误的</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.baidu.com/article/details/2819402">解决Docker Compose下载报错问题-百度开发者中心 (baidu.com)</a>、<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.runoob.com/docker/docker-compose.html">Docker Compose （Docker） 撰写 |菜鸟教程 (runoob.com)</a></p>
+<p>Linux 上我们可以从 Github 上下载它的二进制包来使用，最新发行的版本地址：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/docker/compose/releases%E3%80%82">https://github.com/docker/compose/releases。</a></p>
+<p>运行以下命令以下载 Docker Compose 的当前稳定版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-<span class="subst">$(uname -s)</span>-<span class="subst">$(uname -m)</span>&quot;</span> -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>将可执行权限应用于二进制文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>创建软链：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="built_in">ln</span> -s /usr/local/bin/docker-compose /usr/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>测试是否安装成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose version</span><br><span class="line">cker-compose version 1.24.1, build 4667896b</span><br></pre></td></tr></table></figure>
+
+<h2 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h2><p><strong>这里之前使用<code>81:81</code>后面的端口乱填导致了一直无妨访问到网站</strong>，注意后面的端口是容器内部的端口号</p>
+<p>而前面的”81”则是主机上的端口号。</p>
+<p>这意味着当你访问主机的81端口时，Docker会将流量转发到容器内部的82端口，从而实现主机与容器之间的通信。</p>
+<p>注意<code>platform</code>记得切换对应平台<code>linux/amd64 linux/arm64</code></p>
+<p><strong>注意在使用命令前记得把之前的镜像进行删除</strong>，否则无法自动拉取到最新的进行到本地</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">nftCompose:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">tecnb/nft</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;81:5173&quot;</span></span><br><span class="line">    <span class="attr">platform:</span> <span class="string">linux/amd64</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">nftCompose</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">nftAdminCompose:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">tecnb/nftadmin</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;82:5173&quot;</span></span><br><span class="line">    <span class="attr">platform:</span> <span class="string">linux/amd64</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">nftAdminCompose</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="具体流程"><a href="#具体流程" class="headerlink" title="具体流程"></a>具体流程</h2><p>首先是准备好最最基础的dockerfile用于docker镜像的构建以及推送</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用nginx作为基础镜像</span></span><br><span class="line">FROM nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除默认的nginx配置文件</span></span><br><span class="line">RUN <span class="built_in">rm</span> /etc/nginx/conf.d/default.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将自定义的nginx配置文件添加到容器中的nginx配置目录中</span></span><br><span class="line">ADD default.conf /etc/nginx/conf.d/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将dist目录下的静态文件复制到nginx默认的网站根目录</span></span><br><span class="line">COPY dist/ /usr/share/nginx/html/</span><br></pre></td></tr></table></figure>
+
+<p>配套所需要的nginx配置文件default.conf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 5173;</span><br><span class="line">    server_name localhost;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">    client_max_body_size 50M;  <span class="comment"># 设置最大请求体大小为 50M</span></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">        index  index.html;</span><br><span class="line">    &#125;</span><br><span class="line">    location /admin &#123;</span><br><span class="line">        <span class="built_in">alias</span> C:/wwwroot/xxxxxx/admin;</span><br><span class="line">    &#125;</span><br><span class="line">    location /api/ &#123;</span><br><span class="line">        <span class="comment"># 后端的真实接口</span></span><br><span class="line">        proxy_pass http://xxxxxx:8080/;</span><br><span class="line">    &#125;</span><br><span class="line">    location /tencent-api &#123;</span><br><span class="line">        <span class="comment"># 后端的真实接口</span></span><br><span class="line">        proxy_pass https://aiart.tencentcloudapi.com/;</span><br><span class="line">    &#125;</span><br><span class="line">    location /tencent-download-api &#123;</span><br><span class="line">        <span class="comment"># 后端的真实接口</span></span><br><span class="line">        proxy_pass https://xxxxx/text_to_img;</span><br><span class="line">    &#125;</span><br><span class="line">    location /nginx_status &#123;</span><br><span class="line">        allow 127.0.0.1;</span><br><span class="line">        deny all;</span><br><span class="line">        stub_status on;</span><br><span class="line">        access_log off;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后是需要run build好vue3，然后使用下面的命令推送到dockerhub</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker buildx build --platform linux/amd64,linux/arm64 -t tecnb/stargazer-backend:remote --push .</span><br><span class="line">docker buildx build --platform linux/amd64,linux/arm64 -t tecnb/ai-report-assistant-frontend:remote --push .</span><br><span class="line">docker buildx build --platform linux/amd64,linux/arm64 -t tecnb/campus-career-backend:remote --push .</span><br><span class="line">docker buildx build --platform linux/amd64,linux/arm64 -t tecnb/campus-career-admin:remote --push .</span><br></pre></td></tr></table></figure>
+
+<p>还有docker-compose.yml不再重复讲了，记得放到对应的nft文件夹就行</p>
+<p>最后编写下面的deployNft.sh脚本，这样后续只需要使用<code>./deployNft.sh</code>命令就可以启动完成部署了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入工作目录</span></span><br><span class="line"><span class="built_in">cd</span> /www</span><br><span class="line"><span class="built_in">cd</span> wwwroot/nft</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除旧的容器</span></span><br><span class="line">docker <span class="built_in">rm</span> nftCompose -f</span><br><span class="line">docker <span class="built_in">rm</span> nftAdminCompose -f</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除旧的镜像</span></span><br><span class="line">docker rmi tecnb/nft</span><br><span class="line">docker rmi tecnb/nftadmin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动新的容器</span></span><br><span class="line">docker-compose -p nftallcompose up -d</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="GitHub-Actions（CI-x2F-CD）"><a href="#GitHub-Actions（CI-x2F-CD）" class="headerlink" title="GitHub Actions（CI&#x2F;CD）"></a>GitHub Actions（CI&#x2F;CD）</h1><p>思路为在提交仓库时，运行npm run build命令，然后将</p>
+<h1 id="WatchTower"><a href="#WatchTower" class="headerlink" title="WatchTower"></a>WatchTower</h1><p>思路为指定每隔多少时间就自动拉取一次镜像，当然可以设置比如说半分钟就拉一次，这样就不需要再手动进行拉取等工作，但是这样的设置会占据很多的带宽，所以可以设置较宽松的拉取时间，将其作为非调试阶段的自动更新，保证服务器端端代码是比较新的状态</p>
+<p>以下是如何使用 Watchtower 实现自动更新的步骤：</p>
+<ol>
+<li><p><strong>快速启动 Watchtower</strong>：执行以下标准命令启动 Watchtower 容器，并每 5 分钟一次检查所有容器的镜像是否为最新版。如果发现镜像更新，Watchtower 会自动停止容器、删除容器、拉取最新镜像，然后使用之前启动容器的命令重新启动容器：<code>docker run</code>: 这是 Docker 命令行工具用于运行容器的命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower</span><br></pre></td></tr></table></figure>
+
+<p><code>-d</code>: 这是一个选项，表示在后台运行容器。</p>
+<p><code>--name watchtower</code>: 这是为容器指定的名称，即容器的标识符。在这种情况下，容器的名称被设置为 “watchtower”。</p>
+<p><code>-v /var/run/docker.sock:/var/run/docker.sock</code>: 这是一个数据卷选项，用于将 Docker 守护程序的 Unix 套接字（socket）文件挂载到容器内的同一路径。这种挂载允许容器与宿主机上的 Docker 守护程序进行通信，从而能够监控并更新其他容器。</p>
+<p><code>containrrr/watchtower</code>: 这是要运行的 Docker 镜像的名称。在这里，使用的是一个名为 “watchtower” 的镜像，由 Containrrr 维护。这个镜像的作用是自动监控并更新其他容器的镜像，保持其最新状态。</p>
+<p>注意：这个命令默认更新所有运行中的容器，包括 Watchtower 自己。如果您只想更新指定的容器，请继续阅读下面的步骤。</p>
+</li>
+<li><p><strong>指定更新容器</strong>：如果您不需要自动更新所有稳定运行的容器，可以配置仅更新指定的容器。首先，使用以下命令查看您 NAS 中运行的所有 Docker 容器的名字：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+
+<p>假设您需要监控并更新的容器为 <code>librespeed-1</code> 和 <code>portainer</code>，您可以运行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower librespeed-1 portainer</span><br></pre></td></tr></table></figure>
+
+<p>这样，Watchtower 只会更新指定的容器，其他容器将不会被更新。</p>
+</li>
+<li><p><strong>自动清除旧镜像</strong>：默认情况下，Watchtower 长期使用会堆积很多标签为 <code>none</code> 的旧镜像，占用磁盘空间。您可以在命令后面加上 <code>--cleanup</code> 参数，这样每次更新后都会自动删除旧的镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup</span><br></pre></td></tr></table></figure>
+
+<p><code>XXXX</code> 为指定容器名字。</p>
+</li>
+<li><p><strong>指定更新频率</strong>：您可以配置更新的频率。有两种方式可供选择：</p>
+<ul>
+<li><p>设置更新时间间隔（单位为秒），加入的命令参数为 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--interval</span><br></pre></td></tr></table></figure>
+
+<p>。例如， “watchtower” 容器会每隔 3600 秒（1小时）检查一次：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup --interval 3600</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置定时检测，格式为 6 字段 Cron 表达式，加入的命令参数为 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--schedule</span><br></pre></td></tr></table></figure>
+
+<p>。例如，每天凌晨 3 点检查更新：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup --schedule <span class="string">&quot;0 0 3 * * *&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><code>XXXX</code> 为指定容器名字。</p>
+</li>
+<li><p><strong>前台模式（手动更新）</strong>：前台模式运行的 Watchtower 是手动模式，即 Watchtower 运行一次后自动退出容器。这对于更新次数较少的容器非常有用。加入的命令参数为 <code>--run-once</code>。例如，检查更新 <code>librespeed-1</code> 和 <code>portainer</code> 并更新后退出 Watchtower 容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup --run-once</span><br></pre></td></tr></table></figure>
+
+<p><code>XXXX</code> 为指定容器名字。</p>
+</li>
+</ol>
+<p>最常用的命令为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里为5分钟更新一次</span></span><br><span class="line">docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup</span><br><span class="line"><span class="comment"># 进行删除方便后续修改watchtower的配置</span></span><br><span class="line">docker <span class="built_in">rm</span> watchtower -f</span><br><span class="line"><span class="comment"># 修改为60分钟（3600秒）更新一次</span></span><br><span class="line">docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --cleanup --interval 3600</span><br></pre></td></tr></table></figure>
+
+<p>​              </p>
+<h1 id="linux安装宝塔面板"><a href="#linux安装宝塔面板" class="headerlink" title="linux安装宝塔面板"></a>linux安装宝塔面板</h1><p>Linux面板8.1.0万能安装脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ -f /usr/bin/curl ];<span class="keyword">then</span> curl -sSO https://download.bt.cn/install/install_panel.sh;<span class="keyword">else</span> wget -O install_panel.sh https://download.bt.cn/install/install_panel.sh;<span class="keyword">fi</span>;bash install_panel.sh ed8484bec</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="学习步骤"><a href="#学习步骤" class="headerlink" title="学习步骤"></a>学习步骤</h1><ol>
+<li><p><strong>通过 docker 将NFT部署到本地，正常访问</strong></p>
+</li>
+<li><p><strong>服务器实现docker部署NFT（通过ssh安装docker就行）</strong></p>
+</li>
+<li><p><strong>完成WatchTower设置</strong></p>
+</li>
+<li><p><strong>实现使用compose把admin与nft一起打包成镜像，并实现本地访问</strong></p>
+</li>
+<li><p><strong>实现使用compose把admin与nft一起打包成镜像，并实现远程服务器访问</strong></p>
+</li>
+<li><p>使用 GitHub Actions 打包部署NFT</p>
+</li>
+<li><p>使用 GitHub Actions 通过 SSH 将打包后的NFT传到服务器中，实现访问</p>
+</li>
+<li><p>使用 GitHub Actions 创建NFT的 docker 并使用服务器进行部署</p>
+</li>
+</ol>
+<h1 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h1><ol>
+<li><p>由于window配置docker不太具有可参考性于是重新选个linux服务器</p>
+</li>
+<li><p>尝试通过qemu-user-static解决<code>WARNING: The requested image&#39;s platform (linux/arm64) does not match the detected host platform (linux/amd64/v4) and no specific platform was requested</code>的bug，具体报错为启动后无妨访问网页，打开容器的logs后显示报错<code>exec /docker-entrypoint.sh: no such file or directory</code><br>解决方法：<br>参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/zhaocb_Swan/article/details/108474051">x86架构机器上运行arm64 docker（跨平台构建 Docker 镜像）_宿主机x86运行arm的docker镜像 exec format error-CSDN博客</a></p>
+</li>
+<li><p>继续报错<code>exec /docker-entrypoint.sh: permission denied</code>，无法解决，尝试过增加权限，但是完全找不到<code>/docker-entrypoint.sh</code>的位置</p>
+</li>
+<li><p>决定采用buildx，但是使用命令<code>docker buildx build --platform linux/amd64,linux/arm64 -t tecnb/nft --push .</code>出现报错<code>ERROR: Multi-platform build is not supported for the docker driver.</code>,使用<code>bootstrap</code>插件解决<br>解决方法：<br>参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://stackoverflow.com/questions/60080264/docker-cannot-build-multi-platform-images-with-docker-buildx">linux - Docker - Cannot build multi-platform images with docker buildx - Stack Overflow</a>主要还是Copilot问出来的</p>
+<p>这个错误是由于 <strong>Docker Buildx</strong> 不支持在 <strong>docker driver</strong> 下进行多平台构建。</p>
+<p>首先，让我们检查一下您的 <strong>Docker Buildx</strong> 配置。您可以运行以下命令来查看当前的配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker buildx inspect</span><br></pre></td></tr></table></figure>
+
+<p>如果您的配置中没有包含多平台支持，您需要添加一个支持多平台构建的构建器。您可以使用以下命令创建一个新的构建器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker buildx create --use</span><br></pre></td></tr></table></figure>
+
+<p>然后，您可以使用以下命令来设置多平台支持：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker buildx inspect --bootstrap</span><br></pre></td></tr></table></figure>
+
+<p>这将为您创建一个支持多平台构建的构建器，并将其设置为默认构建器。接下来，您应该能够使用 <code>docker buildx build</code> 命令进行多平台构建。</p>
+</li>
+<li><p>下载compose后使用<code>docker-compose version</code>后报错<code>ERROR: Failed to Setup IP tables: Unable to enable SKIP DNAT rule: (iptables failed: iptables --wait -t nat -I DOCKER -i br-d19cbe8b08f9 -j RETURN: iptables: No chain/target/match by that name. (exit status 1))</code></p>
+<p>原因：在对 linux 的防火墙进行操作之后，需要重启 docker<br>解决方法：<br>参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.cnblogs.com/lovling/p/12515299.html">docker 启动或创建容器是报 Failed to Setup IP tables: Unable to enable SKIP DNAT rule 错误的的解决办法 - 被遗忘的优雅 - 博客园 (cnblogs.com)</a></p>
+<p>重启下就行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service docker restart</span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://tecnb.github.io">TEC</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tecnb.github.io/posts/65a883f4.html">https://tecnb.github.io/posts/65a883f4.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tecnb.github.io" target="_blank">TEC</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/wallhaven-p96odm_2560x1440.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/83a155e2.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/wallhaven-9mjoy1_2560x1440.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Express学习</div></div></a></div><div class="next-post pull-right"><a href="/posts/87103406.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/wallhaven-3l65w9_2560x1440.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">学工部就业相关网站项目经验</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81NzY3OC8zNDE0MQ=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker"><span class="toc-number">1.</span> <span class="toc-text">Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">Linux安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.</span> <span class="toc-text">常见命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="toc-number">1.3.</span> <span class="toc-text">数据卷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F"><span class="toc-number">1.4.</span> <span class="toc-text">自定义镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C"><span class="toc-number">1.5.</span> <span class="toc-text">网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2"><span class="toc-number">1.6.</span> <span class="toc-text">项目部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue3%E9%83%A8%E7%BD%B2"><span class="toc-number">1.7.</span> <span class="toc-text">Vue3部署</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker-Compose"><span class="toc-number">2.</span> <span class="toc-text">Docker Compose</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-compose-yml"><span class="toc-number">2.2.</span> <span class="toc-text">docker-compose.yml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-number">2.3.</span> <span class="toc-text">具体流程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GitHub-Actions%EF%BC%88CI-x2F-CD%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">GitHub Actions（CI&#x2F;CD）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WatchTower"><span class="toc-number">4.</span> <span class="toc-text">WatchTower</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux%E5%AE%89%E8%A3%85%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF"><span class="toc-number">5.</span> <span class="toc-text">linux安装宝塔面板</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E6%AD%A5%E9%AA%A4"><span class="toc-number">6.</span> <span class="toc-text">学习步骤</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BUG"><span class="toc-number">7.</span> <span class="toc-text">BUG</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By TEC</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Livere' === 'Livere' || !false) {
+  if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><div class="aplayer no-destroy" data-id="7766753897" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

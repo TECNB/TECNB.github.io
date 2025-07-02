@@ -1,0 +1,502 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Ubuntu服务器端部署大模型 | TEC</title><meta name="author" content="TEC"><meta name="copyright" content="TEC"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Ubuntu服务器端部署大模型调用Ollama下载 1curl -fsSL https:&#x2F;&#x2F;ollama.com&#x2F;install.sh | sh  docker方式 1docker run -d --gpus&#x3D;all -v ~&#x2F;ollama:&#x2F;root&#x2F;.ollama -p 11434:11434 --name ollama ollama&#x2F;ollama    1docker run -d -v ~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu服务器端部署大模型">
+<meta property="og:url" content="https://tecnb.github.io/posts/41e32035.html">
+<meta property="og:site_name" content="TEC">
+<meta property="og:description" content="Ubuntu服务器端部署大模型调用Ollama下载 1curl -fsSL https:&#x2F;&#x2F;ollama.com&#x2F;install.sh | sh  docker方式 1docker run -d --gpus&#x3D;all -v ~&#x2F;ollama:&#x2F;root&#x2F;.ollama -p 11434:11434 --name ollama ollama&#x2F;ollama    1docker run -d -v ~">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/Ubuntu%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E9%83%A8%E7%BD%B2%E5%A4%A7%E6%A8%A1%E5%9E%8B-cover.png">
+<meta property="article:published_time" content="2024-07-25T04:16:33.000Z">
+<meta property="article:modified_time" content="2024-07-25T04:16:33.000Z">
+<meta property="article:author" content="TEC">
+<meta property="article:tag" content="TEC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/Ubuntu%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E9%83%A8%E7%BD%B2%E5%A4%A7%E6%A8%A1%E5%9E%8B-cover.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://tecnb.github.io/posts/41e32035"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="code-EeDq654IWe"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ubuntu服务器端部署大模型',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-25 12:16:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/iconfont/iconfont.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: default_top_img"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">TEC</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Ubuntu服务器端部署大模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-25T04:16:33.000Z" title="发表于 2024-07-25 12:16:33">2024-07-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-25T04:16:33.000Z" title="更新于 2024-07-25 12:16:33">2024-07-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Ubuntu服务器端部署大模型"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Ubuntu服务器端部署大模型"><a href="#Ubuntu服务器端部署大模型" class="headerlink" title="Ubuntu服务器端部署大模型"></a>Ubuntu服务器端部署大模型</h1><h2 id="调用Ollama"><a href="#调用Ollama" class="headerlink" title="调用Ollama"></a>调用Ollama</h2><p>下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://ollama.com/install.sh | sh</span><br></pre></td></tr></table></figure>
+
+<p>docker方式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --gpus=all -v ~/ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -v ~/ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="开启ollama服务端"><a href="#开启ollama服务端" class="headerlink" title="开启ollama服务端"></a>开启ollama服务端</h2><p>好像也不需要？可能是用于在后台运行的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama serve</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="下载模型"><a href="#下载模型" class="headerlink" title="下载模型"></a>下载模型</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama run llama2-chinese:latest</span><br></pre></td></tr></table></figure>
+
+<p>docker方式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it ollama ollama run llama2-chinese</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="运行大模型WebUI"><a href="#运行大模型WebUI" class="headerlink" title="运行大模型WebUI"></a>运行大模型WebUI</h2><p>文档：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.openwebui.com/getting-started/">🚀 Getting Started | Open WebUI</a></p>
+<p>此处使用开源项目<code>openwebui</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --gpus=all -d -p 3000:8080 -e HF_ENDPOINT=https://hf-mirror.com/ -e OLLAMA_BASE_URL=http://10.248.68.50:11434 -v ~/open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><ol>
+<li>huggingface.co 的连接问题</li>
+</ol>
+<p>   去<code>docker logs -f open-webui</code>获取到错误日志，虽然日志超级无敌长，但是关键词是hugging face</p>
+<p>   截取部分日志</p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host=<span class="string">&#x27;huggingface.co&#x27;</span>, port=443): Max retries exceeded with url: /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json (Caused by ConnectTimeoutError(&lt;urllib3.connection.HTTPSConnection object at 0x7fd5bc4d0510&gt;, <span class="string">&#x27;Connection to huggingface.co timed out. (connect timeout=10)&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>docker内部的网络隔离问题<br>ollama也是通过docker进行部署的，如果这样的情况下，两个不同的<code>Container</code>中是无法通过<code>--add-host=host.docker.internal:host-gateway</code>命令进行连接的，需要通过IP+地址的方式进行访问或者将其放置到<code>Compose</code>中形成一个内部网络</p>
+<p>Linux - Ollama 和 Open WebUI 在容器中，在不同的网络中</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/%E6%88%AA%E5%B1%8F2024-07-06%2020.17.33.png" alt="截屏2024-07-06 20.17.33"></p>
+<p>Linux - 主机本地上的Ollama，在容器中打开WebUI<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/%E6%88%AA%E5%B1%8F2024-07-06%2020.16.26.png" alt="截屏2024-07-06 20.16.26"><br>Linux - Ollama 和 Open WebUI 在同一个 Compose 堆栈中</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/%E6%88%AA%E5%B1%8F2024-07-06%2020.17.23.png" alt="截屏2024-07-06 20.17.23"></p>
+</li>
+</ol>
+<h2 id="通过服务器返回数据"><a href="#通过服务器返回数据" class="headerlink" title="通过服务器返回数据"></a>通过服务器返回数据</h2><p>返回格式参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://ollama.fan/reference/api/#endpoints">API 参考 - Ollama中文网</a></p>
+<p>默认启动后就会启动API的服务</p>
+<p><code>http://127.0.0.1:11434/api/generate</code></p>
+<h2 id="微调模型"><a href="#微调模型" class="headerlink" title="微调模型"></a>微调模型</h2><p>使用<code>LLaMA-Factory</code>进行微调</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 导出模型</span></span><br><span class="line"></span><br><span class="line">原文：[Ollama 运行 GGUF 模型_51CTO博客_olap模型](https://blog.51cto.com/u_15588078/10133275<span class="comment">#:~:text=Ollama 加载GGUF模型文件 1 1、创建模型配置文件 创建一个包含以下内容的模型配置文件，比如%3A causallm7bq5.mf 这个文件名，文件内容如下： FROM,ollama run c7b &quot;请写一个情色幽默笑话&quot; 1. 您得到的结果将与我得到的结果不同，因为这些模型是随机的，下面是我在其中一次尝试中得到的输出： 不同的尝试，会有不同的惊喜， )</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">要求进行INT量化，导出为后缀为`.gguf`的模型</span><br><span class="line"></span><br><span class="line">然后新建一个`.mf`，里面是导出后的模型的位置</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">FROM /Users/tec/Downloads/model-unsloth.Q4_K_M.gguf</span><br></pre></td></tr></table></figure>
+
+<p>然后运行下面的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama create nftchat -f ./causallm7bq5.mf</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="API调用"><a href="#API调用" class="headerlink" title="API调用"></a>API调用</h2><p>ChatGLM3&#x2F;openai_api_demo&#x2F;api_server.py</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python api_server.py</span><br></pre></td></tr></table></figure>
+
+
+
+<p>LLaMA-Factory&#x2F;src&#x2F;api.py</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CUDA_VISIBLE_DEVICES=0 API_PORT=8000 python src/api.py \</span><br><span class="line">--model_name_or_path /home/ypy/langchan/LLaMA-Factory/saves/AIChat \</span><br><span class="line">--template chatglm2 </span><br><span class="line">--infer_backend vllm </span><br><span class="line">--vllm_enforce_eager</span><br></pre></td></tr></table></figure>
+
+
+
+<p>vLLM</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">python -m vllm.entrypoints.openai.api_server \</span><br><span class="line">   --model /home/ypy/langchan/LLaMA-Factory/saves/AIChat \</span><br><span class="line">   --trust-remote-code \</span><br><span class="line">   --served-model-name AIChat \</span><br><span class="line">   --port 8000</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Ubuntu服务器端部署Stable-Diffusion"><a href="#Ubuntu服务器端部署Stable-Diffusion" class="headerlink" title="Ubuntu服务器端部署Stable Diffusion"></a>Ubuntu服务器端部署Stable Diffusion</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/AUTOMATIC1111/stable-diffusion-webui.git</span><br></pre></td></tr></table></figure>
+
+<p>docker安装</p>
+<p>注意需要最新版本的compose</p>
+<p>以Ubuntu 22.04为例，采用AbdBarho维护的docker-compose，仅支持Nvidia显卡。</p>
+<ol>
+<li>拷贝AbdBarho的保存库</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/AbdBarho/stable-diffusion-webui-docker.git</span><br><span class="line"><span class="built_in">cd</span> stable-diffusion-webui-docker</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>安装依赖套件，过程中会自动下载一个Stable Diffusion的模型。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker compose --profile download up --build</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>启动容器，选取auto代表启动AUTOMATIC1111开发的WebUI</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker compose --profile auto up --build</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>这里注意<code>webui.py</code>的位置，下面的命令，会根据系统配置，默认配置好项目环境，并安装好项目依赖包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./webui.sh</span><br></pre></td></tr></table></figure>
+
+<p>注意需要先使用命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=<span class="string">&quot;http://127.0.0.1:7890&quot;</span></span><br><span class="line"><span class="built_in">export</span> https_proxy=<span class="string">&quot;http://127.0.0.1:7890&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>下面同时配置了外网通过IP访问，以及API访问</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./webui.sh --listen --api</span><br></pre></td></tr></table></figure>
+
+<p>上面的这些命令可以直接在<code>webui-user.sh</code>中进行集成</p>
+<p>在<code>COMMANDLINE_ARGS</code>中指定需要的命令，之后直接执行<code>./webui.sh</code>就可以携带上这些命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#########################################################</span></span><br><span class="line"><span class="comment"># Uncomment and change the variables below to your need:#</span></span><br><span class="line"><span class="comment">#########################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install directory without trailing slash</span></span><br><span class="line"><span class="comment">#install_dir=&quot;/home/$(whoami)&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Name of the subdirectory</span></span><br><span class="line"><span class="comment">#clone_dir=&quot;stable-diffusion-webui&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Commandline arguments for webui.py, for example: export COMMANDLINE_ARGS=&quot;--medvram --opt-split-attention&quot;</span></span><br><span class="line"><span class="built_in">export</span> COMMANDLINE_ARGS=<span class="string">&quot;--listen --api --enable-insecure-extension-access&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># python3 executable</span></span><br><span class="line"><span class="comment">#python_cmd=&quot;python3&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="启动报错"><a href="#启动报错" class="headerlink" title="启动报错"></a>启动报错</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cannot locate TCMalloc (improves CPU memory usage)</span><br></pre></td></tr></table></figure>
+
+<p><strong>解决</strong>：安装 <code>libgoogle-perftools4</code> 和 <code>libtcmalloc-minimal4</code> 库。这两个库是 Google 开源的性能分析工具库，可以帮助开发者优化程序性能。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libgoogle-perftools4 libtcmalloc-minimal4 -y</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><p>进入下面的地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:7860</span><br></pre></td></tr></table></figure>
+
+<p>API访问则使用下面的地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:7860/sdapi/v1/txt2img -H <span class="string">&quot;Content-Type: application/json&quot;</span> -d <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">    &quot;prompt&quot;: &quot;a futuristic cityscape&quot;,</span></span><br><span class="line"><span class="string">    &quot;steps&quot;: 20</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="添加扩展"><a href="#添加扩展" class="headerlink" title="添加扩展"></a>添加扩展</h2><h3 id="安装中文和双语界面"><a href="#安装中文和双语界面" class="headerlink" title="安装中文和双语界面"></a>安装中文和双语界面</h3><ul>
+<li>正体中文扩充功能来源：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/benlisquare/stable-diffusion-webui-localization-zh_TW">benlisquare&#x2F;stable-diffusion-webui-localization-zh_TW</a></li>
+<li>简体中文扩充功能来源：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/dtlnor/stable-diffusion-webui-localization-zh_CN">dtlnor&#x2F;stable-diffusion-webui-localization-zh_CN</a></li>
+</ul>
+<p>Stable Diffusion WebUI可以通过扩充功能将界面变成中文。如果您想协助翻译，请点击以上的Github保存库链接，帮帮他们。</p>
+<ol>
+<li>进入Extensions页面，取消勾选<code>localization</code>，再点击<code>Load from:</code>，找到<code>zh_TW Localization</code>或<code>zh_CN Localization</code>，点击Install。</li>
+</ol>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.stablediffusion.cn/images/localizations-1.webp"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/localizations-1.webp" alt="img"></a></p>
+<ol start="2">
+<li>到Settings页面，找到左边的Localization，点击<code>zh-tw</code>或<code>zh-cn</code>，再点击<code>Apply Settings</code>。</li>
+</ol>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.stablediffusion.cn/images/localizations-2.webp"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/localizations-2.webp" alt="img"></a></p>
+<ol start="3">
+<li>之后重启WebUI，界面就会变成中文了。</li>
+</ol>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/journey-ad/sd-webui-bilingual-localization/blob/main/README_ZH.md">sd-webui-bilingual-localization&#x2F;README_ZH.md at main · journey-ad&#x2F;sd-webui-bilingual-localization (github.com)</a></p>
+<p>由于SD WebUI的扩充功能发展太快，翻译可能跟不上，建议另外安装双语对照<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/journey-ad/sd-webui-bilingual-localization">sd-webui-bilingual-localization</a>，同时显示中文和英文的文本，这样看教学时就不会找无按钮了。</p>
+<p>双语扩充功能安装方法：在Extensions页面按<code>Install from URL</code>，填入<code>https://github.com/journey-ad/sd-webui-bilingual-localization</code>，再按<code>Install</code>。</p>
+<p>在激活双语扩充功能前，要到Settings → User interface → Localization设为None</p>
+<p>接着到<code>Bilingual Localization</code>中去把这里面的<code>Localization</code>修改为<code>zh_CN</code>，再重启WebUI才会生效。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.stablediffusion.cn/images/localizations-3.webp"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/localizations-3.webp" alt="img"></a></p>
+<h3 id="BUG-1"><a href="#BUG-1" class="headerlink" title="BUG"></a>BUG</h3><p>报错如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AssertionError: extension access disabled because of <span class="built_in">command</span> line flags</span><br></pre></td></tr></table></figure>
+
+<p>原因是开启了<code>--listen</code>的命令，官方出于安全考虑，在外网访问时是不能安装任何扩展的，所以需要加上<code>--enable-insecure-extension-access</code>的命令，用于绕开这个安全选项</p>
+<h2 id="大模型（基座模型，底模）添加"><a href="#大模型（基座模型，底模）添加" class="headerlink" title="大模型（基座模型，底模）添加"></a>大模型（基座模型，底模）添加</h2><p>可以进入<code>https://civitai.com/</code>的Models部分进行下载，后缀为<code>ckpt</code>，为<code>Checkpoint</code>的缩写</p>
+<p>模型权重下载好后，需要将模型放到对应的文件夹中，这里最常用的是：大模型 和 微调的LoRA 模型，分别放在 <code>models/stable-diffusion</code> 和 <code>models/Lora</code>下，启动后，WebUI 会自动从这几个文件夹中找到对应的模型</p>
+<p>类梵高：</p>
+<p>1、Van Gogh Diffusion：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://civitai.com/models/91/van-gogh-diffusion">Van Gogh Diffusion - V1 | Stable Diffusion Checkpoint | Civitai</a></p>
+<p>2、Van Gogh Style（Lora）：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://civitai.com/models/100873/van-gogh-style">奇维泰 |共享您的模型 (civitai.com)</a></p>
+<p>水墨风：</p>
+<p>1、国画山水和水墨山水Chinese Landscape Art：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://civitai.com/models/120298/chinese-landscape-art">国画山水和水墨山水Chinese Landscape Art - v1.0 | Stable Diffusion Checkpoint | Civitai</a></p>
+<p>像素风：</p>
+<p>1、PixelStyleCKPT&#x2F;像素画：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://civitai.com/models/85953/pixelstyleckpt">PixelStyleCKPT&#x2F;像素画 - Strength:0.7 | Stable Diffusion Checkpoint | Civitai</a></p>
+<p>2、像素人：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://civitai.com/models/44960/mpixel">Application error: a client-side exception has occurred (civitai.com)</a></p>
+<p>3、Pixel Art XL：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://civitai.com/models/120096/pixel-art-xl">Pixel Art XL - v1.1 | Stable Diffusion LoRA | Civitai</a></p>
+<p>莫奈风：</p>
+<p>下面为lora模型，lora还不知道怎么使用</p>
+<p>1、Claude Monet&#x2F;Oscar-Claude Monet style：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://civitai.com/models/73902/claude-monetoscar-claude-monet-style">Claude Monet&#x2F;Oscar-Claude Monet style - v2.0 | Stable Diffusion LoRA | Civitai</a></p>
+<p>赛伯朋克风：</p>
+<p>1、赛博世界&#x2F;Cyberworld&#x2F;赛博朋克场景 Lora：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://civitai.com/models/95656/cyberworld-lora">赛博世界&#x2F;Cyberworld&#x2F;赛博朋克场景 Lora - v1.0 | Stable Diffusion LoRA | Civitai</a></p>
+<p>科幻风：</p>
+<p>1、XSArchi_127新科幻Neo Sci-Fi：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://civitai.com/models/100287/xsarchi127neo-sci-fi">XSArchi_127新科幻Neo Sci-Fi - v1.0 | Stable Diffusion LoRA | Civitai</a></p>
+<h2 id="文生图API参数调整"><a href="#文生图API参数调整" class="headerlink" title="文生图API参数调整"></a>文生图API参数调整</h2><p>参数含义：</p>
+<p>在Stable Diffusion Web UI中，使用API时可以传递各种参数来控制图像生成的过程。以下是一些常见的API参数及其说明：</p>
+<p>参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/Python_anning/article/details/135269356">全网最全stable diffusion webui API调用示例，包含controlneth和segment anything的API（附json示例）-CSDN博客</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&quot;prompt&quot;</span>: <span class="string">&quot;提示词&quot;</span>,</span><br><span class="line">    <span class="string">&quot;negative_prompt&quot;</span>: <span class="string">&quot;反向提示词&quot;</span>,</span><br><span class="line">    <span class="string">&quot;seed&quot;</span>: -1,  <span class="comment"># 随机种子</span></span><br><span class="line">    <span class="string">&quot;sampler_name&quot;</span>: <span class="string">&quot;取样器（之间复制webui的名字就行）&quot;</span>,</span><br><span class="line">    <span class="string">&quot;cfg_scale&quot;</span>: 7.5,  <span class="comment"># 提示词相关性 越大越接近提示词</span></span><br><span class="line">    <span class="string">&quot;width&quot;</span>: 640,  <span class="comment"># 宽 （注意要被16整除）</span></span><br><span class="line">    <span class="string">&quot;height&quot;</span>: 360,  <span class="comment"># 高 （注意要被16整除）</span></span><br><span class="line">    <span class="string">&quot;batch_size&quot;</span>: 4,  <span class="comment"># 批量数量 并行 显存不够会爆显存</span></span><br><span class="line">    <span class="string">&quot;n_iter&quot;</span>: 4,  <span class="comment"># 批量数量 队列 显存不够排队一个一个来 和 batch_size 二选一</span></span><br><span class="line">    <span class="string">&quot;steps&quot;</span>: 30,  <span class="comment"># 迭代步数</span></span><br><span class="line">    <span class="string">&quot;return_grid&quot;</span>: True,  <span class="comment"># 返回网格预览 xl-base 好像没用</span></span><br><span class="line">    <span class="string">&quot;restore_faces&quot;</span>: True,  <span class="comment"># 脸部修复</span></span><br><span class="line">    <span class="string">&quot;send_images&quot;</span>: True,  <span class="comment"># 是否在响应中返回生成的图像</span></span><br><span class="line">    <span class="string">&quot;save_images&quot;</span>: False,  <span class="comment"># 是否保存生成的图像 一般api设置成False</span></span><br><span class="line">    <span class="string">&quot;do_not_save_samples&quot;</span>: False,  <span class="comment"># 是否保存samples 一般api设置成False</span></span><br><span class="line">    <span class="string">&quot;do_not_save_grid&quot;</span>: False,  <span class="comment"># 是否保存网格的图像 一般api设置成False</span></span><br><span class="line">    <span class="comment"># 下面的很少用</span></span><br><span class="line">    <span class="string">&quot;enable_hr&quot;</span>: True,  <span class="comment"># 是否开启高清修复</span></span><br><span class="line">    <span class="string">&quot;denoising_strength&quot;</span>: 0.5,  <span class="comment"># 去噪强度 要求enable_hr = True</span></span><br><span class="line">    <span class="string">&quot;firstphase_width&quot;</span>: 0,</span><br><span class="line">    <span class="comment"># firstphase_width 和firstphase_height 定义了图像的初始分辨率。在图像生成的第一阶段，这些值决定了图像的大小。如果这些值设置为0，系统可能会使用默认或预设的分辨率。</span></span><br><span class="line">    <span class="string">&quot;firstphase_height&quot;</span>: 0,</span><br><span class="line">    <span class="string">&quot;hr_scale&quot;</span>: 2,  <span class="comment"># 放大倍数 对应webui Upscale by</span></span><br><span class="line">    <span class="string">&quot;hr_upscaler&quot;</span>: <span class="string">&quot;string&quot;</span>,  <span class="comment"># 对应webui 的 Upscaler</span></span><br><span class="line">    <span class="string">&quot;hr_second_pass_steps&quot;</span>: 0,  <span class="comment"># 迭代步数 对应webui 的 Hires steps。</span></span><br><span class="line">    <span class="string">&quot;hr_resize_x&quot;</span>: 0,  <span class="comment"># 不放大，指定宽高 对应webui Resize width to 和Resize height to</span></span><br><span class="line">    <span class="string">&quot;hr_resize_y&quot;</span>: 0,  <span class="comment"># 不放大，指定宽高 对应webui Resize width to 和Resize height to</span></span><br><span class="line">    <span class="string">&quot;hr_checkpoint_name&quot;</span>: <span class="string">&quot;string&quot;</span>,  <span class="comment"># 高分辨率模式下使用的大模型昵称。</span></span><br><span class="line">    <span class="string">&quot;hr_sampler_name&quot;</span>: <span class="string">&quot;string&quot;</span>,  <span class="comment"># 高分辨率模式下使用的采样器名称。</span></span><br><span class="line">    <span class="string">&quot;hr_prompt&quot;</span>: <span class="string">&quot;&quot;</span>,  <span class="comment"># 高分辨率模式下使用的提示词名称。</span></span><br><span class="line">    <span class="string">&quot;hr_negative_prompt&quot;</span>: <span class="string">&quot;&quot;</span>,  <span class="comment"># 高分辨率模式下使用的反向提示词名称。</span></span><br><span class="line">    <span class="string">&quot;override_settings&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;sd_model_checkpoint&quot;</span>: <span class="string">&quot;sd_xl_base_1.0.safetensors [31e35c80fc]&quot;</span>,  <span class="comment"># 指定大模型</span></span><br><span class="line">          <span class="string">&quot;sd_vae&quot;</span>: <span class="string">&quot;Automatic&quot;</span>,  <span class="comment"># 指定vae 默认自动</span></span><br><span class="line">      &#125;,</span><br><span class="line">    <span class="string">&quot;override_settings_restore_afterwards&quot;</span>: True <span class="comment"># override_settings 是否在之后恢复覆盖的设置 默认是True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="通用参数"><a href="#通用参数" class="headerlink" title="通用参数"></a>通用参数</h3><p>这些参数适用于大多数API端点，例如<code>/sdapi/v1/txt2img</code>和<code>/sdapi/v1/img2img</code>。</p>
+<ul>
+<li><code>prompt</code> (str): 文本提示，用于描述要生成的图像内容。例如：”a futuristic cityscape”。</li>
+<li><code>steps</code> (int): 采样步骤数。值越高，图像质量越好，但生成时间也越长。常用值在20-50之间。</li>
+<li><code>sampler_index</code> (int): 采样方法索引，默认为0。可以使用不同的采样方法（例如DDIM、PLMS）。</li>
+<li><code>cfg_scale</code> (float): Classifier-Free Guidance (CFG) 比例，控制生成图像与提示的相关性。值越高，图像越接近提示内容。常用值在7-15之间。</li>
+<li><code>seed</code> (int): 随机种子，用于控制生成图像的随机性。相同的种子和参数会生成相同的图像。</li>
+<li><code>height</code> (int): 生成图像的高度，默认值通常是512。</li>
+<li><code>width</code> (int): 生成图像的宽度，默认值通常是512。</li>
+<li><code>batch_size</code> (int): 一次生成的图像数量。</li>
+<li><code>n_iter</code> (int): 生成图像的迭代次数。一次请求中生成的图像总数等于<code>batch_size * n_iter</code>。</li>
+<li><code>negative_prompt</code> (str): 负面提示，用于描述不希望在图像中出现的内容。</li>
+<li><code>eta</code> (float): DDIM采样中的eta参数，控制随机性。</li>
+<li><code>ckpt</code>:在API请求中，通过指定ckpt或model参数来选择要使用的模型</li>
+</ul>
+<h3 id="特定参数"><a href="#特定参数" class="headerlink" title="特定参数"></a>特定参数</h3><p>这些参数适用于特定的API端点，例如<code>/sdapi/v1/img2img</code>。</p>
+<ul>
+<li><code>init_images</code> (list of str): 输入图像的Base64编码列表，用于img2img任务。</li>
+<li><code>denoising_strength</code> (float): 降噪强度，用于img2img任务。值越高，生成图像与输入图像的差异越大。常用值在0.2-0.8之间。</li>
+<li><code>mask</code> (str): 掩码图像的Base64编码，用于指定图像的哪些部分需要重绘。</li>
+<li><code>inpainting_fill</code> (int): 修补时使用的填充方式。</li>
+</ul>
+<h3 id="完整示例"><a href="#完整示例" class="headerlink" title="完整示例"></a>完整示例</h3><p>以下是一个使用<code>/sdapi/v1/txt2img</code>端点的完整示例，展示了常用参数的用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置API端点</span></span><br><span class="line">url = <span class="string">&quot;http://localhost:7860/sdapi/v1/txt2img&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置请求数据</span></span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&quot;prompt&quot;</span>: <span class="string">&quot;a futuristic cityscape&quot;</span>,</span><br><span class="line">    <span class="string">&quot;steps&quot;</span>: <span class="number">30</span>,</span><br><span class="line">    <span class="string">&quot;sampler_index&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&quot;cfg_scale&quot;</span>: <span class="number">10.0</span>,</span><br><span class="line">    <span class="string">&quot;seed&quot;</span>: <span class="number">42</span>,</span><br><span class="line">    <span class="string">&quot;height&quot;</span>: <span class="number">512</span>,</span><br><span class="line">    <span class="string">&quot;width&quot;</span>: <span class="number">512</span>,</span><br><span class="line">    <span class="string">&quot;batch_size&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&quot;n_iter&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&quot;negative_prompt&quot;</span>: <span class="string">&quot;no people, no animals&quot;</span>,</span><br><span class="line">    <span class="string">&quot;eta&quot;</span>: <span class="number">0.0</span>,</span><br><span class="line">  	<span class="string">&quot;ckpt&quot;</span>: <span class="string">&quot;models/Stable-diffusion/model1.ckpt&quot;</span>  <span class="comment"># 指定模型路径</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送POST请求</span></span><br><span class="line">response = requests.post(url, headers=&#123;<span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span>&#125;, data=json.dumps(data))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印响应</span></span><br><span class="line"><span class="built_in">print</span>(response.json())</span><br></pre></td></tr></table></figure>
+
+<h3 id="API端点"><a href="#API端点" class="headerlink" title="API端点"></a>API端点</h3><ol>
+<li><code>/sdapi/v1/txt2img</code>: 基于文本提示生成图像。</li>
+<li><code>/sdapi/v1/img2img</code>: 基于输入图像和文本提示生成新图像。</li>
+<li><code>/sdapi/v1/extra</code>: 执行额外的图像处理任务。</li>
+</ol>
+<h3 id="参数说明总结"><a href="#参数说明总结" class="headerlink" title="参数说明总结"></a>参数说明总结</h3><ul>
+<li><strong><code>prompt</code></strong>: 输入的文本描述。</li>
+<li><strong><code>steps</code></strong>: 采样步骤数。</li>
+<li><strong><code>sampler_index</code></strong>: 采样方法索引。</li>
+<li><strong><code>cfg_scale</code></strong>: Classifier-Free Guidance比例。</li>
+<li><strong><code>seed</code></strong>: 随机种子。</li>
+<li><strong><code>height</code></strong>: 图像高度。</li>
+<li><strong><code>width</code></strong>: 图像宽度。</li>
+<li><strong><code>batch_size</code></strong>: 批量生成数量。</li>
+<li><strong><code>n_iter</code></strong>: 生成迭代次数。</li>
+<li><strong><code>negative_prompt</code></strong>: 负面提示。</li>
+<li><strong><code>eta</code></strong>: DDIM采样中的eta参数。</li>
+<li><strong><code>init_images</code></strong>: 输入图像列表（用于img2img）。</li>
+<li><strong><code>denoising_strength</code></strong>: 降噪强度（用于img2img）。</li>
+<li><strong><code>mask</code></strong>: 掩码图像。</li>
+<li><strong><code>inpainting_fill</code></strong>: 修补填充方式。</li>
+</ul>
+<p>通过这些参数，你可以高度自定义图像生成过程，满足各种应用需求。如果你有任何其他问题或需要更详细的说明，请随时告诉我。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>仿梵高的向日葵</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;prompt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vg,&lt;lora:vgv1-000009:0.9&gt;,vibrant sunflowers chasing the sun,details,&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;negative_prompt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;easynegative bad-hands-5,&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;steps&quot;</span><span class="punctuation">:</span> <span class="number">20</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cfg_scale&quot;</span><span class="punctuation">:</span> <span class="number">7.0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;height&quot;</span><span class="punctuation">:</span> <span class="number">1024</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;width&quot;</span><span class="punctuation">:</span> <span class="number">512</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;sampler_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;DPM++ 2M SDE&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>仿莫奈的睡莲</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;prompt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&lt;lora:monet_v2-000004:1&gt;,painting (medium), lake, water lilies&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;negative_prompt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;sketches, out of frame, lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;steps&quot;</span><span class="punctuation">:</span> <span class="number">50</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cfg_scale&quot;</span><span class="punctuation">:</span> <span class="number">7.0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;height&quot;</span><span class="punctuation">:</span> <span class="number">1024</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;width&quot;</span><span class="punctuation">:</span> <span class="number">512</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;sampler_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;DPM++ 2M SDE&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="BUG-2"><a href="#BUG-2" class="headerlink" title="BUG"></a>BUG</h3><p>访问后出现下面的返回</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;detail&quot;</span>: <span class="string">&quot;Not Found&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考解决：[<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/13279">错误]：我没有 &#x2F;sdapi&#x2F;v1&#x2F;txt2img 在稳定扩散中填充 ·问题 #13279 ·AUTOMATIC1111&#x2F;stable-diffusion-webui (github.com)</a></p>
+<p>这是端口问题导致的BUG，glm把7860端口占了，所以只能使用7861端口，以后要是无法启动，注意观察终端端口输出</p>
+<h2 id="获取图片进度API"><a href="#获取图片进度API" class="headerlink" title="获取图片进度API"></a>获取图片进度API</h2><p>目前猜测实现方式是，在进行文生图API后，马上调用<code>http://127.0.0.1:7860/sdapi/v1/progress?skip_current_image=false</code></p>
+<p>这个API，每秒访问一次，不过这个参数<code>skip_current_image</code>含义，还得到时候再试试</p>
+<h1 id="Ubuntu服务器端配置外网访问"><a href="#Ubuntu服务器端配置外网访问" class="headerlink" title="Ubuntu服务器端配置外网访问"></a>Ubuntu服务器端配置外网访问</h1><p>使用<code>clash</code>进行配置，由于官方的项目已经跑路，这里选择的项目为:</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Elegycloud/clash-for-linux-backup">Elegycloud&#x2F;clash-for-linux-backup: 基于Clash Core 制作的Clash For Linux备份仓库 A Clash For Linux Backup Warehouse Based on Clash Core (github.com)</a></p>
+<p>详细可见和xyc的聊天记录，哪天自己也再去配置一下</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://tecnb.github.io">TEC</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tecnb.github.io/posts/41e32035.html">https://tecnb.github.io/posts/41e32035.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tecnb.github.io" target="_blank">TEC</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/Ubuntu%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E9%83%A8%E7%BD%B2%E5%A4%A7%E6%A8%A1%E5%9E%8B-cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/4e8d76cd.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/wallhaven-2y2ymx_2560x1440.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">竟赛萌芽书意项目经验</div></div></a></div><div class="next-post pull-right"><a href="/posts/83a155e2.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/TECNB/picgodemo@main/img/wallhaven-9mjoy1_2560x1440.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Express学习</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81NzY3OC8zNDE0MQ=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ubuntu%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E9%83%A8%E7%BD%B2%E5%A4%A7%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">Ubuntu服务器端部署大模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8Ollama"><span class="toc-number">1.1.</span> <span class="toc-text">调用Ollama</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AFollama%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-number">1.2.</span> <span class="toc-text">开启ollama服务端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">下载模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%A4%A7%E6%A8%A1%E5%9E%8BWebUI"><span class="toc-number">1.4.</span> <span class="toc-text">运行大模型WebUI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BUG"><span class="toc-number">1.4.1.</span> <span class="toc-text">BUG</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE"><span class="toc-number">1.5.</span> <span class="toc-text">通过服务器返回数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AE%E8%B0%83%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.6.</span> <span class="toc-text">微调模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API%E8%B0%83%E7%94%A8"><span class="toc-number">1.7.</span> <span class="toc-text">API调用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ubuntu%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E9%83%A8%E7%BD%B2Stable-Diffusion"><span class="toc-number">2.</span> <span class="toc-text">Ubuntu服务器端部署Stable Diffusion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-number">2.2.</span> <span class="toc-text">启动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99"><span class="toc-number">2.2.1.</span> <span class="toc-text">启动报错</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE"><span class="toc-number">2.3.</span> <span class="toc-text">访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%89%A9%E5%B1%95"><span class="toc-number">2.4.</span> <span class="toc-text">添加扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%B8%AD%E6%96%87%E5%92%8C%E5%8F%8C%E8%AF%AD%E7%95%8C%E9%9D%A2"><span class="toc-number">2.4.1.</span> <span class="toc-text">安装中文和双语界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BUG-1"><span class="toc-number">2.4.2.</span> <span class="toc-text">BUG</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%88%E5%9F%BA%E5%BA%A7%E6%A8%A1%E5%9E%8B%EF%BC%8C%E5%BA%95%E6%A8%A1%EF%BC%89%E6%B7%BB%E5%8A%A0"><span class="toc-number">2.5.</span> <span class="toc-text">大模型（基座模型，底模）添加</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E7%94%9F%E5%9B%BEAPI%E5%8F%82%E6%95%B0%E8%B0%83%E6%95%B4"><span class="toc-number">2.6.</span> <span class="toc-text">文生图API参数调整</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%8F%82%E6%95%B0"><span class="toc-number">2.6.1.</span> <span class="toc-text">通用参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%AE%9A%E5%8F%82%E6%95%B0"><span class="toc-number">2.6.2.</span> <span class="toc-text">特定参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.6.3.</span> <span class="toc-text">完整示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API%E7%AB%AF%E7%82%B9"><span class="toc-number">2.6.4.</span> <span class="toc-text">API端点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E%E6%80%BB%E7%BB%93"><span class="toc-number">2.6.5.</span> <span class="toc-text">参数说明总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">2.6.6.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BUG-2"><span class="toc-number">2.6.7.</span> <span class="toc-text">BUG</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E8%BF%9B%E5%BA%A6API"><span class="toc-number">2.7.</span> <span class="toc-text">获取图片进度API</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ubuntu%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E9%85%8D%E7%BD%AE%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE"><span class="toc-number">3.</span> <span class="toc-text">Ubuntu服务器端配置外网访问</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By TEC</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Livere' === 'Livere' || !false) {
+  if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><div class="aplayer no-destroy" data-id="7766753897" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
